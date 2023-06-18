@@ -3,8 +3,10 @@ import { AppRouter } from './router/AppRouter';
 
 export const App = () => {
 	return (
-		<AuthProvider>
-			<AppRouter />
-		</AuthProvider>
+		<div className='bg-dark-100 w-full min-h-screen'>
+			<AuthProvider>
+				<AppRouter />
+			</AuthProvider>
+		</div>
 	);
 };

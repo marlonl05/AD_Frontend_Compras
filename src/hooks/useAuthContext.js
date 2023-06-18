@@ -5,6 +5,7 @@ export const useAuthContext = () => {
 	const { user, logged, dispatch } = useContext(AuthContext);
 
 	const handleLogin = () => {
+		console.log(dispatch);
 		console.log('logging in');
 	};
 
