@@ -1,19 +1,16 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
-import { ProtectedRoute } from './ProtectedRoute';
-import { Dashboard } from '../pages/Dashboard';
+import { PrivateRoutes } from './PrivateRoutes';
+import { Dashboard } from '../pages';
 
 export const AppRouter = () => {
-	const isAuthenticated = true;
-	const login = 'localhost:3000/login';
-
 	return (
 		<Routes>
 			{/* Private routes */}
-			<Route element={<ProtectedRoute isAllowed={isAuthenticated} redirectTo={login} />}>
+			<Route element={<PrivateRoutes />}>
 				<Route path='/compras' element={<Dashboard />} />
 			</Route>
 
-			<Route path='/*' element={<Navigate to={login} />} />
+			<Route path='*' element={<Navigate to='/compras' />} />
 		</Routes>
 	);
 };
