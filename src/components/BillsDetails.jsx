@@ -13,7 +13,7 @@ export const BillsDetails = ({ showBill, toggleBill }) => {
 					className='lg:hidden absolute text-xl right-4 top-4 p-3 box-content bg-dark-200 rounded-full'
 					onClick={toggleBill}
 				/>
-				<h1 className='text-2xl mb-6 font-semibold'>Detalle de factura #34124</h1>
+				<h1 className='text-2xl mb-6 font-semibold'>Detalle de la factura #34124</h1>
 
 				<div className='grid grid-cols-2 mb-4 p-4 border border-secondary-100 rounded-lg'>
 					<span>Proveedor</span>
