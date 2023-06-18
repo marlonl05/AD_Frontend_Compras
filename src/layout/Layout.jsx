@@ -2,8 +2,8 @@
 import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import { Sidebar } from '../components/Sidebar';
-import { ShoppingCar } from '../components/ShoppingCar';
 import { RiAddLine, RiCloseLine, RiMenu3Fill, RiPieChartLine, RiUser3Line } from 'react-icons/ri';
+import { BillsDetails } from '../components/BillsDetails';
 
 export const Layout = ({ children }) => {
 	const [index, setIndex] = useState(0);
@@ -14,10 +14,10 @@ export const Layout = ({ children }) => {
 		<>
 			<Sidebar showMenu={index === 3} />
 			{/* Carrito */}
-			<ShoppingCar showOrder={index === 4} toggleOrder={() => handleShowMenu(4)} />
+			<BillsDetails showBill={index === 4} toggleBill={() => handleShowMenu(4)} />
 
 			{/* Menu movil */}
-			<nav className='bg-dark lg:hidden fixed w-full bottom-0 left-0 text-3xl text-gray-400 py-2 px-8 flex items-center justify-between rounded-tl-xl rounded-tr-xl'>
+			<nav className='bg-dark-100 lg:hidden fixed w-full bottom-0 left-0 text-3xl text-gray-400 py-2 px-8 flex items-center justify-between rounded-tl-xl rounded-tr-xl'>
 				<button className='p-2'>
 					<RiUser3Line />
 				</button>
