@@ -1,9 +1,9 @@
 /* eslint-disable react/prop-types */
 import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
-import { Sidebar } from '../components/Sidebar';
 import { RiAddLine, RiCloseLine, RiMenu3Fill, RiPieChartLine, RiUser3Line } from 'react-icons/ri';
-import { BillsDetails } from '../components/BillsDetails';
+import { BillsDetails } from '../components/bill';
+import Sidebar from '../components/sidebar';
 
 export const Layout = ({ children }) => {
 	const [index, setIndex] = useState(0);

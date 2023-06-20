@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { RiBillFill, RiHome6Line, RiLogoutCircleRLine, RiTeamFill } from 'react-icons/ri';
 
-export const Sidebar = ({ showMenu }) => {
+export default function Sidebar({ showMenu }) {
 	return (
 		<div
 			className={`bg-dark-200 fixed top-0 w-36 h-full flex flex-col justify-between py-6 rounded-tr-xl rounded-br-xl z-50 lg:left-0 ${
@@ -84,4 +84,4 @@ export const Sidebar = ({ showMenu }) => {
 			</div>
 		</div>
 	);
-};
+}

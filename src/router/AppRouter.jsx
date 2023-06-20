@@ -1,13 +1,13 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { PrivateRoutes } from './PrivateRoutes';
-import { Dashboard } from '../pages';
+import { Shopping } from '../pages';
 
 export const AppRouter = () => {
 	return (
 		<Routes>
 			{/* Private routes */}
 			<Route element={<PrivateRoutes />}>
-				<Route path='/compras' element={<Dashboard />} />
+				<Route path='/compras' element={<Shopping />} />
 			</Route>
 
 			<Route path='*' element={<Navigate to='/compras' />} />
