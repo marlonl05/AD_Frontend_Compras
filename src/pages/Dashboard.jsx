@@ -1,4 +1,3 @@
-import { RiSearch2Line } from 'react-icons/ri';
 import { Search } from '../components/common';
 
 export const Dashboard = () => {
