@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import { RiBillFill, RiHome6Line, RiLogoutCircleRLine, RiTeamFill } from 'react-icons/ri';
+import { Link } from 'react-router-dom';
 
 export default function Sidebar({ showMenu }) {
 	return (
@@ -15,30 +16,30 @@ export default function Sidebar({ showMenu }) {
 					</li>
 
 					<li className='hover:bg-dark-100 p-4 rounded-tl-xl rounded-bl-xl group transition-colors'>
-						<a
-							href='#'
+						<Link
+							to='/'
 							className='group-hover:bg-secondary-100 p-4 flex justify-center rounded-xl text-secondary-100 group-hover:text-white transition-colors'
 						>
 							<RiHome6Line className='text-2xl' />
-						</a>
+						</Link>
 					</li>
 
 					<li className='hover:bg-dark-100 p-4 rounded-tl-xl rounded-bl-xl group transition-colors'>
-						<a
-							href='#'
+						<Link
+							to='/compras'
 							className='group-hover:bg-secondary-100 p-4 flex justify-center rounded-xl text-secondary-100 group-hover:text-white transition-colors'
 						>
 							<RiBillFill className='text-2xl' />
-						</a>
+						</Link>
 					</li>
 
 					<li className='hover:bg-dark-100 p-4 rounded-tl-xl rounded-bl-xl group transition-colors'>
-						<a
-							href='#'
+						<Link
+							to='/proveedores'
 							className='group-hover:bg-secondary-100 p-4 flex justify-center rounded-xl text-secondary-100 group-hover:text-white transition-colors'
 						>
 							<RiTeamFill className='text-2xl' />
-						</a>
+						</Link>
 					</li>
 
 					{/* <li className='hover:bg-dark-100 p-4 rounded-tl-xl rounded-bl-xl group transition-colors'>

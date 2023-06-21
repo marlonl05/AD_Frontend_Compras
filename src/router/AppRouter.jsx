@@ -5,10 +5,11 @@ import { Home, Shopping } from '../pages';
 export const AppRouter = () => {
 	return (
 		<Routes>
+			<Route index element={<Home />} />
 			{/* Private routes */}
 			<Route element={<PrivateRoutes />}>
-				<Route index element={<Home />} />
 				<Route path='/compras' element={<Shopping />} />
+				<Route path='/proveedores' element={<p>proveedores</p>} />
 			</Route>
 
 			<Route path='*' element={<Navigate to='/compras' />} />

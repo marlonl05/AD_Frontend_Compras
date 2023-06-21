@@ -1,6 +1,8 @@
+import { useEffect } from 'react';
 import { Search } from '../../components/common';
 
 export const Shopping = () => {
+	// useEffect();
 	return (
 		<>
 			<header>
