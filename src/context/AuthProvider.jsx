@@ -31,7 +31,7 @@ export const AuthProvider = ({ children }) => {
 		<AuthContext.Provider
 			value={{
 				...auth,
-				dispatch,
+				authDispatch: dispatch,
 			}}
 		>
 			{children}

@@ -1,18 +1,29 @@
-import { useEffect } from 'react';
 import { Search } from '../../components/common';
 
 export const Shopping = () => {
-	// useEffect();
 	return (
 		<>
 			<header>
 				<Search />
-
-				<hr className='mb-4' />
+				<nav className='text-gray-300 flex items-center justify-between md:justify-start md:gap-10 border-b mb-6'>
+					<a
+						href='#'
+						className='relative py-2 pr-4 before:w-1/2 before:h-[2px] before:absolute before:bg-[#EC7C6A] before:left-0 before:rounded-full before:-bottom-[1px] text-[#EC7C6A]'
+					>
+						Listado de compras
+					</a>
+					<a href='#' className='py-2 pr-4'>
+						Agregar compra
+					</a>
+					<a href='#' className='py-2 pr-4'>
+						Editar compra
+					</a>
+				</nav>
+				{/* <hr className='mb-4' /> */}
 			</header>
 			{/* Title content */}
 			<div className='flex items-center justify-between mb-16'>
-				<h2 className='text-xl text-gray-300'>Listado de compras</h2>
+				{/* <h2 className='text-xl text-gray-300'>Listado de compras</h2> */}
 				{/* <button className='flex items-center gap-5 text-gray-300 bg-[#1F1D2B] py-2 px-4 rounded-lg'>
 						<RiArrowDownSLine />
 						Dine in
