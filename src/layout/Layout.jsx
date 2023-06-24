@@ -31,7 +31,9 @@ export const Layout = ({ children }) => {
 					{index === 4 ? <RiCloseLine /> : <RiMenu3Fill />}
 				</button>
 			</nav>
-			{children || <Outlet />}
+			<main className='lg:pl-36 pb-10 lg:pr-[400px]'>
+				<div className='md:p-8 p-4'>{children || <Outlet />}</div>
+			</main>
 		</>
 	);
 };

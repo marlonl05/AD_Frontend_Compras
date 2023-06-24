@@ -1,5 +1,5 @@
-import { RiCheckboxBlankCircleFill, RiPlayFill } from 'react-icons/ri';
 import { Link } from 'react-router-dom';
+import { RiCheckboxBlankCircleFill, RiPlayFill } from 'react-icons/ri';
 
 const circleStyle = 'text-secondary-100 text-base absolute ';
 const buttonStyle = {
