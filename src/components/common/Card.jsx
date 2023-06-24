@@ -7,7 +7,7 @@ export const Card = ({ title, alt, imgSrc, children }) => {
 				alt={alt}
 				className='max-w-[160px] max-h-[160px] object-cover rounded-full -mt-16 shadow-2xl'
 			/>
-			<p className='text-xl'>{title}</p>
+			<p className='text-xl w-full truncate'>{title}</p>
 
 			{children}
 		</div>
