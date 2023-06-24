@@ -1,6 +1,7 @@
 import { Tab } from '@headlessui/react';
 import { Body, Header } from '../../components/common';
 import { TableWrapper } from '../../layout/table';
+import { EditProvider, NewProvider, ProviderList, ShowProvider } from '../../components/providers';
 
 const focusStyle =
 	'relative py-2 pr-4 ui-selected:text-secondary-100 ui-selected:before:w-3/4 ui-selected:before: ui-selected:before:h-[2px] ui-selected:before:absolute ui-selected:before:bg-secondary-100 ui-selected:before:left-0 ui-selected:before:rounded-full ui-selected:before:-bottom-[1px] outline-none';
@@ -21,16 +22,16 @@ export const Providers = () => {
 			body={
 				<Body>
 					<Tab.Panel>
-						<h1>Listado de proveedores</h1>
+						<ProviderList />
 					</Tab.Panel>
 					<Tab.Panel>
-						<h1>Agregar proveedor</h1>
+						<NewProvider />
 					</Tab.Panel>
 					<Tab.Panel>
-						<h1>Detalles proveedor</h1>
+						<ShowProvider />
 					</Tab.Panel>
 					<Tab.Panel>
-						<h1>Editar proveedor</h1>
+						<EditProvider />
 					</Tab.Panel>
 				</Body>
 			}
