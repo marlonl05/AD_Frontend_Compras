@@ -38,7 +38,7 @@ export const DetailSidebar = ({
 				</div>
 
 				{/* Detail footer */}
-				<div className='absolute bottom-0 right-0 bg-dark-200 p-4 w-full lg:h-32'>{footer}</div>
+				<div className='absolute bottom-0 right-0 bg-dark-200 p-4 w-full lg:h-44'>{footer}</div>
 			</div>
 		</div>
 	);

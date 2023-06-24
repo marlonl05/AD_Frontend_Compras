@@ -1,7 +1,8 @@
 /* eslint-disable react/prop-types */
+import { RiDeleteBinFill, RiFileTextLine } from 'react-icons/ri';
 import { DetailSidebar } from '../../layout/details';
 import { Button } from '../common';
-import { ProductsList } from './ProductsList';
+import { ProductList } from './ProductList';
 
 export const BillSidebar = ({ showBill, toggleBill }) => {
 	return (
@@ -27,8 +28,15 @@ export const BillSidebar = ({ showBill, toggleBill }) => {
 						<span className='text-gray-400'>Total</span>
 						<span>$201.03</span>
 					</div>
-					<div>
-						<Button>Obtener reporte</Button>
+					<div className='flex items-center flex-col gap-4'>
+						<Button className='bg-transparent'>
+							<RiFileTextLine />
+							Obtener reporte
+						</Button>
+						<Button>
+							<RiDeleteBinFill />
+							Eliminar factura
+						</Button>
 					</div>
 				</>
 			}
@@ -40,7 +48,7 @@ export const BillSidebar = ({ showBill, toggleBill }) => {
 					<h5>Total</h5>
 				</>
 			}
-			tableBody={<ProductsList />}
+			tableBody={<ProductList />}
 		/>
 	);
 };
