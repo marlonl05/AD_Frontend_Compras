@@ -2,6 +2,19 @@
 import { RiBillFill, RiHome6Line, RiLogoutCircleRLine, RiTeamFill } from 'react-icons/ri';
 import { Link } from 'react-router-dom';
 
+const CustomLink = ({ to = '/', children }) => {
+	return (
+		<li className='hover:bg-dark-100 p-4 rounded-tl-xl rounded-bl-xl group transition-colors'>
+			<Link
+				to={to}
+				className='group-hover:bg-secondary-100 p-4 flex justify-center rounded-xl text-secondary-100 group-hover:text-white transition-colors'
+			>
+				{children}
+			</Link>
+		</li>
+	);
+};
+
 export default function Sidebar({ showMenu }) {
 	return (
 		<div
@@ -15,72 +28,23 @@ export default function Sidebar({ showMenu }) {
 						<h1 className='text-2xl text-gray-300 uppercase font-bold text-start my-5'>compras</h1>
 					</li>
 
-					<li className='hover:bg-dark-100 p-4 rounded-tl-xl rounded-bl-xl group transition-colors'>
-						<Link
-							to='/'
-							className='group-hover:bg-secondary-100 p-4 flex justify-center rounded-xl text-secondary-100 group-hover:text-white transition-colors'
-						>
-							<RiHome6Line className='text-2xl' />
-						</Link>
-					</li>
-
-					<li className='hover:bg-dark-100 p-4 rounded-tl-xl rounded-bl-xl group transition-colors'>
-						<Link
-							to='/compras'
-							className='group-hover:bg-secondary-100 p-4 flex justify-center rounded-xl text-secondary-100 group-hover:text-white transition-colors'
-						>
-							<RiBillFill className='text-2xl' />
-						</Link>
-					</li>
-
-					<li className='hover:bg-dark-100 p-4 rounded-tl-xl rounded-bl-xl group transition-colors'>
-						<Link
-							to='/proveedores'
-							className='group-hover:bg-secondary-100 p-4 flex justify-center rounded-xl text-secondary-100 group-hover:text-white transition-colors'
-						>
-							<RiTeamFill className='text-2xl' />
-						</Link>
-					</li>
-
-					{/* <li className='hover:bg-dark-100 p-4 rounded-tl-xl rounded-bl-xl group transition-colors'>
-						<a
-							href='#'
-							className='group-hover:bg-secondary-100 p-4 flex justify-center rounded-xl text-secondary-100 group-hover:text-white transition-colors'
-						>
-							<RiMailLine className='text-2xl' />
-						</a>
-					</li>
-
-					<li className='hover:bg-dark-100 p-4 rounded-tl-xl rounded-bl-xl group transition-colors'>
-						<a
-							href='#'
-							className='group-hover:bg-secondary-100 p-4 flex justify-center rounded-xl text-secondary-100 group-hover:text-white transition-colors'
-						>
-							<RiNotification3Line className='text-2xl' />
-						</a>
-					</li>
-
-					<li className='hover:bg-dark-100 p-4 rounded-tl-xl rounded-bl-xl group transition-colors'>
-						<a
-							href='#'
-							className='group-hover:bg-secondary-100 p-4 flex justify-center rounded-xl text-secondary-100 group-hover:text-white transition-colors'
-						>
-							<RiSettings3Line className='text-2xl' />
-						</a>
-					</li> */}
+					<CustomLink to='/'>
+						<RiHome6Line className='text-2xl' />
+					</CustomLink>
+					<CustomLink to='/compras'>
+						<RiBillFill className='text-2xl' />
+					</CustomLink>
+					<CustomLink to='/proveedores'>
+						<RiTeamFill className='text-2xl' />
+					</CustomLink>
 				</ul>
 			</div>
 
 			<div>
 				<ul className='pl-4'>
-					<li className='hover:bg-dark-100 p-4 rounded-tl-xl rounded-bl-xl group transition-colors'>
-						<a
-							href='#'
-							className='group-hover:bg-secondary-100 p-4 flex justify-center rounded-xl text-secondary-100 group-hover:text-white transition-colors'
-						>
-							<RiLogoutCircleRLine className='text-2xl' />
-						</a>
-					</li>
+					<CustomLink to='/logout'>
+						<RiLogoutCircleRLine className='text-2xl' />
+					</CustomLink>
 				</ul>
 			</div>
 		</div>

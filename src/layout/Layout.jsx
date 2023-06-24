@@ -13,7 +13,7 @@ export const Layout = ({ children }) => {
 	return (
 		<>
 			<Sidebar showMenu={index === 3} />
-			{/* Carrito */}
+			{/* Detalle facturas */}
 			<BillsDetails showBill={index === 4} toggleBill={() => handleShowMenu(4)} />
 
 			{/* Menu movil */}

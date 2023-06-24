@@ -12,7 +12,7 @@ export const AppRouter = () => {
 				<Route path='/proveedores' element={<p>proveedores</p>} />
 			</Route>
 
-			<Route path='*' element={<Navigate to='/compras' />} />
+			<Route path='*' element={<Navigate to='/' />} />
 		</Routes>
 	);
 };
