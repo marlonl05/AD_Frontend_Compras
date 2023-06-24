@@ -13,7 +13,9 @@ export const Shopping = () => {
 				<Header>
 					<Tab className={focusStyle}>Listado de compras</Tab>
 					<Tab className={focusStyle}>Agregar compra</Tab>
-					<Tab className={focusStyle}>Editar compra</Tab>
+					<Tab className={focusStyle} disabled onClick={() => console.log('Selecting edit')}>
+						Editar compra
+					</Tab>
 				</Header>
 			}
 			body={

@@ -1,6 +1,6 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { PrivateRoutes } from './PrivateRoutes';
-import { Home, Shopping } from '../pages';
+import { Home, Providers, Shopping } from '../pages';
 
 export const AppRouter = () => {
 	return (
@@ -9,7 +9,7 @@ export const AppRouter = () => {
 			{/* Private routes */}
 			<Route element={<PrivateRoutes />}>
 				<Route path='/compras' element={<Shopping />} />
-				<Route path='/proveedores' element={<p>proveedores</p>} />
+				<Route path='/proveedores' element={<Providers />} />
 			</Route>
 
 			<Route path='*' element={<Navigate to='/' />} />
