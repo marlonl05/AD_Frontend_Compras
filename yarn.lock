@@ -1986,6 +1986,11 @@ side-channel@^1.0.4:
     get-intrinsic "^1.0.2"
     object-inspect "^1.9.0"
 
+sonner@^0.5.0:
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/sonner/-/sonner-0.5.0.tgz#48e4c1c8894c974fdb944ce4cd88ceb04ca7b8f8"
+  integrity sha512-V5L4918wScYxpe3x1H92MV0vSkUqRREu8dwFf7dDTQmRMQ58r1vzSKCsULZ5HCTqxNkfCdhQXHf7rRMaj/MukQ==
+
 source-map-js@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/source-map-js/-/source-map-js-1.0.2.tgz#adbc361d9c62df380125e7f161f71c826f1e490c"
@@ -2073,6 +2078,11 @@ supports-preserve-symlinks-flag@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/supports-preserve-symlinks-flag/-/supports-preserve-symlinks-flag-1.0.0.tgz#6eda4bd344a3c94aea376d4cc31bc77311039e09"
   integrity sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==
+
+tailwind-merge@^1.13.2:
+  version "1.13.2"
+  resolved "https://registry.yarnpkg.com/tailwind-merge/-/tailwind-merge-1.13.2.tgz#1d06c9e95ffda2320efc50ed33c65be0cda23091"
+  integrity sha512-R2/nULkdg1VR/EL4RXg4dEohdoxNUJGLMnWIQnPKL+O9Twu7Cn3Rxi4dlXkDzZrEGtR+G+psSXFouWlpTyLhCQ==
 
 tailwindcss@^3.3.2:
   version "3.3.2"
