@@ -2,8 +2,8 @@
 import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import { RiAddLine, RiCloseLine, RiMenu3Fill, RiPieChartLine, RiUser3Line } from 'react-icons/ri';
-import { BillsDetails } from '../components/bill';
 import Sidebar from '../components/sidebar';
+import { BillSidebar } from '../components/bill';
 
 export const Layout = ({ children }) => {
 	const [index, setIndex] = useState(0);
@@ -14,7 +14,7 @@ export const Layout = ({ children }) => {
 		<>
 			<Sidebar showMenu={index === 3} />
 			{/* Detalle facturas */}
-			<BillsDetails showBill={index === 4} toggleBill={() => handleShowMenu(4)} />
+			<BillSidebar showBill={index === 4} toggleBill={() => handleShowMenu(4)} />
 
 			{/* Menu movil */}
 			<nav className='bg-dark-100 lg:hidden fixed w-full bottom-0 left-0 text-3xl text-gray-400 py-2 px-8 flex items-center justify-between rounded-tl-xl rounded-tr-xl'>

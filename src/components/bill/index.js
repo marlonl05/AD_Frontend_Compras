@@ -1,1 +1,1 @@
-export { BillsDetails } from './BillsDetails';
+export * from './BillSidebar.jsx';
