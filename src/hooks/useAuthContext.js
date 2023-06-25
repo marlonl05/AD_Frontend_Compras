@@ -12,6 +12,7 @@ export const useAuthContext = () => {
 	const handleLogout = () => {
 		console.log('logging out');
 
+		localStorage.removeItem('user');
 		authDispatch({
 			type: authTypes.LOGOUT,
 		});
