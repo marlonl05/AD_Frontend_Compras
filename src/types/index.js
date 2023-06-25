@@ -1,2 +1,3 @@
+export * from './authTypes';
 export * from './shoppingTypes';
-export * from './types';
+export * from './providerTypes';
