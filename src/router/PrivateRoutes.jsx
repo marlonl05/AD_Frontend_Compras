@@ -1,13 +1,13 @@
+/* eslint-disable no-unused-vars */
 import { Navigate, Outlet } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { useAuthContext } from '../hooks/useAuthContext';
 import { Layout } from '../layout/Layout';
+import { useAuthContext } from '../hooks/';
 
 export const PrivateRoutes = ({ children }) => {
 	const { logged, user } = useAuthContext();
-	const redirectTo = '/login';
 
-	console.log({ logged, user });
+	const redirectTo = '/login';
 
 	if (!logged) return <Navigate to={redirectTo} replace />;
 

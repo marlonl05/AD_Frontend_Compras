@@ -1,11 +1,10 @@
 import { useContext } from 'react';
-import { AuthContext } from '../context/AuthContext';
+import { AuthContext } from '../context';
 
 export const useAuthContext = () => {
-	const { user, logged, dispatch } = useContext(AuthContext);
+	const { user, logged, authDispatch } = useContext(AuthContext);
 
 	const handleLogin = () => {
-		console.log(dispatch);
 		console.log('logging in');
 	};
 
