@@ -1,5 +1,6 @@
 import { useContext } from 'react';
 import { ShoppingContext } from '../context';
+import { shoppingTypes } from '../types';
 
 export const useShoppingContext = () => {
 	const {
@@ -11,10 +12,11 @@ export const useShoppingContext = () => {
 		cartList,
 		currentShopping,
 		currentSidebarShopping,
+		shoppingDispatch,
 	} = useContext(ShoppingContext);
 
-	const handleShowShopping = () => {
-		console.log('handleShowShopping');
+	const handleShowShopping = shoppingId => {
+		shoppingDispatch({ type: shoppingTypes.SET_CURRENT_SIDEBAR_SHOPPING, payload: +shoppingId });
 	};
 
 	const handleEditShopping = () => {

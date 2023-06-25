@@ -12,6 +12,12 @@ export const shoppingReducer = (shoppingState, action) => {
 				state: status.COMPLETED,
 			};
 		}
+		case shoppingTypes.SET_CURRENT_SIDEBAR_SHOPPING: {
+			return {
+				...shoppingState,
+				currentSidebarShopping: action.payload,
+			};
+		}
 		case shoppingTypes.SET_STATE: {
 			return {
 				...shoppingState,
