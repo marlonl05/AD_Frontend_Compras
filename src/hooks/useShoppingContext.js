@@ -2,8 +2,16 @@ import { useContext } from 'react';
 import { ShoppingContext } from '../context';
 
 export const useShoppingContext = () => {
-	const { shoppingList, shoppingListIds, state, error, message, cartList, currentShopping } =
-		useContext(ShoppingContext);
+	const {
+		shoppingList,
+		shoppingListIds,
+		state,
+		error,
+		message,
+		cartList,
+		currentShopping,
+		currentSidebarShopping,
+	} = useContext(ShoppingContext);
 
 	const handleShowShopping = () => {
 		console.log('handleShowShopping');
@@ -26,6 +34,7 @@ export const useShoppingContext = () => {
 		message,
 		cartList,
 		currentShopping,
+		currentSidebarShopping,
 
 		// Actions
 		handleShowShopping,

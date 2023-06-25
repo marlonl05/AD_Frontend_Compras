@@ -14,6 +14,7 @@ const initialState = {
 	message: null,
 	cartList: [],
 	currentShopping: null,
+	currentSidebarShopping: null,
 };
 
 export const ShoppingProvider = ({ children }) => {
