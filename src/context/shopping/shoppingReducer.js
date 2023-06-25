@@ -1,16 +1,15 @@
 import { shoppingTypes } from '../../types/shoppingTypes';
 
-export const shoppingReducer = (state, action) => {
+export const shoppingReducer = (shoppingState, action) => {
 	switch (action.type) {
-		case shoppingTypes.addShopping: {
-			const shoppingList = { ...state.shoppingList };
-			shoppingList[action.payload.id] = action.payload;
+		case shoppingTypes.LOAD: {
+			// todo: transform the payload to the correct format like objects
 			return {
-				...state,
-				shoppingList,
+				...shoppingState,
+				shoppingList: action.payload,
 			};
 		}
 		default:
-			return state;
+			return shoppingState;
 	}
 };

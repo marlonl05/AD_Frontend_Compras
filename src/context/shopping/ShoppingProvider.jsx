@@ -1,14 +1,17 @@
 /* eslint-disable react/prop-types */
 import { createContext, useReducer } from 'react';
 import { shoppingReducer } from './shoppingReducer';
+import { status } from '../../constants';
 
 export const ShoppingContext = createContext();
 
 const initialState = {
 	shoppingList: {},
-	cart: [],
+	state: status.IDLE,
+	error: null,
+	message: null,
+	cartList: [],
 	currentShopping: null,
-	shoppingState: null,
 };
 
 export const ShoppingProvider = ({ children }) => {

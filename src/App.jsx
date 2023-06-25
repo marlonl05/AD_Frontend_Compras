@@ -1,12 +1,12 @@
-import { AuthProvider } from './context/AuthProvider';
+import { GlobalProvider } from './context/GlobalProvider';
 import { AppRouter } from './router/AppRouter';
 
 export const App = () => {
 	return (
 		<div className='bg-dark-100 w-full min-h-screen'>
-			<AuthProvider>
+			<GlobalProvider>
 				<AppRouter />
-			</AuthProvider>
+			</GlobalProvider>
 		</div>
 	);
 };

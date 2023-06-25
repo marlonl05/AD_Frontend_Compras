@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useReducer } from 'react';
-import { AuthContext } from './AuthContext';
-import { authReducer } from './authReducer';
+import { AuthContext } from '../';
+import { authReducer } from './';
 
 const initialState = {
 	logged: false,
@@ -25,16 +25,7 @@ const init = () => {
 };
 
 export const AuthProvider = ({ children }) => {
-	const [auth, dispatch] = useReducer(authReducer, initialState, init);
+	const [auth, authDispatch] = useReducer(authReducer, initialState, init);
 
-	return (
-		<AuthContext.Provider
-			value={{
-				...auth,
-				authDispatch: dispatch,
-			}}
-		>
-			{children}
-		</AuthContext.Provider>
-	);
+	return <AuthContext.Provider value={{ ...auth, authDispatch }}>{children}</AuthContext.Provider>;
 };
