@@ -1,37 +1,39 @@
 /* eslint-disable react/prop-types */
 import { RiEyeFill, RiFileTextLine, RiPencilFill } from 'react-icons/ri';
-import { Button, Card } from '../common';
+import { Button, Card, Loading } from '../common';
+import { useProviderContext } from '../../hooks';
+import { status } from '../../constants';
 
-const ProviderCard = ({
-	title,
-	alt = 'Provider',
-	imgSrc = '/logo-carrito.jpg',
-	city,
-	email,
-	onShowDetail,
-	onEdit,
-	onPrint,
-}) => {
+const ProviderCard = ({ providerId }) => {
+	const { providerList, handleShowProvider, handleEditProvider, handlePrintProvider } =
+		useProviderContext();
+
+	const provider = providerList[providerId];
+
 	return (
-		<Card title={title} alt={alt} imgSrc={imgSrc}>
-			<span className='text-gray-400'>{city}</span>
-			<p className='text-gray-500 w-full truncate'>{email}</p>
+		<Card
+			title={provider.nombre}
+			alt='Proveedor'
+			imgSrc={provider?.imgSrc || '/logo-proveedor.png'}
+		>
+			<span className='text-gray-400'>{provider.cuidad}</span>
+			<p className='text-gray-500 w-full truncate'>{provider.email}</p>
 			<div className='flex justify-center items-center gap-2 flex-row lg:flex-col xl:flex-row'>
 				<Button
 					className='bg-transparent hover:bg-secondary-100 transition-colors'
-					onClick={onShowDetail}
+					onClick={handleShowProvider}
 				>
 					<RiEyeFill />
 				</Button>
 				<Button
 					className='bg-transparent hover:bg-secondary-100 transition-colors'
-					onClick={onEdit}
+					onClick={handleEditProvider}
 				>
 					<RiPencilFill />
 				</Button>
 				<Button
 					className='bg-transparent hover:bg-secondary-100 transition-colors'
-					onClick={onPrint}
+					onClick={handlePrintProvider}
 				>
 					<RiFileTextLine />
 				</Button>
@@ -41,35 +43,15 @@ const ProviderCard = ({
 };
 
 export const ProviderList = () => {
+	const { providerListIds, state } = useProviderContext();
+
+	if (state === status.LOADING) return <Loading />;
+
 	return (
-		<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 p-8 gap-14'>
-			<ProviderCard
-				title='Ing. Juan Perez'
-				alt='Hombre'
-				city='Ecuador'
-				email='test@test.com'
-				onShowDetail={() => console.log('show provider')}
-				onEdit={() => console.log('edit provider')}
-				onPrint={() => console.log('print provider')}
-			/>
-			<ProviderCard
-				title='Ing. Juan Perez'
-				alt='Hombre'
-				city='Ecuador'
-				email='test@test.com'
-				onShowDetail={() => console.log('show provider')}
-				onEdit={() => console.log('edit provider')}
-				onPrint={() => console.log('print provider')}
-			/>
-			<ProviderCard
-				title='Ing. Juan Perez'
-				alt='Hombre'
-				city='Ecuador'
-				email='test@test.com'
-				onShowDetail={() => console.log('show provider')}
-				onEdit={() => console.log('edit provider')}
-				onPrint={() => console.log('print provider')}
-			/>
+		<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 p-8 gap-14 animate-fade'>
+			{providerListIds.map(id => (
+				<ProviderCard key={id} providerId={id} />
+			))}
 		</div>
 	);
 };

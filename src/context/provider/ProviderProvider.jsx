@@ -20,7 +20,7 @@ export const ProviderProvider = ({ children }) => {
 
 	const init = async () => {
 		try {
-			providerDispatch({ type: providerTypes.LOADING, payload: status.LOADING });
+			providerDispatch({ type: providerTypes.SET_STATE, payload: status.LOADING });
 
 			const { data } = await comprasApi.get('/proveedores');
 
