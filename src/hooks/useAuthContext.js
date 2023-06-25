@@ -1,5 +1,6 @@
 import { useContext } from 'react';
 import { AuthContext } from '../context';
+import { authTypes } from '../types';
 
 export const useAuthContext = () => {
 	const { user, logged, authDispatch } = useContext(AuthContext);
@@ -10,6 +11,10 @@ export const useAuthContext = () => {
 
 	const handleLogout = () => {
 		console.log('logging out');
+
+		authDispatch({
+			type: authTypes.LOGOUT,
+		});
 	};
 
 	return {

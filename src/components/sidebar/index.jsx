@@ -1,6 +1,8 @@
 /* eslint-disable react/prop-types */
 import { RiBillFill, RiHome6Line, RiLogoutCircleRLine, RiTeamFill } from 'react-icons/ri';
 import { Link } from 'react-router-dom';
+import { Button } from '../common';
+import { useAuthContext } from '../../hooks';
 
 const CustomLink = ({ to = '/', children }) => {
 	return (
@@ -16,6 +18,8 @@ const CustomLink = ({ to = '/', children }) => {
 };
 
 export default function Sidebar({ showMenu }) {
+	const { handleLogout } = useAuthContext();
+
 	return (
 		<div
 			className={`bg-dark-200 fixed top-0 w-36 h-full flex flex-col justify-between py-6 rounded-tr-xl rounded-br-xl z-50 lg:left-0 ${
@@ -42,9 +46,14 @@ export default function Sidebar({ showMenu }) {
 
 			<div>
 				<ul className='pl-4'>
-					<CustomLink to='/logout'>
-						<RiLogoutCircleRLine className='text-2xl' />
-					</CustomLink>
+					<li className='hover:bg-dark-100 p-4 rounded-tl-xl rounded-bl-xl group transition-colors'>
+						<Button
+							className='group-hover:bg-secondary-100 bg-inherit text-secondary-100 p-4 group-hover:text-white transition-colors border-none'
+							onClick={handleLogout}
+						>
+							<RiLogoutCircleRLine className='text-2xl' />
+						</Button>
+					</li>
 				</ul>
 			</div>
 		</div>
