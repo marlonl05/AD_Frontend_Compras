@@ -12,7 +12,7 @@ const ShoppingCard = ({ shoppingId }) => {
 
 	return (
 		<Card
-			title={shopping?.title || 'Compra de abastos'}
+			title={shopping?.title || 'Compra #' + shoppingId}
 			alt='Abastos'
 			imgSrc={shopping?.imgSrc || '/logo-carrito.jpg'}
 		>
@@ -21,7 +21,7 @@ const ShoppingCard = ({ shoppingId }) => {
 			<div className='flex justify-center items-center gap-2 flex-row lg:flex-col xl:flex-row'>
 				<Button
 					className='bg-transparent hover:bg-secondary-100 transition-colors'
-					onClick={handleShowShopping}
+					onClick={() => handleShowShopping(shoppingId)}
 				>
 					<RiEyeFill />
 				</Button>
@@ -55,13 +55,3 @@ export const ShoppingList = () => {
 		</div>
 	);
 };
-
-// <ShoppingCard
-// 	title='Compra de abastos'
-// 	alt='Abastos'
-// 	price={2.34}
-// 	date='20/07/2023'
-// 	onShowDetail={() => console.log('show shopping')}
-// 	onEdit={() => console.log('edit shopping')}
-// 	onPrint={() => console.log('print shopping')}
-// />
