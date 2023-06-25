@@ -1,11 +1,12 @@
 import { RiSearch2Line } from 'react-icons/ri';
+import { getNow } from '../../helpers';
 
 export const Search = () => {
 	return (
 		<div className='flex flex-col gap-4 mb-6 md:flex-row md:justify-between md:items-center'>
 			<div>
 				<h1 className='text-2xl text-gray-300'>Luis Perugachi</h1>
-				<p className='text-gray-500'>January 23rt, 2023</p>
+				<p className='text-gray-500'>{getNow()}</p>
 			</div>
 			<form>
 				<div className='w-full relative'>
