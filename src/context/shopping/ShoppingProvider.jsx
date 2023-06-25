@@ -1,12 +1,14 @@
 /* eslint-disable react/prop-types */
-import { createContext, useReducer } from 'react';
+import { useEffect, useReducer } from 'react';
 import { shoppingReducer } from './shoppingReducer';
+import { ShoppingContext } from '../contextBuilder';
 import { status } from '../../constants';
-
-export const ShoppingContext = createContext();
+import { shoppingTypes } from '../../types';
+import comprasApi from '../../api';
 
 const initialState = {
 	shoppingList: {},
+	shoppingListIds: [],
 	state: status.IDLE,
 	error: null,
 	message: null,
@@ -15,13 +17,34 @@ const initialState = {
 };
 
 export const ShoppingProvider = ({ children }) => {
-	const [shopping, dispatch] = useReducer(shoppingReducer, initialState);
+	const [shopping, shoppingDispatch] = useReducer(shoppingReducer, initialState);
+
+	const init = async () => {
+		try {
+			shoppingDispatch({ type: shoppingTypes.SET_STATE, payload: status.LOADING });
+
+			const { data } = await comprasApi.get('/facturas');
+
+			if (!data?.datos) throw new Error('Error al cargar las facturas');
+
+			shoppingDispatch({
+				type: shoppingTypes.LOAD,
+				payload: data.datos,
+			});
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	useEffect(() => {
+		init();
+	}, []);
 
 	return (
 		<ShoppingContext.Provider
 			value={{
 				...shopping,
-				shoppingDispatch: dispatch,
+				shoppingDispatch,
 			}}
 		>
 			{children}
