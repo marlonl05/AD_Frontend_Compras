@@ -1,6 +1,13 @@
-import { RiUserLine } from 'react-icons/ri';
-import { Button, FormField, SelectField } from '../common';
 import { useForm } from 'react-hook-form';
+import {
+	RiBankCardLine,
+	RiBuildingLine,
+	RiCellphoneLine,
+	RiMailLine,
+	RiSubwayLine,
+	RiUserLine,
+} from 'react-icons/ri';
+import { Button, FormField, SelectField } from '../common';
 import { providerState, providerTypes } from '../../constants';
 
 export const NewProvider = () => {
@@ -25,7 +32,7 @@ export const NewProvider = () => {
 					errorMessage={errors.nombres_completos?.message}
 				/>
 				<FormField
-					Icon={RiUserLine}
+					Icon={RiBankCardLine}
 					register={register}
 					name='Documento de identificación'
 					inputConfig={{
@@ -36,7 +43,7 @@ export const NewProvider = () => {
 					errorMessage={errors.documento_de_identificacion?.message}
 				/>
 				<FormField
-					Icon={RiUserLine}
+					Icon={RiBuildingLine}
 					register={register}
 					name='Ciudad'
 					inputConfig={{
@@ -45,7 +52,7 @@ export const NewProvider = () => {
 					errorMessage={errors.ciudad?.message}
 				/>
 				<FormField
-					Icon={RiUserLine}
+					Icon={RiSubwayLine}
 					register={register}
 					name='Dirección'
 					inputConfig={{
@@ -54,7 +61,7 @@ export const NewProvider = () => {
 					errorMessage={errors.direccion?.message}
 				/>
 				<FormField
-					Icon={RiUserLine}
+					Icon={RiCellphoneLine}
 					register={register}
 					name='Teléfono'
 					inputConfig={{
@@ -64,7 +71,7 @@ export const NewProvider = () => {
 					errorMessage={errors.telefono?.message}
 				/>
 				<FormField
-					Icon={RiUserLine}
+					Icon={RiMailLine}
 					register={register}
 					name='Email'
 					inputConfig={{
