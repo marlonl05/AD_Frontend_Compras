@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useForm } from 'react-hook-form';
 import {
 	RiBankCardLine,
@@ -10,12 +11,14 @@ import {
 import { Button, FormField, SelectField } from '../common';
 import { providerState, providerTypes } from '../../constants';
 
-export const NewProvider = () => {
+export const NewProvider = ({ defaultValues }) => {
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
-	} = useForm();
+	} = useForm({
+		defaultValues,
+	});
 
 	const onSubmit = data => console.log(data);
 
@@ -36,9 +39,15 @@ export const NewProvider = () => {
 					register={register}
 					name='Documento de identificación'
 					inputConfig={{
-						required: { value: true, message: 'Documento de identificación es requerido.' },
-						minLength: 10,
-						maxLength: 13,
+						required: { value: true, message: 'El documento de identificación es requerido.' },
+						minLength: {
+							value: 10,
+							message: 'El documento de identificación debe tener al menos 10 dígitos.',
+						},
+						maxLength: {
+							value: 13,
+							message: 'El documento de identificación debe tener máximo 13 dígitos.',
+						},
 					}}
 					errorMessage={errors.documento_de_identificacion?.message}
 				/>
@@ -66,7 +75,7 @@ export const NewProvider = () => {
 					name='Teléfono'
 					inputConfig={{
 						required: { value: true, message: 'El teléfono del proveedor es requerido.' },
-						minLength: 10,
+						minLength: { value: 10, message: 'El teléfono debe tener al menos 10 dígitos.' },
 					}}
 					errorMessage={errors.telefono?.message}
 				/>

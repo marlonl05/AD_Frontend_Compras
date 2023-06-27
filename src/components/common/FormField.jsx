@@ -17,6 +17,7 @@ export const FormField = ({ Icon, register, name, inputConfig, errorMessage }) =
 			<div className='flex-1 text-dark-200'>
 				<Input
 					Icon={Icon}
+					name={name}
 					className='w-full py-2 px-4 outline-none rounded-lg bg-secondary-900'
 					register={register(validName, { ...inputConfig })}
 				/>
