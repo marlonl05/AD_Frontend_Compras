@@ -2,9 +2,9 @@
 import { Tab } from '@headlessui/react';
 import { Search } from '../../components/common';
 
-export const TableWrapper = ({ header, body }) => {
+export const TableWrapper = ({ defaultIndex, handleTabIndex, header, body }) => {
 	return (
-		<Tab.Group>
+		<Tab.Group selectedIndex={defaultIndex} onChange={handleTabIndex}>
 			<header>
 				<Search />
 				{header}
