@@ -3,6 +3,7 @@ import { ProviderContext } from '../context';
 import comprasApi from '../api';
 import { providerTypes } from '../types';
 import { status } from '../constants';
+import { mapFormProviderToNormal } from '../helpers';
 
 export const useProviderContext = () => {
 	const {
@@ -12,6 +13,7 @@ export const useProviderContext = () => {
 		error,
 		message,
 		currentProvider,
+		defaultTabIndex,
 		providerDispatch,
 	} = useContext(ProviderContext);
 
@@ -19,25 +21,26 @@ export const useProviderContext = () => {
 		console.log('handleShowProvider');
 	};
 
-	const handleEditProvider = () => {
-		console.log('handleEditProvider');
+	const handleShowEditProvider = providerId => {
+		providerDispatch({ type: providerTypes.SET_CURRENT_PROVIDER, payload: providerId });
+		providerDispatch({ type: providerTypes.SET_DEFAULT_TAB_INDEX, payload: 3 });
 	};
+
+	const handleEditProvider = async provider => {
+		console.log('handleEditProvider');
+		console.log(provider);
+	};
+
+	const handleTabIndex = tabIndex =>
+		providerDispatch({ type: providerTypes.SET_DEFAULT_TAB_INDEX, payload: tabIndex });
 
 	const handlePrintProvider = () => {
 		console.log('handlePrintProvider');
 	};
 
 	const handleCreateProvider = async provider => {
-		provider.documento_identificacion = provider.documento_de_identificacion;
-		provider.nombre = provider.nombres_completos;
-		provider.estado = provider.estado_del_proveedor;
-
-		delete provider.documento_de_identificacion;
-		delete provider.estado_del_proveedor;
-		delete provider.nombres_completos;
-
 		try {
-			await comprasApi.post('/ingresar/proveedor', provider);
+			await comprasApi.post('/ingresar/proveedor', mapFormProviderToNormal(provider));
 
 			providerDispatch({ type: providerTypes.ADD });
 		} catch (error) {
@@ -58,13 +61,16 @@ export const useProviderContext = () => {
 		error,
 		message,
 		currentProvider,
+		defaultTabIndex,
 
 		// Actions
 		handleState,
 		handleShowProvider,
+		handleShowEditProvider,
 		handleEditProvider,
 		handlePrintProvider,
 		handleCreateProvider,
 		handleReloadProviders,
+		handleTabIndex,
 	};
 };
