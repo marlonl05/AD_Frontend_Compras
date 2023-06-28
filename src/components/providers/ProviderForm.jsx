@@ -12,18 +12,20 @@ import {
 import { Button, FormField, SelectField } from '../common';
 import { providerState, providerTypes, status } from '../../constants';
 import { useProviderContext } from '../../hooks';
+import { mapNormalToFormProvider } from '../../helpers';
 
-export const ProviderForm = ({ defaultValues }) => {
+export const ProviderForm = ({ provider }) => {
 	const {
 		register,
 		handleSubmit,
 		reset,
 		formState: { errors },
 	} = useForm({
-		defaultValues,
+		defaultValues: provider && mapNormalToFormProvider(provider),
 	});
 
-	const { state, handleCreateProvider, handleReloadProviders, handleState } = useProviderContext();
+	const { state, handleCreateProvider, handleEditProvider, handleReloadProviders, handleState } =
+		useProviderContext();
 
 	useEffect(() => {
 		if (state === status.FAILED) {
@@ -40,7 +42,7 @@ export const ProviderForm = ({ defaultValues }) => {
 
 	return (
 		<div className='py-10 text-white'>
-			<form onSubmit={handleSubmit(handleCreateProvider)}>
+			<form onSubmit={handleSubmit(!provider ? handleCreateProvider : handleEditProvider)}>
 				<FormField
 					Icon={RiUserLine}
 					register={register}
@@ -121,7 +123,7 @@ export const ProviderForm = ({ defaultValues }) => {
 
 				<div className='flex justify-end'>
 					<Button type='submit' className='w-auto'>
-						Registrar
+						{!provider ? 'Registrar' : 'Actualizar'}
 					</Button>
 				</div>
 			</form>

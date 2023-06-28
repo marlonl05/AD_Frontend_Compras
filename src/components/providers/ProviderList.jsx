@@ -5,7 +5,7 @@ import { useProviderContext } from '../../hooks';
 import { status } from '../../constants';
 
 const ProviderCard = ({ providerId }) => {
-	const { providerList, handleShowProvider, handleEditProvider, handlePrintProvider } =
+	const { providerList, handleShowProvider, handleShowEditProvider, handlePrintProvider } =
 		useProviderContext();
 
 	const provider = providerList[providerId];
@@ -27,7 +27,7 @@ const ProviderCard = ({ providerId }) => {
 				</Button>
 				<Button
 					className='bg-transparent hover:bg-secondary-100 transition-colors'
-					onClick={handleEditProvider}
+					onClick={() => handleShowEditProvider(providerId)}
 				>
 					<RiPencilFill />
 				</Button>
