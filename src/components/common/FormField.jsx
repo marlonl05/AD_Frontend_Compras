@@ -9,7 +9,7 @@ export const FormField = ({ Icon, register, name, inputConfig, errorMessage }) =
 
 	return (
 		<div className='flex flex-col md:flex-row md:items-center gap-y-2 mb-8'>
-			<div className='w-full md:w-1/5'>
+			<div className='w-full md:w-1/4'>
 				<p>
 					{name} {required && <span className='text-red-500'>*</span>}
 				</p>

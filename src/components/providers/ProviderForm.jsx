@@ -1,4 +1,5 @@
 /* eslint-disable react/prop-types */
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import {
 	RiBankCardLine,
@@ -9,22 +10,37 @@ import {
 	RiUserLine,
 } from 'react-icons/ri';
 import { Button, FormField, SelectField } from '../common';
-import { providerState, providerTypes } from '../../constants';
+import { providerState, providerTypes, status } from '../../constants';
+import { useProviderContext } from '../../hooks';
 
-export const NewProvider = ({ defaultValues }) => {
+export const ProviderForm = ({ defaultValues }) => {
 	const {
 		register,
 		handleSubmit,
+		reset,
 		formState: { errors },
 	} = useForm({
 		defaultValues,
 	});
 
-	const onSubmit = data => console.log(data);
+	const { state, handleCreateProvider, handleReloadProviders, handleState } = useProviderContext();
+
+	useEffect(() => {
+		if (state === status.FAILED) {
+			handleState(status.IDLE);
+			return;
+		}
+
+		if (state !== status.COMPLETED) return;
+
+		reset();
+		handleReloadProviders();
+		handleState(status.IDLE);
+	}, [state]);
 
 	return (
 		<div className='py-10 text-white'>
-			<form onSubmit={handleSubmit(onSubmit)}>
+			<form onSubmit={handleSubmit(handleCreateProvider)}>
 				<FormField
 					Icon={RiUserLine}
 					register={register}

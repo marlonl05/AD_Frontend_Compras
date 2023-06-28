@@ -1,4 +1,3 @@
 export * from './ProviderList';
-export * from './EditProvider';
-export * from './NewProvider';
+export * from './ProviderForm';
 export * from './ShowProvider';
