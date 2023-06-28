@@ -38,6 +38,20 @@ export const providerReducer = (providerState, { type, payload }) => {
 			};
 		}
 
+		case providerTypes.SET_CURRENT_PROVIDER: {
+			return {
+				...providerState,
+				currentProvider: payload,
+			};
+		}
+
+		case providerTypes.SET_DEFAULT_TAB_INDEX: {
+			return {
+				...providerState,
+				defaultTabIndex: payload,
+			};
+		}
+
 		case providerTypes.SET_STATE: {
 			return {
 				...providerState,

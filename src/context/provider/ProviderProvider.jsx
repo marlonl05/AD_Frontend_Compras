@@ -14,6 +14,7 @@ const initalState = {
 	message: null,
 	currentProvider: null,
 	refreshCounter: 0,
+	defaultTabIndex: 0,
 };
 
 export const ProviderProvider = ({ children }) => {
