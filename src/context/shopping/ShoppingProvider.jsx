@@ -15,10 +15,13 @@ const initialState = {
 	cartList: [],
 	currentShopping: null,
 	currentSidebarShopping: null,
+	refreshCounter: 0,
 };
 
 export const ShoppingProvider = ({ children }) => {
 	const [shopping, shoppingDispatch] = useReducer(shoppingReducer, initialState);
+
+	const { refreshCounter } = shopping;
 
 	const init = async () => {
 		try {
@@ -26,11 +29,11 @@ export const ShoppingProvider = ({ children }) => {
 
 			const { data } = await comprasApi.get('/facturas');
 
-			if (!data?.datos) throw new Error('Error al cargar las facturas');
+			if (!data?.response) throw new Error('Error al cargar las facturas');
 
 			shoppingDispatch({
 				type: shoppingTypes.LOAD,
-				payload: data.datos,
+				payload: data.response,
 			});
 		} catch (error) {
 			console.log(error);
@@ -39,7 +42,7 @@ export const ShoppingProvider = ({ children }) => {
 
 	useEffect(() => {
 		init();
-	}, []);
+	}, [refreshCounter]);
 
 	return (
 		<ShoppingContext.Provider

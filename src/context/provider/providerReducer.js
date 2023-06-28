@@ -9,7 +9,32 @@ export const providerReducer = (providerState, { type, payload }) => {
 				...providerState,
 				providerList: mapListToObject(payload),
 				providerListIds: mapObjectToListIds(payload),
+				state: status.IDLE,
+			};
+		}
+
+		case providerTypes.ADD: {
+			return {
+				...providerState,
 				state: status.COMPLETED,
+			};
+		}
+
+		case providerTypes.RELOAD_PROVIDERS: {
+			return {
+				...providerState,
+				refreshCounter: providerState.refreshCounter + 1,
+			};
+		}
+
+		case providerTypes.SET_MESSAGES: {
+			const message = payload?.message;
+			const error = payload?.error;
+
+			return {
+				...providerState,
+				message,
+				error,
 			};
 		}
 

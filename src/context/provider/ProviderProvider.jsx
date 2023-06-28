@@ -13,10 +13,13 @@ const initalState = {
 	error: null,
 	message: null,
 	currentProvider: null,
+	refreshCounter: 0,
 };
 
 export const ProviderProvider = ({ children }) => {
 	const [provider, providerDispatch] = useReducer(providerReducer, initalState);
+
+	const { refreshCounter } = provider;
 
 	const init = async () => {
 		try {
@@ -37,7 +40,7 @@ export const ProviderProvider = ({ children }) => {
 
 	useEffect(() => {
 		init();
-	}, []);
+	}, [refreshCounter]);
 
 	return (
 		<ProviderContext.Provider value={{ ...provider, providerDispatch }}>
