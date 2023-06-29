@@ -21,7 +21,7 @@ const ProviderCard = ({ providerId }) => {
 			<div className='flex justify-center items-center gap-2 flex-row lg:flex-col xl:flex-row'>
 				<Button
 					className='bg-transparent hover:bg-secondary-100 transition-colors'
-					onClick={handleShowProvider}
+					onClick={() => handleShowProvider(providerId)}
 				>
 					<RiEyeFill />
 				</Button>

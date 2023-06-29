@@ -18,7 +18,9 @@ export const Providers = () => {
 				<Header>
 					<Tab className={focusStyle}>Listado de proveedores</Tab>
 					<Tab className={focusStyle}>Agregar proveedor</Tab>
-					<Tab className={focusStyle}>Detalles del proveedor</Tab>
+					<Tab className={focusStyle} disabled={!currentProvider}>
+						Detalles del proveedor
+					</Tab>
 					<Tab className={focusStyle} disabled={!currentProvider}>
 						Editar proveedor
 					</Tab>
@@ -33,7 +35,7 @@ export const Providers = () => {
 						<ProviderForm />
 					</Tab.Panel>
 					<Tab.Panel>
-						<ShowProvider />
+						<ShowProvider provider={currentProvider ? providerList[currentProvider] : {}} />
 					</Tab.Panel>
 					<Tab.Panel>
 						<ProviderForm provider={currentProvider ? providerList[currentProvider] : {}} />

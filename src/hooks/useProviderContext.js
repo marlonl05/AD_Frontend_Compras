@@ -17,8 +17,9 @@ export const useProviderContext = () => {
 		providerDispatch,
 	} = useContext(ProviderContext);
 
-	const handleShowProvider = () => {
-		console.log('handleShowProvider');
+	const handleShowProvider = providerId => {
+		providerDispatch({ type: providerTypes.SET_CURRENT_PROVIDER, payload: providerId });
+		providerDispatch({ type: providerTypes.SET_DEFAULT_TAB_INDEX, payload: 2 });
 	};
 
 	const handleShowEditProvider = providerId => {

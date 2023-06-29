@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import {
 	RiBankCardLine,
 	RiBuildingLine,
@@ -11,7 +12,7 @@ import {
 } from 'react-icons/ri';
 import { Button, Card } from '../common';
 
-export const ShowProvider = () => {
+export const ShowProvider = ({ provider }) => {
 	return (
 		<>
 			<article className='relative bg-gray-50 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-center md:gap-4 gap-8 overflow-hidden shadow-xl rounded-lg'>
@@ -26,38 +27,40 @@ export const ShowProvider = () => {
 				<section className='md:col-span-1 lg:col-span-2 p-8 z-20'>
 					<div className='absolute right-0 top-0 flex items-center gap-2 p-2 font-medium bg-gradient-to-r from-secondary-100 to-[#e89c91] text-white uppercase text-sm'>
 						<RiCheckboxCircleLine className='text-2xl' />
-						<h5>Activo</h5>
+						<h5>{provider?.estado}</h5>
 					</div>
 
 					<div className='relative mt-4 before:absolute before:w-[150px] before:h-[1px] before:bg-secondary-100 before:left-0 before:-bottom-2 after:absolute after:w-2 after:h-2 after:bg-secondary-100 after:left-[148px] after:-bottom-[11.5px] after:rounded-full'>
-						<h1 className='text-gray-900 uppercase font-extrabold text-xl'>Sandra Pacheco</h1>
-						<p className='text-gray-500 text-sm'>example@mail.com</p>
+						<h1 className='text-gray-900 uppercase font-extrabold text-xl'>{provider?.nombre}</h1>
+						<p className='text-gray-500 text-sm'>{provider?.email}</p>
 					</div>
 
 					<ul className='ml-2 mt-10 text-gray-500 border-l-2 border-secondary-100'>
 						<li className='flex items-center gap-2 text-xs mb-2'>
 							<RiBankCardLine className='ml-1' />
-							<span>12312312332</span>
+							<span>{provider?.documento_identificacion}</span>
 						</li>
 						<li className='flex items-center gap-2 text-xs mb-2'>
 							<RiBuildingLine className='ml-1' />
-							<span>Cotacachi</span>
+							<span>{provider?.ciudad}</span>
 						</li>
 						<li className='flex items-center gap-2 text-xs mb-2'>
 							<RiSubwayLine className='ml-1' />
-							<span>Av. Avellanas</span>
+							<span>{provider?.direccion}</span>
 						</li>
 						<li className='flex items-center gap-2 text-xs mb-2'>
 							<RiCellphoneLine className='ml-1' />
-							<span>0978926595</span>
+							<span>{provider?.telefono}</span>
 						</li>
 						<li className='flex items-center gap-2 text-xs mb-2'>
 							<RiStackFill className='ml-1' />
-							<span>Contado</span>
+							<span>{provider?.tipo_proveedor}</span>
 						</li>
 					</ul>
 				</section>
 			</article>
+
+			{/* card lists */}
 			<div className='my-7'>
 				<h2 className='text-2xl font-bold text-white'>Facturas</h2>
 			</div>
