@@ -1,4 +1,4 @@
 export const providerState = Object.freeze({
-	ACTIVO: 'Activo',
-	INACTIVO: 'Inactivo',
+	ACTIVO: 'ACTIVO',
+	INACTIVO: 'INACTIVO',
 });
