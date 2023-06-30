@@ -1,12 +1,15 @@
 /* eslint-disable react/prop-types */
 import { useState } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import { RiAddLine, RiCloseLine, RiMenu3Fill, RiPieChartLine, RiUser3Line } from 'react-icons/ri';
 import Sidebar from '../components/sidebar';
 import { BillSidebar } from '../components/bill';
 
 export const Layout = ({ children }) => {
 	const [index, setIndex] = useState(0);
+	const { pathname } = useLocation();
+
+	const showBillDetails = pathname.includes('compras');
 
 	const handleShowMenu = newIndex => setIndex(newIndex === index ? 0 : newIndex);
 
@@ -14,7 +17,7 @@ export const Layout = ({ children }) => {
 		<>
 			<Sidebar showMenu={index === 3} />
 			{/* Detalle facturas */}
-			<BillSidebar showBill={index === 4} toggleBill={() => handleShowMenu(4)} />
+			<BillSidebar showBill={showBillDetails} />
 
 			{/* Menu movil */}
 			<nav className='bg-dark-100 lg:hidden fixed w-full bottom-0 left-0 text-3xl text-gray-400 py-2 px-8 flex items-center justify-between rounded-tl-xl rounded-tr-xl'>
@@ -31,7 +34,7 @@ export const Layout = ({ children }) => {
 					{index === 4 ? <RiCloseLine /> : <RiMenu3Fill />}
 				</button>
 			</nav>
-			<main className='lg:pl-36 pb-10 lg:pr-[400px]'>
+			<main className={'lg:pl-36 pb-10 ' + (showBillDetails && 'lg:pr-[400px]')}>
 				<div className='md:p-8 p-4'>{children || <Outlet />}</div>
 			</main>
 		</>
