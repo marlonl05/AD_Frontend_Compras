@@ -8,3 +8,4 @@ const comprasApi = axios.create({
 });
 
 export default comprasApi;
+export * from './inventarioApi';
