@@ -5,7 +5,7 @@ import { RiSearchLine } from 'react-icons/ri';
 import ReactPaginate from 'react-paginate';
 
 const pageLinkClass =
-	'w-full px-2 rounded-md font-semibold border border-secondary-100 flex items-center justify-center hover:bg-secondary-100 hover:text-dark-100';
+	'w-full px-2 rounded-md font-semibold border border-secondary-100 flex items-center justify-center hover:bg-secondary-100 hover:text-dark-100 transition-colors';
 
 export function TableLayout({ items, itemsPerPage, inputPlaceholder, Table }) {
 	const [itemOffset, setItemOffset] = useState(0);
@@ -34,13 +34,13 @@ export function TableLayout({ items, itemsPerPage, inputPlaceholder, Table }) {
 	const handleSearch = ({ pattern }) => setPattern(pattern);
 
 	return (
-		<div className='bg-dark-200 p-8 rounded-xl lg:block'>
+		<div className='bg-dark-200 p-8 rounded-xl lg:block text-white'>
 			<div className='mb-10'>
 				<div className='flex items-center justify-start flex-col sm:flex-row gap-2'>
 					<form onSubmit={handleSubmit(handleSearch)} className='relative mr-2'>
-						<RiSearchLine className='absolute top-1/2 -translate-y-1/2 left-4' />
+						<RiSearchLine className='absolute top-1/2 -translate-y-1/2 left-4 text-dark-100' />
 						<input
-							className='w-full md:w-96 bg-light py-2 pl-10 pr-4 rounded-lg outline-none placeholder:text-dark'
+							className='w-full md:w-96 py-2 pl-10 pr-4 rounded-lg outline-none placeholder:text-dark-100'
 							placeholder={inputPlaceholder}
 							{...register('pattern', { required: true })}
 						/>
@@ -51,7 +51,7 @@ export function TableLayout({ items, itemsPerPage, inputPlaceholder, Table }) {
 			<Table items={currentItems} pattern={pattern} />
 
 			<ReactPaginate
-				className='flex justify-center items-center gap-2 flex-col md:flex-row text-white'
+				className='flex justify-center items-center gap-2 flex-col md:flex-row '
 				previousLabel='Anterior'
 				nextLabel='Siguiente'
 				pageLinkClassName={pageLinkClass}
@@ -63,7 +63,7 @@ export function TableLayout({ items, itemsPerPage, inputPlaceholder, Table }) {
 				marginPagesDisplayed={1}
 				pageRangeDisplayed={1}
 				onPageChange={handlePageClick}
-				activeClassName='rounded-md bg-secondary-100 text-dark-100'
+				activeClassName='rounded-md bg-secondary-100 text-dark-100 transition-colors'
 			/>
 		</div>
 	);
