@@ -17,14 +17,9 @@ export const useProviderContext = () => {
 		providerDispatch,
 	} = useContext(ProviderContext);
 
-	const handleShowProvider = providerId => {
+	const handleSetCurrentProvider = providerId => {
 		providerDispatch({ type: providerTypes.SET_CURRENT_PROVIDER, payload: providerId });
-		providerDispatch({ type: providerTypes.SET_DEFAULT_TAB_INDEX, payload: 2 });
-	};
-
-	const handleShowEditProvider = providerId => {
-		providerDispatch({ type: providerTypes.SET_CURRENT_PROVIDER, payload: providerId });
-		providerDispatch({ type: providerTypes.SET_DEFAULT_TAB_INDEX, payload: 3 });
+		providerDispatch({ type: providerTypes.SET_DEFAULT_TAB_INDEX, payload: 1 });
 	};
 
 	const handleEditProvider = async provider => {
@@ -66,8 +61,7 @@ export const useProviderContext = () => {
 
 		// Actions
 		handleState,
-		handleShowProvider,
-		handleShowEditProvider,
+		handleSetCurrentProvider,
 		handleEditProvider,
 		handlePrintProvider,
 		handleCreateProvider,

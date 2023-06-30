@@ -1,8 +1,9 @@
 /* eslint-disable react/prop-types */
-import { Loading, TableHeader, TableRow } from '../common';
+import { Button, Loading, TableHeader, TableRow } from '../common';
 import { useProviderContext } from '../../hooks';
 import { status } from '../../constants';
 import { TableLayout } from '../../layout/table';
+import { RiEye2Fill } from 'react-icons/ri';
 
 const providerLabels = {
 	documento_identificacion: 'DNI',
@@ -16,7 +17,7 @@ const providerLabels = {
 };
 
 const Table = ({ items, pattern }) => {
-	const { providerList } = useProviderContext();
+	const { providerList, handleSetCurrentProvider } = useProviderContext();
 
 	const solveProvider = providerId => {
 		const provider = providerList[+providerId];
@@ -44,7 +45,12 @@ const Table = ({ items, pattern }) => {
 					solveItem={solveProvider}
 					itemLabels={providerLabels}
 					rowStyles='md:grid-cols-8'
-					detailBtn={<button onClick={() => console.log('Viendo detalles...')}>Detalles</button>}
+					detailBtn={
+						<Button onClick={() => handleSetCurrentProvider(+providerId)}>
+							<RiEye2Fill />
+							Detalles
+						</Button>
+					}
 				/>
 			))}
 		</>
