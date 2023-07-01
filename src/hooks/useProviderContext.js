@@ -23,7 +23,8 @@ export const useProviderContext = () => {
 	};
 
 	const handleEditProvider = async provider => {
-		console.log(mapFormProviderToNormal(provider));
+		// console.log(mapFormProviderToNormal(provider));
+		providerDispatch({ type: providerTypes.ADD });
 	};
 
 	const handleTabIndex = tabIndex =>
@@ -35,7 +36,8 @@ export const useProviderContext = () => {
 
 	const handleCreateProvider = async provider => {
 		try {
-			await comprasApi.post('/ingresar/proveedor', mapFormProviderToNormal(provider));
+			// console.log({ provider });
+			// await comprasApi.post('/ingresar/proveedor', mapFormProviderToNormal(provider));
 
 			providerDispatch({ type: providerTypes.ADD });
 		} catch (error) {
