@@ -4,6 +4,5 @@ export * from './Head';
 export * from './Button';
 export * from './Loading';
 export * from './Input';
-export * from './FormField';
-export * from './SelectField';
 export * from './table';
+export * from './form';

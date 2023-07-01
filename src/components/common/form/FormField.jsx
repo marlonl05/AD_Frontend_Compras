@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
-import { stringNormalizer } from '../../helpers';
-import { Input } from './';
+import { stringNormalizer } from '../../../helpers';
+import { Input } from '..';
 
 export const FormField = ({ Icon, register, name, inputConfig, errorMessage }) => {
 	const validName = stringNormalizer(name);
@@ -9,7 +9,7 @@ export const FormField = ({ Icon, register, name, inputConfig, errorMessage }) =
 
 	return (
 		<div className='flex flex-col md:flex-row md:items-center gap-y-2 mb-8'>
-			<div className='w-full md:w-1/4'>
+			<div className='w-full md:w-2/6'>
 				<p>
 					{name} {required && <span className='text-red-500'>*</span>}
 				</p>
