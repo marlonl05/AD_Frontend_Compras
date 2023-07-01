@@ -17,9 +17,7 @@ export const Providers = () => {
 			header={
 				<Header>
 					<Tab className={focusStyle}>Listado de proveedores</Tab>
-					<Tab className={focusStyle} disabled={!currentProvider}>
-						Detalles proveedor
-					</Tab>
+					<Tab className={focusStyle}>Gestionar proveedores</Tab>
 				</Header>
 			}
 			body={
