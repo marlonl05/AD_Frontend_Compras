@@ -1,3 +1,5 @@
+import { providerState } from '../constants';
+
 export const mapNormalToFormProvider = provider => {
 	return {
 		...provider,
@@ -10,7 +12,7 @@ export const mapNormalToFormProvider = provider => {
 export const mapFormProviderToNormal = provider => {
 	provider.documento_identificacion = provider.documento_de_identificacion;
 	provider.nombre = provider.nombres_completos;
-	provider.estado = provider.estado_del_proveedor;
+	provider.estado = !provider.estado_del_proveedor ? providerState.INACTIVO : providerState.ACTIVO;
 
 	delete provider.documento_de_identificacion;
 	delete provider.estado_del_proveedor;

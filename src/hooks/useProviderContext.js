@@ -23,15 +23,14 @@ export const useProviderContext = () => {
 	};
 
 	const handleEditProvider = async provider => {
-		console.log('handleEditProvider');
-		console.log(provider);
+		console.log(mapFormProviderToNormal(provider));
 	};
 
 	const handleTabIndex = tabIndex =>
 		providerDispatch({ type: providerTypes.SET_DEFAULT_TAB_INDEX, payload: tabIndex });
 
 	const handlePrintProvider = () => {
-		console.log('handlePrintProvider');
+		console.log('Print provider');
 	};
 
 	const handleCreateProvider = async provider => {
