@@ -1,15 +1,27 @@
 /* eslint-disable react/prop-types */
 import { RiBillFill, RiHome6Line, RiLogoutCircleRLine, RiTeamFill } from 'react-icons/ri';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Button } from '../common';
 import { useAuthContext } from '../../hooks';
 
-const CustomLink = ({ to = '/', children }) => {
+const links = {
+	home: '/',
+	bills: '/compras',
+	providers: '/proveedores',
+};
+
+const CustomLink = ({ to = '/', isActive = false, children }) => {
 	return (
-		<li className='hover:bg-dark-100 p-4 rounded-tl-xl rounded-bl-xl group transition-colors'>
+		<li
+			className={`hover:bg-dark-100 p-4 rounded-tl-xl rounded-bl-xl group transition-colors ${
+				isActive && 'bg-dark-100'
+			}`}
+		>
 			<Link
 				to={to}
-				className='group-hover:bg-secondary-100 p-4 flex justify-center rounded-xl text-secondary-100 group-hover:text-white transition-colors'
+				className={`group-hover:bg-secondary-100 p-4 flex justify-center rounded-xl text-secondary-100 group-hover:text-white transition-colors ${
+					isActive && 'bg-secondary-100 text-white'
+				}`}
 			>
 				{children}
 			</Link>
@@ -19,6 +31,8 @@ const CustomLink = ({ to = '/', children }) => {
 
 export default function Sidebar({ showMenu }) {
 	const { handleLogout } = useAuthContext();
+
+	const { pathname } = useLocation();
 
 	return (
 		<div
@@ -32,13 +46,13 @@ export default function Sidebar({ showMenu }) {
 						<h1 className='text-2xl text-gray-300 uppercase font-bold text-start my-5'>compras</h1>
 					</li>
 
-					<CustomLink to='/'>
+					<CustomLink to={links.home}>
 						<RiHome6Line className='text-2xl' />
 					</CustomLink>
-					<CustomLink to='/compras'>
+					<CustomLink to={links.bills} isActive={pathname.includes(links.bills)}>
 						<RiBillFill className='text-2xl' />
 					</CustomLink>
-					<CustomLink to='/proveedores'>
+					<CustomLink to={links.providers} isActive={pathname.includes(links.providers)}>
 						<RiTeamFill className='text-2xl' />
 					</CustomLink>
 				</ul>
