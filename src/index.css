@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+#select-input div,
+#select-input svg,
+#select-input li {
+	color: #1f1d2b;
+}

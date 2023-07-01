@@ -29,14 +29,20 @@ export const SelectField = ({
 	const handleOnChange = value => setValue(value);
 
 	return (
-		<div className='flex flex-col md:flex-row md:items-center gap-y-2 mb-8'>
+		<div className='flex flex-col md:flex-row md:items-center gap-y-2 mb-8 '>
 			<div className='w-full md:w-2/6'>
 				<p>
 					{name} {required && <span className='text-red-500'>*</span>}
 				</p>
 			</div>
-			<div className='flex-1 text-dark-200'>
-				<Select value={value} onChange={handleOnChange} options={options} />
+			<div id='select-input' className='flex-1 text-dark-200'>
+				<Select
+					primaryColor='amber'
+					placeholder={name}
+					value={value}
+					onChange={handleOnChange}
+					options={options}
+				/>
 			</div>
 
 			<input type='hidden' {...register(validName, { required })} value={value} />
