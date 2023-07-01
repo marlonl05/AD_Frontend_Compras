@@ -1,8 +1,9 @@
 /* eslint-disable react/prop-types */
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { RiSearchLine } from 'react-icons/ri';
 import ReactPaginate from 'react-paginate';
+import { RiSearchLine } from 'react-icons/ri';
+import { filterListByPattern } from '../../helpers';
 
 const pageLinkClass =
 	'w-full px-2 rounded-md font-semibold border border-secondary-100 flex items-center justify-center hover:bg-secondary-100 hover:text-dark-100 transition-colors';
@@ -14,8 +15,13 @@ export function TableLayout({ items, itemsPerPage, inputPlaceholder, Table }) {
 	const { register, handleSubmit, reset } = useForm();
 
 	const endOffset = itemOffset + itemsPerPage;
-	const currentItems = items.slice(itemOffset, endOffset);
 	const pageCount = Math.ceil(items.length / itemsPerPage);
+
+	const currentItems = useMemo(() => {
+		if (!pattern) return items.slice(itemOffset, endOffset);
+
+		return filterListByPattern(items, pattern).slice(itemOffset, endOffset);
+	}, [items, pattern]);
 
 	const handlePageClick = event => {
 		const newOffset = (event.selected * itemsPerPage) % items.length;
@@ -50,7 +56,7 @@ export function TableLayout({ items, itemsPerPage, inputPlaceholder, Table }) {
 				</div>
 			</div>
 
-			<Table items={currentItems} pattern={pattern} />
+			<Table items={currentItems} />
 
 			<ReactPaginate
 				className='flex justify-center items-center gap-2 flex-col md:flex-row '

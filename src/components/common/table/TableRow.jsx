@@ -4,14 +4,7 @@ import { twMerge } from 'tailwind-merge';
 const defaulStyles =
 	'grid grid-cols-2 gap-4 items-center mb-4 p-4 md:px-0 md:pt-0 rounded-xl animate-fade border-2 md:border-none ';
 
-export const TableRow = ({
-	itemId,
-	solveItem,
-	itemLabels,
-	rowStyles = 'md:grid-cols-4',
-	detailBtn,
-}) => {
-	const item = solveItem(+itemId);
+export const TableRow = ({ item, itemLabels, rowStyles = 'md:grid-cols-4', detailBtn }) => {
 	const itemKeys = Object.keys(itemLabels);
 	const length = itemKeys.length;
 

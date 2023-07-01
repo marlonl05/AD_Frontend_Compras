@@ -16,20 +16,8 @@ const providerLabels = {
 	tipo_proveedor: 'Tipo',
 };
 
-const Table = ({ items, pattern }) => {
-	const { providerList, handleSetCurrentProvider } = useProviderContext();
-
-	const solveProvider = providerId => {
-		const provider = providerList[+providerId];
-
-		if (!pattern) return provider;
-
-		const isMatchWithPatter = Object.values(provider).some(value =>
-			value.toString().toLowerCase().includes(pattern)
-		);
-
-		return isMatchWithPatter && provider;
-	};
+const Table = ({ items }) => {
+	const { handleSetCurrentProvider } = useProviderContext();
 
 	return (
 		<>
@@ -38,15 +26,14 @@ const Table = ({ items, pattern }) => {
 				columsStyle='md:grid-cols-8'
 			/>
 
-			{items.map(providerId => (
+			{items.map(provider => (
 				<TableRow
-					key={+providerId}
-					itemId={providerId}
-					solveItem={solveProvider}
+					key={+provider.id}
+					item={provider}
 					itemLabels={providerLabels}
 					rowStyles='md:grid-cols-8'
 					detailBtn={
-						<Button onClick={() => handleSetCurrentProvider(+providerId)}>
+						<Button onClick={() => handleSetCurrentProvider(+provider.id)}>
 							<RiEye2Fill />
 							Detalles
 						</Button>
@@ -58,13 +45,13 @@ const Table = ({ items, pattern }) => {
 };
 
 export const ProviderList = () => {
-	const { providerListIds, state } = useProviderContext();
+	const { providerList, state } = useProviderContext();
 
 	if (state === status.LOADING) return <Loading />;
 
 	return (
 		<TableLayout
-			items={providerListIds}
+			items={(providerList && Object.values(providerList)) || []}
 			itemsPerPage={8}
 			inputPlaceholder='Buscar proveedores'
 			Table={Table}
