@@ -1,3 +1,4 @@
+/* eslint-disable no-extra-boolean-cast */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import { useEffect } from 'react';
@@ -13,7 +14,7 @@ import {
 import { Button, Checkbox, Form, FormField, FormHeader, SelectField } from '../common';
 import { providerState, providerTypes, status } from '../../constants';
 import { useProviderContext } from '../../hooks';
-import { mapNormalToFormProvider } from '../../helpers';
+import { cleanObject, mapNormalToFormProvider } from '../../helpers';
 
 const providersActions = {
 	add: 'Agregar proveedor',
@@ -44,6 +45,7 @@ export const ProviderForm = ({ provider }) => {
 		handleEditProvider,
 		handleReloadProviders,
 		handlePrintProvider,
+		handleSetCurrentProvider,
 		handleState,
 	} = useProviderContext();
 
@@ -55,23 +57,39 @@ export const ProviderForm = ({ provider }) => {
 
 		if (state !== status.COMPLETED) return;
 
-		reset();
+		let defaultItems = defaultProvider ?? {};
+		defaultItems = cleanObject(defaultItems);
+
+		reset(defaultItems);
+
 		handleReloadProviders();
+		handleSetCurrentProvider(null);
 		handleState(status.IDLE);
 	}, [state]);
 
 	const handleCurrentOption = option => {
-		console.log({ option });
+		if (option !== providersActions.add) return;
+
+		handleSetCurrentProvider(null);
+
+		let defaultItems = defaultProvider ?? {};
+		defaultItems = cleanObject(defaultItems);
+
+		reset(defaultItems);
 	};
 
+	const defaultHeaderValue = provider ? providersActions.details : providersActions.add;
+	const availableHeaderItems = provider ? Object.values(providersActions) : [providersActions.add];
+
+	console.log({ defaultHeaderValue });
 	return (
 		<Form
 			formHeader={
 				<FormHeader
-					defaultValue={providersActions.add}
+					defaultValue={defaultHeaderValue}
 					selectList={Object.values(providersActions)}
 					propertyToUseInValue='name'
-					selectOnlyThisItems={[providersActions.add]}
+					selectOnlyThisItems={availableHeaderItems}
 					handleCurrentOption={handleCurrentOption}
 					extraButtonLabel='Imprimir todos los proveedores'
 					handleExtraButtonAction={handlePrintProvider}
@@ -160,7 +178,7 @@ export const ProviderForm = ({ provider }) => {
 
 			<div className='flex justify-end md:col-span-2'>
 				<Button type='submit' className='w-auto'>
-					{!provider ? 'Registrar' : 'Actualizar'}
+					{!provider ? 'Registrar proveedor' : 'Guardar cambios'}
 				</Button>
 			</div>
 		</Form>

@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Select from 'react-tailwindcss-select';
 import { Button } from '../Button';
 import { checkIfObjectHaveProp } from '../../../helpers';
@@ -14,17 +14,21 @@ export const FormHeader = ({
 	extraButtonLabel,
 	handleExtraButtonAction,
 }) => {
-	const defaultItem = {
-		value: checkIfObjectHaveProp(defaultValue, propertyToUseInValue),
-		label: checkIfObjectHaveProp(defaultValue, propertyToUseInLabel),
-	};
-
 	const options = selectList.map(item => ({
 		value: checkIfObjectHaveProp(item, propertyToUseInValue),
 		label: checkIfObjectHaveProp(item, propertyToUseInLabel),
 	}));
 
-	const [value, setValue] = useState(defaultItem);
+	const [value, setValue] = useState({});
+
+	useEffect(() => {
+		const defaultItem = {
+			value: checkIfObjectHaveProp(defaultValue, propertyToUseInValue),
+			label: checkIfObjectHaveProp(defaultValue, propertyToUseInLabel),
+		};
+
+		setValue(defaultItem);
+	}, [defaultValue]);
 
 	const handleOnChange = value => {
 		if (selectOnlyThisItems.length < 1) return;
