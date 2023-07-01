@@ -21,6 +21,7 @@
 		"react-icons": "^4.9.0",
 		"react-paginate": "^8.2.0",
 		"react-router-dom": "^6.13.0",
+		"react-tailwindcss-select": "^1.8.5",
 		"sonner": "^0.5.0",
 		"tailwind-merge": "^1.13.2"
 	},
