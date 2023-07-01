@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import {
 	RiBankCardLine,
@@ -13,8 +13,7 @@ import {
 import { Button, Checkbox, Form, FormField, FormHeader, SelectField } from '../common';
 import { providerState, providerTypes, status } from '../../constants';
 import { useProviderContext } from '../../hooks';
-import { checkIfObjectHaveProp, mapNormalToFormProvider } from '../../helpers';
-import Select from 'react-tailwindcss-select';
+import { mapNormalToFormProvider } from '../../helpers';
 
 const providersActions = {
 	add: 'Agregar proveedor',
@@ -30,9 +29,10 @@ export const ProviderForm = ({ provider }) => {
 	};
 
 	const {
+		reset,
 		register,
 		handleSubmit,
-		reset,
+		watch,
 		formState: { errors },
 	} = useForm({
 		defaultValues: defaultProvider,
@@ -152,7 +152,11 @@ export const ProviderForm = ({ provider }) => {
 				required
 			/>
 
-			<Checkbox register={register} text='Estado del proveedor' />
+			<Checkbox
+				register={register}
+				text='Estado del proveedor'
+				currentValue={watch('estado_del_proveedor') ? providerState.ACTIVO : providerState.INACTIVO}
+			/>
 
 			<div className='flex justify-end md:col-span-2'>
 				<Button type='submit' className='w-auto'>
