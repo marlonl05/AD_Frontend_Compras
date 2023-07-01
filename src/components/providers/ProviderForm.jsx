@@ -1,5 +1,6 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import {
 	RiBankCardLine,
@@ -9,29 +10,42 @@ import {
 	RiSubwayLine,
 	RiUserLine,
 } from 'react-icons/ri';
-import { Button, Form, FormField, SelectField } from '../common';
+import { Button, Checkbox, Form, FormField, FormHeader, SelectField } from '../common';
 import { providerState, providerTypes, status } from '../../constants';
 import { useProviderContext } from '../../hooks';
-import { mapNormalToFormProvider } from '../../helpers';
+import { checkIfObjectHaveProp, mapNormalToFormProvider } from '../../helpers';
+import Select from 'react-tailwindcss-select';
 
 const providersActions = {
 	add: 'Agregar proveedor',
 	details: 'Detalles del proveedor',
-	printAll: 'Imprimir listado de proveedores',
 };
 
 export const ProviderForm = ({ provider }) => {
+	let defaultProvider = provider && mapNormalToFormProvider(provider);
+
+	defaultProvider = provider && {
+		...defaultProvider,
+		estado_del_proveedor: providerState.ACTIVO === defaultProvider.estado,
+	};
+
 	const {
 		register,
 		handleSubmit,
 		reset,
 		formState: { errors },
 	} = useForm({
-		defaultValues: provider && mapNormalToFormProvider(provider),
+		defaultValues: defaultProvider,
 	});
 
-	const { state, handleCreateProvider, handleEditProvider, handleReloadProviders, handleState } =
-		useProviderContext();
+	const {
+		state,
+		handleCreateProvider,
+		handleEditProvider,
+		handleReloadProviders,
+		handlePrintProvider,
+		handleState,
+	} = useProviderContext();
 
 	useEffect(() => {
 		if (state === status.FAILED) {
@@ -46,8 +60,25 @@ export const ProviderForm = ({ provider }) => {
 		handleState(status.IDLE);
 	}, [state]);
 
+	const handleCurrentOption = option => {
+		console.log({ option });
+	};
+
 	return (
-		<Form onSubmit={handleSubmit(!provider ? handleCreateProvider : handleEditProvider)}>
+		<Form
+			formHeader={
+				<FormHeader
+					defaultValue={providersActions.add}
+					selectList={Object.values(providersActions)}
+					propertyToUseInValue='name'
+					selectOnlyThisItems={[providersActions.add]}
+					handleCurrentOption={handleCurrentOption}
+					extraButtonLabel='Imprimir todos los proveedores'
+					handleExtraButtonAction={handlePrintProvider}
+				/>
+			}
+			onSubmit={handleSubmit(!provider ? handleCreateProvider : handleEditProvider)}
+		>
 			<FormField
 				Icon={RiUserLine}
 				register={register}
@@ -120,13 +151,8 @@ export const ProviderForm = ({ provider }) => {
 				defaultValue={provider?.tipo_proveedor}
 				required
 			/>
-			<SelectField
-				register={register}
-				name='Estado del proveedor'
-				selectList={Object.values(providerState)}
-				defaultValue={provider?.estado}
-				required
-			/>
+
+			<Checkbox register={register} text='Estado del proveedor' />
 
 			<div className='flex justify-end md:col-span-2'>
 				<Button type='submit' className='w-auto'>
