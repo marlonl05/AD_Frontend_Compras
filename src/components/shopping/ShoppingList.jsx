@@ -1,57 +1,78 @@
 /* eslint-disable react/prop-types */
-import { RiEyeFill, RiFileTextLine, RiPencilFill } from 'react-icons/ri';
-import { Button, Card, Loading } from '../common';
+import { RiEye2Fill } from 'react-icons/ri';
+import { Button, Loading, TableHeader, TableRow } from '../common';
 import { status } from '../../constants';
-import { useShoppingContext } from '../../hooks';
+import { useProviderContext, useShoppingContext } from '../../hooks';
+import { TableLayout } from '../../layout/table';
 
-const ShoppingCard = ({ shoppingId }) => {
-	const { shoppingList, handleEditShopping, handlePrintShopping, handleShowShopping } =
-		useShoppingContext();
+const shoppingLabels = {
+	id: 'ID',
+	proveedor_id: 'Proveedor',
+	fecha_factura: 'Fecha de factura',
+	tipo_pago: 'Tipo de pago',
+	fecha_vencimiento: 'Fecha de vencimiento',
+	total: 'Pago total',
+};
 
-	const shopping = shoppingList[shoppingId];
+const ShoppingTableRow = ({ shopping, labels }) => {
+	const { handleSetCurrentShopping } = useShoppingContext();
+	const { providerList } = useProviderContext();
+	const provider = providerList[+shopping.proveedor_id];
+
+	const updatedShopping = { ...shopping, proveedor_id: provider?.nombre };
 
 	return (
-		<Card
-			title={shopping?.title || 'Compra #' + shoppingId}
-			alt='Abastos'
-			imgSrc={shopping?.imgSrc || '/logo-carrito.jpg'}
-		>
-			<span className='text-gray-400'>$ {shopping?.total}</span>
-			<p className='text-gray-500'>{shopping?.fecha_factura}</p>
-			<div className='flex justify-center items-center gap-2 flex-row lg:flex-col xl:flex-row'>
-				<Button
-					className='bg-transparent hover:bg-secondary-100 transition-colors'
-					onClick={() => handleShowShopping(shoppingId)}
-				>
-					<RiEyeFill />
+		<TableRow
+			key={+shopping.id}
+			item={updatedShopping}
+			itemLabels={labels}
+			rowStyles='md:grid-cols-7'
+			detailBtn={
+				<Button onClick={() => handleSetCurrentShopping(+shopping.id)}>
+					<RiEye2Fill />
+					Detalles
 				</Button>
-				<Button
-					className='bg-transparent hover:bg-secondary-100 transition-colors'
-					onClick={handleEditShopping}
-				>
-					<RiPencilFill />
-				</Button>
-				<Button
-					className='bg-transparent hover:bg-secondary-100 transition-colors'
-					onClick={handlePrintShopping}
-				>
-					<RiFileTextLine />
-				</Button>
-			</div>
-		</Card>
+			}
+		/>
+	);
+};
+
+const Table = ({ items }) => {
+	const labels = { ...shoppingLabels, detalles: 'Ver detalles' };
+
+	return (
+		<>
+			<TableHeader labels={labels} columsStyle='md:grid-cols-7' />
+
+			{items.map(shopping => (
+				<ShoppingTableRow key={+shopping.id} shopping={shopping} labels={labels} />
+			))}
+		</>
 	);
 };
 
 export const ShoppingList = () => {
-	const { state, shoppingListIds } = useShoppingContext();
+	const { state: providerState, providerList } = useProviderContext();
+	const { state, shoppingList } = useShoppingContext();
 
 	if (state === status.LOADING) return <Loading />;
 
+	if (providerState === status.LOADING) return <Loading />;
+
+	const customFilter = (items, pattern) =>
+		items.filter(item => {
+			const provider = providerList[+item?.proveedor_id];
+
+			return provider?.nombre?.toLowerCase().includes(pattern?.toLowerCase());
+		});
+
 	return (
-		<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 p-8 gap-14 animate-fade'>
-			{shoppingListIds.map(id => (
-				<ShoppingCard key={id} shoppingId={id} />
-			))}
-		</div>
+		<TableLayout
+			items={(shoppingList && Object.values(shoppingList)) || []}
+			itemsPerPage={5}
+			inputPlaceholder='Buscar compras'
+			Table={Table}
+			customFilter={customFilter}
+		/>
 	);
 };
