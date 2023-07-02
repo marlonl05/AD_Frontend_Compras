@@ -52,7 +52,7 @@ export const ProviderList = () => {
 	return (
 		<TableLayout
 			items={(providerList && Object.values(providerList)) || []}
-			itemsPerPage={8}
+			itemsPerPage={5}
 			inputPlaceholder='Buscar proveedores'
 			Table={Table}
 		/>
