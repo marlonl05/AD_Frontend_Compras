@@ -1,4 +1,5 @@
 import { AuthProvider } from './auth';
+import { ProductProvider } from './products';
 import { ProviderProvider } from './provider';
 import { ShoppingProvider } from './shopping';
 
@@ -6,9 +7,11 @@ import { ShoppingProvider } from './shopping';
 export const GlobalProvider = ({ children }) => {
 	return (
 		<AuthProvider>
-			<ShoppingProvider>
-				<ProviderProvider>{children}</ProviderProvider>
-			</ShoppingProvider>
+			<ProductProvider>
+				<ShoppingProvider>
+					<ProviderProvider>{children}</ProviderProvider>
+				</ShoppingProvider>
+			</ProductProvider>
 		</AuthProvider>
 	);
 };
