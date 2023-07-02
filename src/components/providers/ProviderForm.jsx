@@ -14,19 +14,27 @@ import {
 import { Button, Checkbox, Form, FormField, FormHeader, SelectField } from '../common';
 import { providerState, providerTypes, status } from '../../constants';
 import { useProviderContext } from '../../hooks';
-import { cleanObject, mapNormalToFormProvider } from '../../helpers';
 
 const providersActions = {
 	add: 'Agregar proveedor',
 	details: 'Detalles del proveedor',
 };
 
-export const ProviderForm = ({ provider }) => {
-	let defaultProvider = provider && mapNormalToFormProvider(provider);
+const initialValues = {
+	documento_identificacion: '',
+	nombre: '',
+	ciudad: '',
+	email: '',
+	direccion: '',
+	telefono: '',
+	estado: false,
+	tipo_proveedor: '',
+};
 
-	defaultProvider = provider && {
-		...defaultProvider,
-		estado_del_proveedor: providerState.ACTIVO === defaultProvider.estado,
+export const ProviderForm = ({ provider }) => {
+	const defaultProvider = provider && {
+		...provider,
+		estado: providerState.ACTIVO === provider?.estado,
 	};
 
 	const {
@@ -57,14 +65,10 @@ export const ProviderForm = ({ provider }) => {
 
 		if (state !== status.COMPLETED) return;
 
-		let defaultItems = defaultProvider ?? {};
-		defaultItems = cleanObject(defaultItems);
-
-		reset(defaultItems);
+		reset(initialValues);
 
 		handleReloadProviders();
 		handleSetCurrentProvider(null);
-		handleState(status.IDLE);
 	}, [state]);
 
 	const handleCurrentOption = option => {
@@ -72,16 +76,12 @@ export const ProviderForm = ({ provider }) => {
 
 		handleSetCurrentProvider(null);
 
-		let defaultItems = defaultProvider ?? {};
-		defaultItems = cleanObject(defaultItems);
-
-		reset(defaultItems);
+		reset(initialValues);
 	};
 
 	const defaultHeaderValue = provider ? providersActions.details : providersActions.add;
 	const availableHeaderItems = provider ? Object.values(providersActions) : [providersActions.add];
 
-	console.log({ defaultHeaderValue });
 	return (
 		<Form
 			formHeader={
@@ -100,16 +100,22 @@ export const ProviderForm = ({ provider }) => {
 			<FormField
 				Icon={RiUserLine}
 				register={register}
-				name='Nombres Completos'
+				nameValues={{
+					label: 'Nombres Completos',
+					input: 'nombre',
+				}}
 				inputConfig={{
 					required: { value: true, message: 'El nombre del proveedor es requerido.' },
 				}}
-				errorMessage={errors.nombres_completos?.message}
+				errorMessage={errors.nombre?.message}
 			/>
 			<FormField
 				Icon={RiBankCardLine}
 				register={register}
-				name='Documento de identificación'
+				nameValues={{
+					label: 'Documento de identificación',
+					input: 'documento_identificacion',
+				}}
 				inputConfig={{
 					required: { value: true, message: 'El documento de identificación es requerido.' },
 					minLength: {
@@ -121,12 +127,15 @@ export const ProviderForm = ({ provider }) => {
 						message: 'El documento de identificación debe tener máximo 13 dígitos.',
 					},
 				}}
-				errorMessage={errors.documento_de_identificacion?.message}
+				errorMessage={errors.documento_identificacion?.message}
 			/>
 			<FormField
 				Icon={RiBuildingLine}
 				register={register}
-				name='Ciudad'
+				nameValues={{
+					label: 'Ciudad',
+					input: 'ciudad',
+				}}
 				inputConfig={{
 					required: { value: true, message: 'La cuidad del proveedor es requerido.' },
 				}}
@@ -135,7 +144,10 @@ export const ProviderForm = ({ provider }) => {
 			<FormField
 				Icon={RiSubwayLine}
 				register={register}
-				name='Dirección'
+				nameValues={{
+					label: 'Dirección',
+					input: 'direccion',
+				}}
 				inputConfig={{
 					required: { value: true, message: 'La dirección del proveedor es requerido.' },
 				}}
@@ -144,7 +156,10 @@ export const ProviderForm = ({ provider }) => {
 			<FormField
 				Icon={RiCellphoneLine}
 				register={register}
-				name='Teléfono'
+				nameValues={{
+					label: 'Teléfono',
+					input: 'telefono',
+				}}
 				inputConfig={{
 					required: { value: true, message: 'El teléfono del proveedor es requerido.' },
 					minLength: { value: 10, message: 'El teléfono debe tener al menos 10 dígitos.' },
@@ -154,7 +169,10 @@ export const ProviderForm = ({ provider }) => {
 			<FormField
 				Icon={RiMailLine}
 				register={register}
-				name='Email'
+				nameValues={{
+					label: 'Correo electrónico',
+					input: 'email',
+				}}
 				inputConfig={{
 					required: { value: true, message: 'El correo electrónico es requerido.' },
 					pattern: { value: /^\S+@\S+\.\S+$/g, message: 'El correo electrónico no es válido' },
@@ -164,15 +182,23 @@ export const ProviderForm = ({ provider }) => {
 
 			<SelectField
 				register={register}
-				name='Tipo proveedor'
+				nameValues={{
+					label: 'Tipo proveedor',
+					input: 'tipo_proveedor',
+				}}
 				selectList={Object.values(providerTypes)}
 				defaultValue={provider?.tipo_proveedor}
+				errorMessage={errors.tipo_proveedor?.message}
+				cleanInput={watch('tipo_proveedor') === ''}
 				required
 			/>
 
 			<Checkbox
 				register={register}
-				text='Estado del proveedor'
+				nameValues={{
+					label: 'Estado del proveedor',
+					input: 'estado',
+				}}
 				currentValue={watch('estado_del_proveedor') ? providerState.ACTIVO : providerState.INACTIVO}
 			/>
 
