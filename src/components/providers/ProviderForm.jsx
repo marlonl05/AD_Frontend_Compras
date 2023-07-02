@@ -44,7 +44,7 @@ export const ProviderForm = ({ provider }) => {
 		handleSubmit,
 		formState: { errors },
 	} = useForm({
-		defaultValues: defaultProvider,
+		defaultValues: defaultProvider || initialValues,
 	});
 
 	const {
