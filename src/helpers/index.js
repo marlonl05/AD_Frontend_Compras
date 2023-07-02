@@ -1,4 +1,5 @@
 export * from './time';
+export * from './fetchMock';
 export * from './enviroments';
 export * from './cleanObject';
 export * from './responseMapper';
