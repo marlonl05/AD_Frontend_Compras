@@ -1,4 +1,3 @@
-/* eslint-disable no-extra-boolean-cast */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import { useEffect } from 'react';
@@ -27,7 +26,7 @@ const initialValues = {
 	email: '',
 	direccion: '',
 	telefono: '',
-	estado: false,
+	estado: true,
 	tipo_proveedor: '',
 };
 
@@ -39,9 +38,10 @@ export const ProviderForm = ({ provider }) => {
 
 	const {
 		reset,
-		register,
-		handleSubmit,
 		watch,
+		register,
+		setValue,
+		handleSubmit,
 		formState: { errors },
 	} = useForm({
 		defaultValues: defaultProvider,
@@ -187,9 +187,9 @@ export const ProviderForm = ({ provider }) => {
 					input: 'tipo_proveedor',
 				}}
 				selectList={Object.values(providerTypes)}
-				defaultValue={provider?.tipo_proveedor}
+				defaultValue={watch('tipo_proveedor')}
 				errorMessage={errors.tipo_proveedor?.message}
-				cleanInput={watch('tipo_proveedor') === ''}
+				handleValueOnChange={setValue}
 				required
 			/>
 
@@ -199,7 +199,7 @@ export const ProviderForm = ({ provider }) => {
 					label: 'Estado del proveedor',
 					input: 'estado',
 				}}
-				currentValue={watch('estado_del_proveedor') ? providerState.ACTIVO : providerState.INACTIVO}
+				currentValue={watch('estado') ? providerState.ACTIVO : providerState.INACTIVO}
 			/>
 
 			<div className='flex justify-end md:col-span-2'>
