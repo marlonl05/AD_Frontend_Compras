@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import { useEffect, useReducer } from 'react';
 import { shoppingReducer } from './shoppingReducer';
@@ -5,6 +6,7 @@ import { ShoppingContext } from '../contextBuilder';
 import { status } from '../../constants';
 import { shoppingTypes } from '../../types';
 import comprasApi from '../../api';
+import { fakeShoppingsData } from '../../helpers/fakeShoppingsData';
 
 const initialState = {
 	shoppingList: {},
@@ -16,6 +18,7 @@ const initialState = {
 	currentShopping: null,
 	currentSidebarShopping: null,
 	refreshCounter: 0,
+	defaultTabIndex: 0,
 };
 
 export const ShoppingProvider = ({ children }) => {
@@ -27,7 +30,10 @@ export const ShoppingProvider = ({ children }) => {
 		try {
 			shoppingDispatch({ type: shoppingTypes.SET_STATE, payload: status.LOADING });
 
-			const { data } = await comprasApi.get('/facturas');
+			// const { data } = await comprasApi.get('/facturas');
+			const data = {
+				response: fakeShoppingsData,
+			};
 
 			if (!data?.response) throw new Error('Error al cargar las facturas');
 
