@@ -16,5 +16,5 @@ export const Notifications = () => {
 		if (shoppingError) toast.error(shoppingError);
 	}, [providerError, shoppingError]);
 
-	return <Toaster />;
+	return <Toaster richColors />;
 };

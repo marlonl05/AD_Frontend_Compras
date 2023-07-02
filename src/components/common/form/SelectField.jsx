@@ -12,7 +12,7 @@ export const SelectField = ({
 	propForSelectValue = 'id',
 	propForSelectLabel = 'name',
 	errorMessage,
-	cleanInput = false,
+	handleValueOnChange,
 }) => {
 	const options = selectList.map(item => ({
 		value: checkIfObjectHaveProp(item, propForSelectValue),
@@ -30,7 +30,12 @@ export const SelectField = ({
 		setValue(defaultItem);
 	}
 
-	if (cleanInput && value?.value) setValue('');
+	if (!defaultValue && value?.value) setValue();
+
+	const handleChange = option => {
+		setValue(option);
+		handleValueOnChange(nameValues.input, option?.value);
+	};
 
 	return (
 		<div className='flex flex-col md:flex-row md:items-center gap-y-2 mb-8 '>
@@ -45,7 +50,7 @@ export const SelectField = ({
 						primaryColor='amber'
 						placeholder={`Elegir ${nameValues.label.toLowerCase()}`}
 						value={value}
-						onChange={setValue}
+						onChange={handleChange}
 						options={options}
 					/>
 				</div>
@@ -61,7 +66,6 @@ export const SelectField = ({
 						message: `El ${nameValues.label?.toLowerCase()} es requerido.`,
 					},
 				})}
-				value={value?.value ?? ''}
 			/>
 		</div>
 	);
@@ -76,8 +80,9 @@ SelectField.propTypes = {
 	defaultValue: PropTypes.string,
 	required: PropTypes.bool,
 	selectList: PropTypes.array.isRequired,
+	handleValueOnChange: PropTypes.func.isRequired,
+
 	propForSelectValue: PropTypes.string,
 	propForSelectLabel: PropTypes.string,
 	errorMessage: PropTypes.string,
-	cleanInput: PropTypes.bool,
 };

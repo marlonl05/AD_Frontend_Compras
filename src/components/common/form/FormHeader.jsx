@@ -21,7 +21,7 @@ export const FormHeader = ({
 
 	const [value, setValue] = useState();
 
-	if (defaultValue && !value?.value) {
+	if ((!value?.value && defaultValue) || value?.value !== defaultValue) {
 		const defaultItem = {
 			value: checkIfObjectHaveProp(defaultValue, propertyToUseInValue),
 			label: checkIfObjectHaveProp(defaultValue, propertyToUseInLabel),
