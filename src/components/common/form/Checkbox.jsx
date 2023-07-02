@@ -1,18 +1,15 @@
-/* eslint-disable react/prop-types */
-import { stringNormalizer } from '../../../helpers';
+import PropTypes from 'prop-types';
 
-export const Checkbox = ({ text = '', register, currentValue, ...props }) => {
-	const validName = stringNormalizer(text);
-
+export const Checkbox = ({ nameValues = {}, register, currentValue, ...props }) => {
 	return (
 		<div className='flex items-start flex-col md:flex-row gap-2 mb-8'>
-			<div className='w-full md:w-2/6'>{text}</div>
+			<div className='w-full md:w-2/6'>{nameValues.label}</div>
 			<div className='flex items-center gap-2'>
 				<label className='relative h-8 w-14 cursor-pointer block'>
 					<input
 						type='checkbox'
 						className='peer sr-only [&:checked_+_span_svg[data-unchecked-icon]]:hidden [&:checked_+_span_svg[data-checked-icon]]:block'
-						{...register(validName)}
+						{...register(nameValues.input)}
 						{...props}
 					/>
 					<span className='absolute inset-0 z-10 m-1 inline-flex h-6 w-6 items-center justify-center rounded-full bg-white text-gray-400 transition peer-checked:translate-x-6 peer-checked:text-secondary-100'>
@@ -50,4 +47,13 @@ export const Checkbox = ({ text = '', register, currentValue, ...props }) => {
 			</div>
 		</div>
 	);
+};
+
+Checkbox.propTypes = {
+	nameValues: PropTypes.shape({
+		label: PropTypes.string.isRequired,
+		input: PropTypes.string.isRequired,
+	}),
+	register: PropTypes.func.isRequired,
+	currentValue: PropTypes.string,
 };

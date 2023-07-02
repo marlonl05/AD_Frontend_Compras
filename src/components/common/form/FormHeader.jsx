@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Select from 'react-tailwindcss-select';
 import { Button } from '../Button';
 import { checkIfObjectHaveProp } from '../../../helpers';
@@ -19,16 +19,16 @@ export const FormHeader = ({
 		label: checkIfObjectHaveProp(item, propertyToUseInLabel),
 	}));
 
-	const [value, setValue] = useState({});
+	const [value, setValue] = useState();
 
-	useEffect(() => {
+	if (defaultValue && !value?.value) {
 		const defaultItem = {
 			value: checkIfObjectHaveProp(defaultValue, propertyToUseInValue),
 			label: checkIfObjectHaveProp(defaultValue, propertyToUseInLabel),
 		};
 
 		setValue(defaultItem);
-	}, [defaultValue]);
+	}
 
 	const handleOnChange = value => {
 		if (selectOnlyThisItems.length < 1) return;
@@ -46,7 +46,7 @@ export const FormHeader = ({
 			id='select-input'
 			className='flex flex-col md:flex-row gap-2 items-center justify-between text-dark-200'
 		>
-			<h1 className='text-xl text-gray-100'>{value.value}</h1>
+			<h1 className='text-xl text-gray-100'>{value?.value}</h1>
 			<div className='flex flex-col md:flex-row items-center gap-2'>
 				<div>
 					<Select primaryColor='amber' value={value} onChange={handleOnChange} options={options} />
