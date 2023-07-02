@@ -1,9 +1,11 @@
+/* eslint-disable no-unused-vars */
 import { useContext } from 'react';
+import { toast } from 'sonner';
 import { ProviderContext } from '../context';
 import comprasApi from '../api';
 import { providerTypes } from '../types';
 import { status } from '../constants';
-import { mapFormProviderToNormal } from '../helpers';
+import { fetchMock, prepareProviderToSend } from '../helpers';
 
 export const useProviderContext = () => {
 	const {
@@ -22,9 +24,23 @@ export const useProviderContext = () => {
 		providerDispatch({ type: providerTypes.SET_DEFAULT_TAB_INDEX, payload: 1 });
 	};
 
-	const handleEditProvider = async provider => {
-		// console.log(mapFormProviderToNormal(provider));
-		providerDispatch({ type: providerTypes.ADD });
+	const handleEditProvider = providerRequest => {
+		const provider = prepareProviderToSend(providerRequest);
+		console.log('Updating provider', { provider });
+
+		const request = fetchMock();
+
+		toast.promise(request, {
+			loading: 'Actualizando proveedor...',
+			success: data => {
+				providerDispatch({ type: providerTypes.ADD });
+				return 'Proveedor actualizado exitosamente.';
+			},
+			error: message => {
+				handleState(status.FAILED);
+				return 'Error al actualizar proveedor!';
+			},
+		});
 	};
 
 	const handleTabIndex = tabIndex =>
@@ -34,16 +50,24 @@ export const useProviderContext = () => {
 		console.log('Print provider');
 	};
 
-	const handleCreateProvider = async provider => {
-		try {
-			// console.log({ provider });
-			// await comprasApi.post('/ingresar/proveedor', mapFormProviderToNormal(provider));
+	const handleCreateProvider = providerRequest => {
+		const provider = prepareProviderToSend(providerRequest);
+		console.log('Adding provider', { provider });
+		// await comprasApi.post('/ingresar/proveedor', mapFormProviderToNormal(provider));
 
-			providerDispatch({ type: providerTypes.ADD });
-		} catch (error) {
-			console.error(error);
-			handleState(status.FAILED);
-		}
+		const request = fetchMock();
+
+		toast.promise(request, {
+			loading: 'Creando proveedor...',
+			success: response => {
+				providerDispatch({ type: providerTypes.ADD });
+				return 'Proveedor creado exitosamente.';
+			},
+			error: message => {
+				handleState(status.FAILED);
+				return 'Error al crear proveedor!';
+			},
+		});
 	};
 
 	const handleReloadProviders = () => providerDispatch({ type: providerTypes.RELOAD_PROVIDERS });
