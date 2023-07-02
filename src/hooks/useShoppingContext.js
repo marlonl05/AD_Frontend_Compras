@@ -13,6 +13,7 @@ export const useShoppingContext = () => {
 		currentShopping,
 		currentSidebarShopping,
 		shoppingDispatch,
+		defaultTabIndex,
 	} = useContext(ShoppingContext);
 
 	const handleShowShopping = shoppingId => {
@@ -27,6 +28,13 @@ export const useShoppingContext = () => {
 		console.log('handlePrintShopping');
 	};
 
+	const handleTabIndex = tabIndex =>
+		shoppingDispatch({ type: shoppingTypes.SET_DEFAULT_TAB_INDEX, payload: tabIndex });
+
+	const handleSetCurrentShopping = shoppingId => {
+		console.log('handleSetCurrentShopping', shoppingId);
+	};
+
 	return {
 		// State
 		shoppingList,
@@ -37,10 +45,13 @@ export const useShoppingContext = () => {
 		cartList,
 		currentShopping,
 		currentSidebarShopping,
+		defaultTabIndex,
 
 		// Actions
+		handleTabIndex,
 		handleShowShopping,
 		handleEditShopping,
 		handlePrintShopping,
+		handleSetCurrentShopping,
 	};
 };
