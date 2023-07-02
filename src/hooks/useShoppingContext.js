@@ -32,7 +32,8 @@ export const useShoppingContext = () => {
 		shoppingDispatch({ type: shoppingTypes.SET_DEFAULT_TAB_INDEX, payload: tabIndex });
 
 	const handleSetCurrentShopping = shoppingId => {
-		console.log('handleSetCurrentShopping', shoppingId);
+		shoppingDispatch({ type: shoppingTypes.SET_CURRENT_SHOPPING, payload: shoppingId });
+		shoppingDispatch({ type: shoppingTypes.SET_DEFAULT_TAB_INDEX, payload: 1 });
 	};
 
 	return {
