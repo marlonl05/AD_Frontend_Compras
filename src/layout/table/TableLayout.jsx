@@ -8,7 +8,7 @@ import { filterListByPattern } from '../../helpers';
 const pageLinkClass =
 	'w-full px-2 rounded-md font-semibold border border-secondary-100 flex items-center justify-center hover:bg-secondary-100 hover:text-dark-100 transition-colors';
 
-export function TableLayout({ items, itemsPerPage, inputPlaceholder, Table }) {
+export function TableLayout({ items, itemsPerPage, inputPlaceholder, Table, customFilter }) {
 	const [itemOffset, setItemOffset] = useState(0);
 	const [pattern, setPattern] = useState();
 
@@ -20,8 +20,12 @@ export function TableLayout({ items, itemsPerPage, inputPlaceholder, Table }) {
 	const currentItems = useMemo(() => {
 		if (!pattern) return items.slice(itemOffset, endOffset);
 
-		return filterListByPattern(items, pattern).slice(itemOffset, endOffset);
-	}, [items, pattern]);
+		let listFiltered = filterListByPattern(items, pattern);
+
+		if (customFilter && listFiltered?.length < 1) listFiltered = customFilter(items, pattern);
+
+		return listFiltered.slice(itemOffset, endOffset);
+	}, [items, pattern, itemOffset]);
 
 	const handlePageClick = event => {
 		const newOffset = (event.selected * itemsPerPage) % items.length;

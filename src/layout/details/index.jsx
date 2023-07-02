@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
 import { RiCloseLine } from 'react-icons/ri';
-import { useLocation } from 'react-router-dom';
 
 export const DetailSidebar = ({
 	showDetail,
@@ -11,15 +10,11 @@ export const DetailSidebar = ({
 	tableHeader,
 	tableBody,
 }) => {
-	const { pathname } = useLocation();
-
-	const showBillDetails = pathname.includes('compras');
-
 	return (
 		<div
 			className={`lg:col-span-2 bg-dark-200 fixed w-full h-full lg:right-0 top-0 transition-all z-50 ${
 				showDetail ? 'right-0' : '-right-full'
-			} ${showBillDetails ? 'lg:w-[400px]' : 'lg:w-0'}`}
+			} ${showDetail ? 'lg:w-[400px]' : 'lg:w-0'}`}
 		>
 			<div className='relative text-gray-300 p-8 h-full'>
 				<RiCloseLine

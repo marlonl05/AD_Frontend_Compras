@@ -4,12 +4,14 @@ import { Outlet, useLocation } from 'react-router-dom';
 import { RiAddLine, RiCloseLine, RiMenu3Fill, RiPieChartLine, RiUser3Line } from 'react-icons/ri';
 import Sidebar from '../components/sidebar';
 import { BillSidebar } from '../components/bill';
+import { useShoppingContext } from '../hooks';
 
 export const Layout = ({ children }) => {
+	const { defaultTabIndex } = useShoppingContext();
 	const [index, setIndex] = useState(0);
 	const { pathname } = useLocation();
 
-	const showBillDetails = pathname.includes('compras');
+	const showBillDetails = pathname.includes('compras') && defaultTabIndex === 1;
 
 	const handleShowMenu = newIndex => setIndex(newIndex === index ? 0 : newIndex);
 
