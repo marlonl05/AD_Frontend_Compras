@@ -13,10 +13,10 @@ export const shoppingReducer = (shoppingState, action) => {
 			};
 		}
 
-		case shoppingTypes.SET_CURRENT_SIDEBAR_SHOPPING: {
+		case shoppingTypes.SET_CURRENT_SHOPPING: {
 			return {
 				...shoppingState,
-				currentSidebarShopping: action.payload,
+				currentShopping: action.payload,
 			};
 		}
 

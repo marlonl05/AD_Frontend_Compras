@@ -16,7 +16,6 @@ const initialState = {
 	message: null,
 	cartList: [],
 	currentShopping: null,
-	currentSidebarShopping: null,
 	refreshCounter: 0,
 	defaultTabIndex: 0,
 };
