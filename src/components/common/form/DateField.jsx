@@ -17,7 +17,7 @@ export const DateField = ({
 	return (
 		<div className='flex flex-col md:flex-row md:items-center gap-y-2 mb-8'>
 			<div className='w-full md:w-2/6'>
-				<p>
+				<p className='truncate'>
 					{nameValues.label} {required && <span className='text-red-500'>*</span>}
 				</p>
 			</div>
