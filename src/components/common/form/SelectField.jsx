@@ -13,6 +13,8 @@ export const SelectField = ({
 	propForSelectLabel = 'name',
 	errorMessage,
 	handleValueOnChange,
+	activeFilter = false,
+	filterPlaceholder = 'Buscar...',
 }) => {
 	const options = selectList.map(item => ({
 		value: checkIfObjectHaveProp(item, propForSelectValue),
@@ -52,6 +54,8 @@ export const SelectField = ({
 						value={value}
 						onChange={handleChange}
 						options={options}
+						isSearchable={activeFilter}
+						searchInputPlaceholder={filterPlaceholder}
 					/>
 				</div>
 				<div className='text-red-500 h-2 mt-1'>
@@ -81,7 +85,8 @@ SelectField.propTypes = {
 	required: PropTypes.bool,
 	selectList: PropTypes.array.isRequired,
 	handleValueOnChange: PropTypes.func.isRequired,
-
+	activeFilter: PropTypes.bool,
+	filterPlaceholder: PropTypes.string,
 	propForSelectValue: PropTypes.string,
 	propForSelectLabel: PropTypes.string,
 	errorMessage: PropTypes.string,

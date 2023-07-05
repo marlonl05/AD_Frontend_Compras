@@ -91,7 +91,7 @@ export const ProviderForm = ({ provider }) => {
 					propertyToUseInValue='name'
 					selectOnlyThisItems={availableHeaderItems}
 					handleCurrentOption={handleCurrentOption}
-					extraButtonLabel='Imprimir todos los proveedores'
+					extraButtonLabel='Obtener reportes de proveedores'
 					handleExtraButtonAction={handlePrintProvider}
 				/>
 			}
