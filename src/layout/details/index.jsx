@@ -3,6 +3,7 @@ import { RiCloseLine } from 'react-icons/ri';
 
 export const DetailSidebar = ({
 	showDetail,
+	showInLargeScreen = false,
 	toggleDetail,
 	title,
 	header,
@@ -10,11 +11,14 @@ export const DetailSidebar = ({
 	tableHeader,
 	tableBody,
 }) => {
+	const isShowing = showDetail ? 'right-0' : '-right-full';
+	const isShowingInLargeScreen = showInLargeScreen ? 'lg:right-0' : 'lg:-right-full';
+
 	return (
 		<div
-			className={`lg:col-span-2 bg-dark-200 fixed w-full h-full lg:right-0 top-0 transition-all z-50 ${
-				showDetail ? 'right-0' : '-right-full'
-			} ${showDetail ? 'lg:w-[400px]' : 'lg:w-0'}`}
+			className={`lg:col-span-2 bg-dark-200 fixed
+			w-full h-full lg:w-[400px] top-0 transition-all z-50
+			${isShowing} ${isShowingInLargeScreen}`}
 		>
 			<div className='relative text-gray-300 p-8 h-full'>
 				<RiCloseLine
