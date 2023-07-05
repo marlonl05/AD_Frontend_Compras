@@ -36,6 +36,13 @@ export const useShoppingContext = () => {
 		shoppingDispatch({ type: shoppingTypes.SET_DEFAULT_TAB_INDEX, payload: 1 });
 	};
 
+	const handleShowMessage = (message, type) => {
+		shoppingDispatch({
+			type: shoppingTypes.SET_MESSAGES,
+			payload: type === 'error' ? { error: message } : { message },
+		});
+	};
+
 	return {
 		// State
 		shoppingList,
@@ -54,5 +61,6 @@ export const useShoppingContext = () => {
 		handleEditShopping,
 		handlePrintShopping,
 		handleSetCurrentShopping,
+		handleShowMessage,
 	};
 };
