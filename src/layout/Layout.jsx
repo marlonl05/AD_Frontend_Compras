@@ -15,12 +15,14 @@ export const Layout = ({ children }) => {
 
 	const handleShowMenu = newIndex => setIndex(newIndex === index ? 0 : newIndex);
 
+	const showBill = showBillDetails && index === 4;
+
 	return (
 		<>
 			<Sidebar showMenu={index === 3} />
 			{/* Detalle facturas */}
 			<BillSidebar
-				showBill={index === 4}
+				showBill={showBill}
 				showInLargeScreen={showBillDetails}
 				toggleBill={() => handleShowMenu(4)}
 			/>

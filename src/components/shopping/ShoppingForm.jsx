@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useForm } from 'react-hook-form';
-import { Button, DateField, Form, SelectField } from '../common';
+import { Button, DateField, Form, FormHeader, SelectField } from '../common';
 
 const initialValues = {
 	proveedor_id: '',
@@ -8,6 +8,11 @@ const initialValues = {
 	fecha_vencimiento: '',
 	total: '',
 	detalles: [],
+};
+
+const shoppingActions = {
+	add: 'Agregar compra',
+	details: 'Detalles de la compra',
 };
 
 export const ShoppingForm = ({ shopping }) => {
@@ -24,20 +29,37 @@ export const ShoppingForm = ({ shopping }) => {
 		defaultValues: shopping || initialValues,
 	});
 
+	const handleCurrentOption = option => {
+		if (option !== shoppingActions.add) return;
+
+		reset(initialValues);
+	};
+
+	const handlePrintShopping = () => {
+		console.log('Imprimir esta compra');
+	};
+
+	const handleSubmitShopping = () => {
+		console.log('Registrar compra');
+	};
+
+	const defaultHeaderValue = shopping ? shoppingActions.details : shoppingActions.add;
+	const availableHeaderItems = shopping ? Object.values(shoppingActions) : [shoppingActions.add];
+
 	return (
 		<Form
-		// formHeader={
-		// 	<FormHeader
-		// 		defaultValue={defaultHeaderValue}
-		// 		selectList={Object.values(providersActions)}
-		// 		propertyToUseInValue='name'
-		// 		selectOnlyThisItems={availableHeaderItems}
-		// 		handleCurrentOption={handleCurrentOption}
-		// 		extraButtonLabel='Imprimir todos los proveedores'
-		// 		handleExtraButtonAction={handlePrintProvider}
-		// 	/>
-		// }
-		// onSubmit={handleSubmit(!provider ? handleCreateProvider : handleEditProvider)}
+			formHeader={
+				<FormHeader
+					defaultValue={defaultHeaderValue}
+					selectList={Object.values(shoppingActions)}
+					propertyToUseInValue='name'
+					selectOnlyThisItems={availableHeaderItems}
+					handleCurrentOption={handleCurrentOption}
+					extraButtonLabel='Imprimir esta compra'
+					handleExtraButtonAction={handlePrintShopping}
+				/>
+			}
+			onSubmit={handleSubmit(handleSubmitShopping)}
 		>
 			<DateField
 				register={register}
@@ -78,7 +100,7 @@ export const ShoppingForm = ({ shopping }) => {
 
 			<div className='flex justify-end md:col-span-2'>
 				<Button type='submit' className='w-auto'>
-					{!false ? 'Registrar proveedor' : 'Guardar cambios'}
+					{shopping ? 'Registrar proveedor' : 'Guardar cambios'}
 				</Button>
 			</div>
 		</Form>

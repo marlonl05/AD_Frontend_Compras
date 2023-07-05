@@ -5,7 +5,7 @@ import { Button } from '../common';
 import { ProductList } from './ProductList';
 import { useShoppingContext } from '../../hooks/useShoppingContext';
 
-export const BillSidebar = ({ showBill, toggleBill }) => {
+export const BillSidebar = ({ showBill, showInLargeScreen, toggleBill }) => {
 	const { shoppingList, currentSidebarShopping } = useShoppingContext();
 
 	const shopping = currentSidebarShopping ? shoppingList[+currentSidebarShopping] : null;
@@ -14,6 +14,7 @@ export const BillSidebar = ({ showBill, toggleBill }) => {
 		<DetailSidebar
 			title={shopping ? `Detalle de la factura #${shopping.id}` : 'No hay una factura seleccionada'}
 			showDetail={showBill}
+			showInLargeScreen={showInLargeScreen}
 			toggleDetail={toggleBill}
 			header={
 				<>
