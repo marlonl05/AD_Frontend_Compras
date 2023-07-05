@@ -6,7 +6,6 @@ import { ShoppingContext } from '../contextBuilder';
 import { status } from '../../constants';
 import { shoppingTypes } from '../../types';
 import comprasApi from '../../api';
-import { fakeShoppingsData } from '../../helpers/fakeShoppingsData';
 
 const initialState = {
 	shoppingList: {},
@@ -29,16 +28,14 @@ export const ShoppingProvider = ({ children }) => {
 		try {
 			shoppingDispatch({ type: shoppingTypes.SET_STATE, payload: status.LOADING });
 
-			// const { data } = await comprasApi.get('/facturas');
-			const data = {
-				response: fakeShoppingsData,
-			};
+			const { data } = await comprasApi.get('/facturas');
 
-			if (!data?.response) throw new Error('Error al cargar las facturas');
+			// if (!data?.response) throw new Error('Error al cargar las facturas');
 
 			shoppingDispatch({
 				type: shoppingTypes.LOAD,
-				payload: data.response,
+				// payload: data.response,
+				payload: data,
 			});
 		} catch (error) {
 			console.log(error);

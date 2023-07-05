@@ -28,11 +28,12 @@ export const ProviderProvider = ({ children }) => {
 
 			const { data } = await comprasApi.get('/proveedores');
 
-			if (!data?.response) throw new Error('Error al cargar los proveedores');
+			// if (!data?.response) throw new Error('Error al cargar los proveedores');
 
 			providerDispatch({
 				type: providerTypes.LOAD,
-				payload: data.response,
+				// payload: data.response,
+				payload: data,
 			});
 		} catch (error) {
 			console.log(error);
