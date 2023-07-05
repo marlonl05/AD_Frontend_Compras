@@ -34,6 +34,17 @@ export const shoppingReducer = (shoppingState, action) => {
 			};
 		}
 
+		case shoppingTypes.SET_MESSAGES: {
+			const message = action?.payload?.message;
+			const error = action?.payload?.error;
+
+			return {
+				...shoppingState,
+				message,
+				error,
+			};
+		}
+
 		default:
 			return shoppingState;
 	}
