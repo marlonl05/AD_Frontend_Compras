@@ -10,7 +10,6 @@
 			"detalles": [
 				{
 					"id": "1",
-					"factura_id": "1",
 					"producto_id": "1",
 					"cantidad": "2",
 					"subtotal": "10.00",

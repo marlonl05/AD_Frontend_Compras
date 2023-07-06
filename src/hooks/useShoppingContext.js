@@ -9,9 +9,8 @@ export const useShoppingContext = () => {
 		state,
 		error,
 		message,
-		cartList,
+		cartDetails,
 		currentShopping,
-		currentSidebarShopping,
 		shoppingDispatch,
 		defaultTabIndex,
 	} = useContext(ShoppingContext);
@@ -34,6 +33,20 @@ export const useShoppingContext = () => {
 	const handleSetCurrentShopping = shoppingId => {
 		shoppingDispatch({ type: shoppingTypes.SET_CURRENT_SHOPPING, payload: shoppingId });
 		shoppingDispatch({ type: shoppingTypes.SET_DEFAULT_TAB_INDEX, payload: 1 });
+
+		const shopping = shoppingList[shoppingId];
+
+		if (!shopping) return shoppingDispatch({ type: shoppingTypes.SET_CART_DETAILS, payload: {} });
+
+		const { total, detalles } = shopping;
+
+		shoppingDispatch({
+			type: shoppingTypes.SET_CART_DETAILS,
+			payload: {
+				total,
+				detalles,
+			},
+		});
 	};
 
 	const handleShowMessage = (message, type) => {
@@ -50,9 +63,8 @@ export const useShoppingContext = () => {
 		state,
 		error,
 		message,
-		cartList,
+		cartDetails,
 		currentShopping,
-		currentSidebarShopping,
 		defaultTabIndex,
 
 		// Actions

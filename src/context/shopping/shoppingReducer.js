@@ -45,6 +45,13 @@ export const shoppingReducer = (shoppingState, action) => {
 			};
 		}
 
+		case shoppingTypes.SET_CART_DETAILS: {
+			return {
+				...shoppingState,
+				cartDetails: action.payload,
+			};
+		}
+
 		default:
 			return shoppingState;
 	}

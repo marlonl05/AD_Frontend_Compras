@@ -13,7 +13,12 @@ const initialState = {
 	state: status.IDLE,
 	error: null,
 	message: null,
-	cartList: [],
+	cartDetails: {
+		detalles: [
+			// { producto_id: 1, cantidad: 1, subtotal: 100 }
+		],
+		total: 0,
+	},
 	currentShopping: null,
 	refreshCounter: 0,
 	defaultTabIndex: 0,
