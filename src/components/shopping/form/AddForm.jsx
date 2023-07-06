@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import { providerState, providerTypes } from '../../../constants';
 import { Button, DateField, SelectField } from '../../common';
+import { ProviderCard } from './';
 
 export const AddForm = ({
 	register,
@@ -71,6 +72,8 @@ export const AddForm = ({
 			<span className='text-red-600 text-end md:col-span-2 lg2:col-span-1 2xl:col-span-2 text-sm'>
 				¡Esta acción no se puede deshacer!
 			</span>
+
+			{provider && <ProviderCard provider={provider} />}
 		</>
 	);
 };

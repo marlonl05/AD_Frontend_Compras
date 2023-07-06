@@ -2,6 +2,7 @@
 import { RiBillFill, RiCalendarEventFill, RiCurrencyFill, RiUser2Fill } from 'react-icons/ri';
 import { providerTypes, shoppingState } from '../../../constants';
 import { FormFieldUnEditable } from '../../common/form';
+import { ProviderCard } from './';
 
 const PaymentCheckBox = ({ isCheck, onChange }) => {
 	return (
@@ -103,18 +104,7 @@ export const EditForm = ({ provider, shopping }) => {
 
 			<PaymentCheckBox isCheck={shopping.estado === shoppingState.ACTIVO} onChange={console.log} />
 
-			<div className='flex flex-col md:flex-row justify-end md:col-span-2 lg2:col-span-1 2xl:col-span-2 gap-2'>
-				<div className='bg-dark-200 p-8 rounded-xl flex flex-col gap-2 items-center text-gray-300 text-center'>
-					<h3>Detalles del proveedor</h3>
-					<p>Nombre: {provider?.nombre}</p>
-					<p>DNI: {provider?.documento_identificacion}</p>
-					<p>Teléfono: {provider?.telefono}</p>
-					<p>Email: {provider?.email}</p>
-					<p>Dirección: {provider?.direccion}</p>
-					<p>Estado: {provider?.estado}</p>
-					<p>Tipo proveedor: {provider?.tipo_proveedor}</p>
-				</div>
-			</div>
+			<ProviderCard provider={provider} />
 		</>
 	);
 };
