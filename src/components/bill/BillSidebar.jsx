@@ -1,51 +1,41 @@
 /* eslint-disable react/prop-types */
-import { RiDeleteBinFill, RiFileTextLine } from 'react-icons/ri';
+import { RiFileTextLine } from 'react-icons/ri';
 import { DetailSidebar } from '../../layout/details';
-import { Button } from '../common';
 import { ProductList } from './ProductList';
 import { useShoppingContext } from '../../hooks/useShoppingContext';
+import { Button } from '../common';
 
 export const BillSidebar = ({ showBill, showInLargeScreen, toggleBill }) => {
-	const { shoppingList, currentSidebarShopping } = useShoppingContext();
+	const { cartDetails, currentShopping } = useShoppingContext();
 
-	const shopping = currentSidebarShopping ? shoppingList[+currentSidebarShopping] : null;
+	const { total, detalles } = cartDetails;
 
 	return (
 		<DetailSidebar
-			title={shopping ? `Detalle de la factura #${shopping.id}` : 'No hay una factura seleccionada'}
+			title={currentShopping ? `Detalle de la factura #${currentShopping}` : 'Carrito de compras'}
 			showDetail={showBill}
 			showInLargeScreen={showInLargeScreen}
 			toggleDetail={toggleBill}
 			header={
 				<>
-					<span>Proveedor</span>
-					<span className='text-gray-400'>{shopping?.proveedor_id}</span>
-					<span>Fecha factura</span>
-					<span className='text-gray-400 '>{shopping?.fecha_factura}</span>
-					<span>Fecha vencimiento</span>
-					<span className='text-gray-400'>{shopping?.fecha_vencimiento}</span>
-					<span>Tipo de pago</span>
-					<span className='text-gray-400'>{shopping?.tipo_pago}</span>
+					<span>Listado de productos</span>
+					<span className='text-gray-400'>Cola</span>
 				</>
 			}
 			footer={
 				<>
 					<div className='flex items-center justify-between mb-6'>
 						<span className='text-gray-400'>Total</span>
-						<span>${shopping?.total ?? '0'}</span>
+						<span>${total ?? '0'}</span>
 					</div>
 					<div className='flex items-center flex-col gap-4'>
 						<Button
 							className='bg-transparent'
-							disabled={!shopping}
+							disabled={!currentShopping}
 							onClick={() => console.log('obteniendo reporte')}
 						>
 							<RiFileTextLine />
-							Obtener reporte
-						</Button>
-						<Button disabled={!shopping} onClick={() => console.log('eliminando factura')}>
-							<RiDeleteBinFill />
-							Eliminar factura
+							Obtener reporte en PDF
 						</Button>
 					</div>
 				</>
@@ -58,7 +48,7 @@ export const BillSidebar = ({ showBill, showInLargeScreen, toggleBill }) => {
 					<h5>Total</h5>
 				</>
 			}
-			tableBody={<ProductList />}
+			tableBody={<ProductList productList={detalles} />}
 		/>
 	);
 };

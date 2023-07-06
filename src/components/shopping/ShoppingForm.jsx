@@ -2,14 +2,12 @@
 import { useForm } from 'react-hook-form';
 import { Button, DateField, Form, FormHeader, SelectField } from '../common';
 import { providerTypes } from '../../constants';
-import { useProviderContext } from '../../hooks';
+import { useProviderContext, useShoppingContext } from '../../hooks';
 
 const initialValues = {
 	proveedor_id: '',
 	tipo_pago: '',
 	fecha_vencimiento: '',
-	total: '',
-	detalles: [],
 };
 
 const shoppingActions = {
@@ -19,6 +17,9 @@ const shoppingActions = {
 
 export const ShoppingForm = ({ shopping }) => {
 	const { providerList } = useProviderContext();
+	const { handleSetCurrentShopping } = useShoppingContext();
+
+	const defaultShopping = shopping;
 
 	const {
 		reset,
@@ -28,7 +29,7 @@ export const ShoppingForm = ({ shopping }) => {
 		handleSubmit,
 		formState: { errors },
 	} = useForm({
-		defaultValues: shopping || initialValues,
+		defaultValues: defaultShopping || initialValues,
 	});
 
 	const provider = providerList[watch('proveedor_id')];
@@ -57,6 +58,7 @@ export const ShoppingForm = ({ shopping }) => {
 	const handleCurrentOption = option => {
 		if (option !== shoppingActions.add) return;
 
+		handleSetCurrentShopping(null);
 		reset(initialValues);
 	};
 
@@ -83,8 +85,11 @@ export const ShoppingForm = ({ shopping }) => {
 					handleCurrentOption={handleCurrentOption}
 					extraButtonLabel='Obtener reportes de compras'
 					handleExtraButtonAction={handlePrintShopping}
+					styles='lg2:flex-col 2xl:flex-row'
 				/>
 			}
+			headerStyles='lg2:col-span-1 2xl:col-span-2'
+			styles='lg2:grid-cols-1 2xl:grid-cols-2'
 			onSubmit={handleSubmit(handleSubmitShopping)}
 		>
 			<SelectField
@@ -94,7 +99,7 @@ export const ShoppingForm = ({ shopping }) => {
 					input: 'proveedor_id',
 				}}
 				selectList={Object.values(providerList)}
-				defaultValue={watch('proveedor_id') + ''}
+				defaultValue={providerList[watch('proveedor_id')]}
 				errorMessage={errors.proveedor_id?.message}
 				handleValueOnChange={setValue}
 				propForSelectLabel='nombre'
@@ -131,7 +136,7 @@ export const ShoppingForm = ({ shopping }) => {
 					/>
 				)}
 
-			<div className='flex justify-end md:col-span-2'>
+			<div className='flex justify-end md:col-span-2 lg2:col-span-1 2xl:col-span-2'>
 				<Button type='submit' className='w-auto'>
 					{shopping ? 'Imprimir esta factura' : 'Registrar factura'}
 				</Button>

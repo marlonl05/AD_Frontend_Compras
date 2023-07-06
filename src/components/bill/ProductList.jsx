@@ -25,7 +25,7 @@ const Product = ({ name, price, quantity, subtotal, total }) => {
 	);
 };
 
-export const ProductList = () => {
+export const ProductList = ({ productList }) => {
 	return (
 		<>
 			{/* Products */}

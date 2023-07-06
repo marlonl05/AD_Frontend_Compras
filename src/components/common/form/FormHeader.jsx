@@ -3,6 +3,9 @@ import { useState } from 'react';
 import Select from 'react-tailwindcss-select';
 import { Button } from '../Button';
 import { checkIfObjectHaveProp } from '../../../helpers';
+import { twMerge } from 'tailwind-merge';
+
+const defaultStyles = 'flex flex-col md:flex-row gap-2 items-center justify-between text-dark-200';
 
 export const FormHeader = ({
 	defaultValue,
@@ -13,6 +16,7 @@ export const FormHeader = ({
 	selectOnlyThisItems = [],
 	extraButtonLabel,
 	handleExtraButtonAction,
+	styles = '',
 }) => {
 	const options = selectList.map(item => ({
 		value: checkIfObjectHaveProp(item, propertyToUseInValue),
@@ -42,10 +46,7 @@ export const FormHeader = ({
 	};
 
 	return (
-		<div
-			id='select-input'
-			className='flex flex-col md:flex-row gap-2 items-center justify-between text-dark-200'
-		>
+		<div id='select-input' className={twMerge(defaultStyles, styles)}>
 			<h1 className='text-xl text-gray-100'>{value?.value}</h1>
 			<div className='flex flex-col md:flex-row items-center gap-2'>
 				<div>

@@ -26,6 +26,9 @@ export default {
 					to: { opacity: 1 },
 				},
 			},
+			screens: {
+				lg2: '1280px',
+			},
 		},
 	},
 	plugins: [require('@headlessui/tailwindcss')],

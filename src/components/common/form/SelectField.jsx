@@ -81,7 +81,7 @@ SelectField.propTypes = {
 		label: PropTypes.string.isRequired,
 		input: PropTypes.string.isRequired,
 	}),
-	defaultValue: PropTypes.string,
+	defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
 	required: PropTypes.bool,
 	selectList: PropTypes.array.isRequired,
 	handleValueOnChange: PropTypes.func.isRequired,
