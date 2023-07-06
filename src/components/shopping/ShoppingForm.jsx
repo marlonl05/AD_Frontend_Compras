@@ -18,8 +18,14 @@ const shoppingActions = {
 
 export const ShoppingForm = ({ shopping }) => {
 	const { providerList } = useProviderContext();
-	const { handleSetCurrentShopping, handlePrintShopping, handleEditShopping, handleAddShopping } =
-		useShoppingContext();
+	const {
+		cartDetails,
+		handleSetCurrentShopping,
+		handlePrintShopping,
+		handleEditShopping,
+		handleAddShopping,
+		handleShowMessage,
+	} = useShoppingContext();
 
 	const defaultShopping = shopping;
 
@@ -65,6 +71,28 @@ export const ShoppingForm = ({ shopping }) => {
 		reset(initialValues);
 	};
 
+	const handleProviderSubmit = providerRequest => {
+		// const { detalles, total } = cartDetails;
+		const { detalles } = cartDetails;
+
+		if (shopping) {
+			handleEditShopping(providerRequest);
+			return;
+		}
+
+		if (!detalles || detalles?.length === 0) {
+			handleShowMessage('El carrito debe tener al menos un producto seleccionado', 'error');
+
+			setTimeout(() => {
+				handleShowMessage(null, 'error');
+			}, 100);
+
+			return;
+		}
+
+		handleAddShopping(providerRequest);
+	};
+
 	const defaultHeaderValue = shopping ? shoppingActions.details : shoppingActions.add;
 	const availableHeaderItems = shopping ? Object.values(shoppingActions) : [shoppingActions.add];
 
@@ -84,7 +112,7 @@ export const ShoppingForm = ({ shopping }) => {
 			}
 			headerStyles='lg2:col-span-1 2xl:col-span-2'
 			styles='lg2:grid-cols-1 2xl:grid-cols-2'
-			onSubmit={handleSubmit(shopping ? handleEditShopping : handleAddShopping)}
+			onSubmit={handleSubmit(handleProviderSubmit)}
 		>
 			{shopping ? (
 				<EditForm provider={provider} shopping={getValues()} />
