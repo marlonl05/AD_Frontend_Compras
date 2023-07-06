@@ -29,14 +29,12 @@ export const BillSidebar = ({ showBill, showInLargeScreen, toggleBill }) => {
 						<span>${total ?? '0'}</span>
 					</div>
 					<div className='flex items-center flex-col gap-4'>
-						<Button
-							className='bg-transparent'
-							disabled={!currentShopping}
-							onClick={() => console.log('obteniendo reporte')}
-						>
-							<RiFileTextLine />
-							Obtener reporte en PDF
-						</Button>
+						{currentShopping && (
+							<Button className='bg-transparent' onClick={() => console.log('obteniendo reporte')}>
+								<RiFileTextLine />
+								Obtener reporte en PDF
+							</Button>
+						)}
 					</div>
 				</>
 			}

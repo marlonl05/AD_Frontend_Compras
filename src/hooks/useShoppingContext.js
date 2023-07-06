@@ -19,8 +19,12 @@ export const useShoppingContext = () => {
 		shoppingDispatch({ type: shoppingTypes.SET_CURRENT_SIDEBAR_SHOPPING, payload: +shoppingId });
 	};
 
-	const handleEditShopping = () => {
-		console.log('handleEditShopping');
+	const handleEditShopping = shoppingRequest => {
+		console.log('handleEditShopping', { shoppingRequest });
+	};
+
+	const handleAddShopping = shoppingRequest => {
+		console.log('handleAddShopping', { shoppingRequest });
 	};
 
 	const handlePrintShopping = () => {
@@ -71,6 +75,7 @@ export const useShoppingContext = () => {
 		handleTabIndex,
 		handleShowShopping,
 		handleEditShopping,
+		handleAddShopping,
 		handlePrintShopping,
 		handleSetCurrentShopping,
 		handleShowMessage,

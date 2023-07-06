@@ -17,7 +17,8 @@ const shoppingActions = {
 
 export const ShoppingForm = ({ shopping }) => {
 	const { providerList } = useProviderContext();
-	const { handleSetCurrentShopping } = useShoppingContext();
+	const { handleSetCurrentShopping, handlePrintShopping, handleEditShopping, handleAddShopping } =
+		useShoppingContext();
 
 	const defaultShopping = shopping;
 
@@ -62,15 +63,6 @@ export const ShoppingForm = ({ shopping }) => {
 		reset(initialValues);
 	};
 
-	const handlePrintShopping = () => {
-		console.log('Obtener reportes de compras');
-	};
-
-	const handleSubmitShopping = shoppingRequest => {
-		console.log('Registrar compra');
-		console.log({ shoppingRequest });
-	};
-
 	const defaultHeaderValue = shopping ? shoppingActions.details : shoppingActions.add;
 	const availableHeaderItems = shopping ? Object.values(shoppingActions) : [shoppingActions.add];
 
@@ -90,7 +82,7 @@ export const ShoppingForm = ({ shopping }) => {
 			}
 			headerStyles='lg2:col-span-1 2xl:col-span-2'
 			styles='lg2:grid-cols-1 2xl:grid-cols-2'
-			onSubmit={handleSubmit(handleSubmitShopping)}
+			onSubmit={handleSubmit(shopping ? handleEditShopping : handleAddShopping)}
 		>
 			<SelectField
 				register={register}
@@ -136,11 +128,21 @@ export const ShoppingForm = ({ shopping }) => {
 					/>
 				)}
 
-			<div className='flex justify-end md:col-span-2 lg2:col-span-1 2xl:col-span-2'>
+			<div className='flex flex-col md:flex-row justify-end md:col-span-2 lg2:col-span-1 2xl:col-span-2 gap-2'>
+				{!shopping && (
+					<Button type='submit' className='w-auto'>
+						Registrar e imprimir esta factura
+					</Button>
+				)}
 				<Button type='submit' className='w-auto'>
 					{shopping ? 'Imprimir esta factura' : 'Registrar factura'}
 				</Button>
 			</div>
+			{!shopping && (
+				<span className='text-red-600 text-end md:col-span-2 lg2:col-span-1 2xl:col-span-2 text-sm'>
+					¡Esta acción no se puede deshacer!
+				</span>
+			)}
 		</Form>
 	);
 };
