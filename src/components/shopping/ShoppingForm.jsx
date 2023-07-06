@@ -1,8 +1,9 @@
 /* eslint-disable react/prop-types */
 import { useForm } from 'react-hook-form';
-import { Button, DateField, Form, FormHeader, SelectField } from '../common';
+import { Form, FormHeader } from '../common';
 import { providerTypes } from '../../constants';
 import { useProviderContext, useShoppingContext } from '../../hooks';
+import { AddForm, EditForm } from './form';
 
 const initialValues = {
 	proveedor_id: '',
@@ -28,6 +29,7 @@ export const ShoppingForm = ({ shopping }) => {
 		register,
 		setValue,
 		handleSubmit,
+		getValues,
 		formState: { errors },
 	} = useForm({
 		defaultValues: defaultShopping || initialValues,
@@ -84,64 +86,19 @@ export const ShoppingForm = ({ shopping }) => {
 			styles='lg2:grid-cols-1 2xl:grid-cols-2'
 			onSubmit={handleSubmit(shopping ? handleEditShopping : handleAddShopping)}
 		>
-			<SelectField
-				register={register}
-				nameValues={{
-					label: 'Proveedor',
-					input: 'proveedor_id',
-				}}
-				selectList={Object.values(providerList)}
-				defaultValue={providerList[watch('proveedor_id')]}
-				errorMessage={errors.proveedor_id?.message}
-				handleValueOnChange={setValue}
-				propForSelectLabel='nombre'
-				filterPlaceholder='Buscar proveedor...'
-				activeFilter
-				required
-			/>
-
-			<SelectField
-				register={register}
-				nameValues={{
-					label: 'Tipo de pago',
-					input: 'tipo_pago',
-				}}
-				selectList={paymentTypes}
-				defaultValue={defatultPaymentType}
-				errorMessage={errors.tipo_pago?.message}
-				handleValueOnChange={setValue}
-				required
-			/>
-
-			{provider?.tipo_proveedor === providerTypes.CREDITO &&
-				watch('tipo_pago') === providerTypes.CREDITO && (
-					<DateField
-						register={register}
-						nameValues={{
-							label: 'Fecha de vencimiento',
-							input: 'fecha_vencimiento',
-						}}
-						required
-						errorMessage={errors.fecha_vencimiento?.message}
-						defaultValue={watch('fecha_vencimiento')}
-						handleValueOnChange={setValue}
-					/>
-				)}
-
-			<div className='flex flex-col md:flex-row justify-end md:col-span-2 lg2:col-span-1 2xl:col-span-2 gap-2'>
-				{!shopping && (
-					<Button type='submit' className='w-auto'>
-						Registrar e imprimir esta factura
-					</Button>
-				)}
-				<Button type='submit' className='w-auto'>
-					{shopping ? 'Imprimir esta factura' : 'Registrar factura'}
-				</Button>
-			</div>
-			{!shopping && (
-				<span className='text-red-600 text-end md:col-span-2 lg2:col-span-1 2xl:col-span-2 text-sm'>
-					¡Esta acción no se puede deshacer!
-				</span>
+			{shopping ? (
+				<EditForm provider={provider} shopping={getValues()} />
+			) : (
+				<AddForm
+					defatultPaymentType={defatultPaymentType}
+					provider={provider}
+					register={register}
+					setValue={setValue}
+					watch={watch}
+					errors={errors}
+					paymentTypes={paymentTypes}
+					providerList={providerList}
+				/>
 			)}
 		</Form>
 	);
