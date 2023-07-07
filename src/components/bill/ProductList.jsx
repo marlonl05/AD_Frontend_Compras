@@ -15,7 +15,7 @@ const ProductTable = ({ items = [] }) => {
 				<h5>Cantidad</h5>
 				<h5>Subtotal</h5>
 				<h5>Total</h5>
-				<h5>Accion</h5>
+				<h5>A cción</h5>
 			</div>
 			<div className='bg-dark-200 mb-4 '>
 				{items.map(product => {
@@ -28,8 +28,8 @@ const ProductTable = ({ items = [] }) => {
 						>
 							<div className='flex flex-col items-start justify-start'>
 								<h5 className='text-sm w-full truncate'>{dbProduct?.pro_nombre}</h5>
-								<div className='flex items-start gap-2'>
-									<p className='text-xs text-gray-500'>Id: {dbProduct?.pro_id},</p>
+								<div className='flex gap-2'>
+									<p className='text-xs text-gray-500'>id: {dbProduct?.pro_id},</p>
 									<p className='text-xs text-gray-500'>$ {dbProduct?.pro_costo}</p>
 								</div>
 							</div>
@@ -83,10 +83,10 @@ export const ProductList = ({ productList = [] }) => {
 	return (
 		<TableLayout
 			items={productList}
-			itemsPerPage={5}
+			itemsPerPage={4}
 			inputPlaceholder='Buscar producto en el carrito'
 			Table={ProductTable}
-			styles='p-0 pt-2 mx-2'
+			styles='p-0 py-2 mx-2'
 			innerStyles='m-0'
 			customFilter={customFilter}
 		/>

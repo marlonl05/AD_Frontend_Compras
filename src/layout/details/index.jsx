@@ -32,18 +32,10 @@ export const DetailSidebar = ({
 				</div>
 
 				{/* Table */}
-				<div className='h-full border border-secondary-100 rounded-lg'>{table}</div>
+				<div className='border border-secondary-100 rounded-lg'>{table}</div>
 				{/* Detail footer */}
-				<div className='absolute bottom-0 right-0 bg-dark-200 p-4 w-full lg:h-32'>{footer}</div>
+				<div className='absolute bottom-0 right-0 bg-dark-200 p-4 w-full lg:h-28'>{footer}</div>
 			</div>
 		</div>
 	);
 };
-
-// <div className='h-full border border-secondary-100 rounded-lg'>
-// 	<div className='grid grid-cols-4 mb-3 p-4 gap-3  border border-transparent border-b-secondary-100'>
-// 		{tableHeader}
-// 	</div>
-
-// 	<div className='h-3/5 md:h-4/6 lg:h-3/5 overflow-y-auto'>{tableBody}</div>
-// </div>

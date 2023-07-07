@@ -103,8 +103,8 @@ export const BillSidebar = ({ showBill, showInLargeScreen, toggleBill }) => {
 			}
 			footer={
 				<>
-					<div className='flex items-center justify-between mb-6'>
-						<span className='text-gray-400'>Total</span>
+					<div className='flex items-center justify-between mb-6 px-4 '>
+						<span className='text-gray-400 font-bold '>Total</span>
 						<span>${total ?? '0'}</span>
 					</div>
 					<div className='flex items-center flex-col gap-4'>
