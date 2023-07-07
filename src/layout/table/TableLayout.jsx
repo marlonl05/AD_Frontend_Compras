@@ -4,11 +4,20 @@ import { useForm } from 'react-hook-form';
 import ReactPaginate from 'react-paginate';
 import { RiSearchLine } from 'react-icons/ri';
 import { filterListByPattern } from '../../helpers';
+import { twMerge } from 'tailwind-merge';
 
 const pageLinkClass =
 	'w-full px-2 rounded-md font-semibold border border-secondary-100 flex items-center justify-center hover:bg-secondary-100 hover:text-dark-100 transition-colors';
 
-export function TableLayout({ items, itemsPerPage, inputPlaceholder, Table, customFilter }) {
+export function TableLayout({
+	items,
+	itemsPerPage,
+	inputPlaceholder,
+	Table,
+	customFilter,
+	styles = '',
+	innerStyles = 'mb-10',
+}) {
 	const [itemOffset, setItemOffset] = useState(0);
 	const [pattern, setPattern] = useState();
 
@@ -40,8 +49,8 @@ export function TableLayout({ items, itemsPerPage, inputPlaceholder, Table, cust
 	};
 
 	return (
-		<div className='bg-dark-200 p-8 rounded-xl lg:block text-white'>
-			<div className='mb-10'>
+		<div className={twMerge('bg-dark-200 p-8 rounded-xl lg:block text-white', styles)}>
+			<div className={innerStyles}>
 				<div className='flex items-center justify-start flex-col sm:flex-row gap-2'>
 					<form onSubmit={handleSubmit(handleSearch)} className='relative mr-2 text-dark-100'>
 						<RiSearchLine className='absolute top-1/2 -translate-y-1/2 left-4' />
