@@ -105,6 +105,25 @@ export const useShoppingContext = () => {
 		spawnMessage('Producto agregado al carrito', 'success');
 	};
 
+	const handleDeleteProductFromCart = productId => {
+		if (!productId) return;
+
+		const productIsInCart = cartDetails?.detalles?.find(
+			product => product?.producto_id === productId
+		);
+
+		if (!productIsInCart) return spawnMessage('El producto no está en el carrito', 'error');
+
+		shoppingDispatch({
+			type: shoppingTypes.SET_DELETE_PRODUCT_FROM_CART,
+			payload: productId,
+		});
+
+		const product = productList[productId];
+
+		spawnMessage(`Producto ${product?.pro_nombre} eliminado del carrito`, 'success');
+	};
+
 	const spawnMessage = (message, type) => {
 		handleShowMessage(message, type);
 
@@ -134,5 +153,6 @@ export const useShoppingContext = () => {
 		handleSetCurrentShopping,
 		handleShowMessage,
 		handleAddProductToCart,
+		handleDeleteProductFromCart,
 	};
 };

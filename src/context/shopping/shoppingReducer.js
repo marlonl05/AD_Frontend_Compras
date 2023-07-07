@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import { status } from '../../constants';
 import { mapListToObject, mapObjectToListIds } from '../../helpers';
 import { shoppingTypes } from '../../types/shoppingTypes';
@@ -58,6 +59,27 @@ export const shoppingReducer = (shoppingState, action) => {
 
 			const total = cartDetails?.total + newProduct?.total;
 			const detalles = [...cartDetails?.detalles, newProduct];
+
+			return {
+				...shoppingState,
+				cartDetails: {
+					total: Math.round(total * 100) / 100,
+					detalles,
+				},
+			};
+		}
+
+		case shoppingTypes.SET_DELETE_PRODUCT_FROM_CART: {
+			const productId = action.payload;
+			const cartDetails = shoppingState.cartDetails;
+
+			const productToDelete = cartDetails?.detalles.find(
+				({ producto_id }) => producto_id === productId
+			);
+
+			const detalles = cartDetails?.detalles.filter(({ producto_id }) => producto_id !== productId);
+
+			const total = cartDetails?.total - productToDelete?.total;
 
 			return {
 				...shoppingState,

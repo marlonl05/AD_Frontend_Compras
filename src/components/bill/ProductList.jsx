@@ -1,10 +1,12 @@
 /* eslint-disable react/prop-types */
 
+import { RiDeleteBin5Fill } from 'react-icons/ri';
 import { useShoppingContext } from '../../hooks';
 import { TableLayout } from '../../layout/table';
+import { Button } from '../common';
 
 const ProductTable = ({ items = [] }) => {
-	const { productList: dbProducts } = useShoppingContext();
+	const { productList: dbProducts, handleDeleteProductFromCart } = useShoppingContext();
 
 	return (
 		<>
@@ -26,7 +28,10 @@ const ProductTable = ({ items = [] }) => {
 						>
 							<div className='flex flex-col items-start justify-start'>
 								<h5 className='text-sm w-full truncate'>{dbProduct?.pro_nombre}</h5>
-								<p className='text-xs text-gray-500'>$ {dbProduct?.pro_costo}</p>
+								<div className='flex items-start gap-2'>
+									<p className='text-xs text-gray-500'>Id: {dbProduct?.pro_id},</p>
+									<p className='text-xs text-gray-500'>$ {dbProduct?.pro_costo}</p>
+								</div>
 							</div>
 
 							<div className='text-center'>
@@ -38,8 +43,13 @@ const ProductTable = ({ items = [] }) => {
 							<div>
 								<span>$ {product?.total}</span>
 							</div>
-							<div>
-								<span>Eliminar</span>
+							<div className='flex items-center justify-center'>
+								<Button
+									className='w-auto'
+									onClick={() => handleDeleteProductFromCart(product?.producto_id)}
+								>
+									<RiDeleteBin5Fill />
+								</Button>
 							</div>
 						</div>
 					);
