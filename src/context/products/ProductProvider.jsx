@@ -22,7 +22,7 @@ export const ProductProvider = ({ children }) => {
 			// console.log({ resp });
 			const { data } = await inventarioApi.get('/productos');
 
-			productDispatch({ type: 'LOAD_PRODUCTS', payload: mapListToObject(data) });
+			productDispatch({ type: 'LOAD_PRODUCTS', payload: mapListToObject(data, 'pro_id') });
 		} catch (error) {
 			console.error(error);
 		}
