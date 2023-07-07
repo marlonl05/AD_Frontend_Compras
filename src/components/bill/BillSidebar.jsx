@@ -43,7 +43,8 @@ const ProductDetailsBody = ({ product = {} }) => (
 
 export const BillSidebar = ({ showBill, showInLargeScreen, toggleBill }) => {
 	const [currentProduct, setCurrentProduct] = useState();
-	const { cartDetails, productList, currentShopping } = useShoppingContext();
+	const { cartDetails, productList, currentShopping, handleAddProductToCart } =
+		useShoppingContext();
 
 	const { total, detalles } = cartDetails;
 
@@ -78,7 +79,10 @@ export const BillSidebar = ({ showBill, showInLargeScreen, toggleBill }) => {
 							<ProductDetailsBody
 								product={currentProduct?.value && productList[currentProduct?.value]}
 							/>
-							<Button className='col-span-2'>
+							<Button
+								className='col-span-2'
+								onClick={() => handleAddProductToCart({ productId: currentProduct?.value })}
+							>
 								<RiShoppingCart2Fill />
 								Agregar al carrito
 							</Button>

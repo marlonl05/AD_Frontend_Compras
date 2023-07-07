@@ -52,6 +52,22 @@ export const shoppingReducer = (shoppingState, action) => {
 			};
 		}
 
+		case shoppingTypes.SET_NEW_PRODUCT_TO_CART: {
+			const newProduct = action.payload;
+			const cartDetails = shoppingState.cartDetails;
+
+			const total = cartDetails?.total + newProduct?.total;
+			const detalles = [...cartDetails?.detalles, newProduct];
+
+			return {
+				...shoppingState,
+				cartDetails: {
+					total: Math.round(total * 100) / 100,
+					detalles,
+				},
+			};
+		}
+
 		default:
 			return shoppingState;
 	}

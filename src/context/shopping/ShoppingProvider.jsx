@@ -14,9 +14,7 @@ const initialState = {
 	error: null,
 	message: null,
 	cartDetails: {
-		detalles: [
-			// { producto_id: 1, cantidad: 1, subtotal: 100 }
-		],
+		detalles: [],
 		total: 0,
 	},
 	currentShopping: null,

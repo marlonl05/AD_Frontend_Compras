@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import { useContext } from 'react';
 import { ProductContext, ShoppingContext } from '../context';
 import { shoppingTypes } from '../types';
@@ -62,6 +63,54 @@ export const useShoppingContext = () => {
 		});
 	};
 
+	const handleAddProductToCart = ({ productId, cantidad = 1 }) => {
+		if (!productId) return;
+
+		const isAlreadyInCart = cartDetails?.detalles?.find(
+			product => product?.producto_id === productId
+		);
+
+		if (isAlreadyInCart) return spawnMessage('El producto ya está en el carrito', 'error');
+
+		const product = productList[productId];
+
+		if (!product) return spawnMessage('El producto no existe', 'error');
+
+		const { pro_id, pro_valor_iva, pro_costo, pro_stock } = product;
+
+		if (pro_stock <= 0) return spawnMessage('El producto no tiene stock', 'error');
+
+		if (pro_stock < cantidad) return spawnMessage('No hay suficiente stock del producto', 'error');
+
+		let subtotal = pro_costo * cantidad;
+		subtotal = Math.round(subtotal * 100) / 100;
+
+		let total = subtotal + subtotal * (pro_valor_iva / 100);
+		total = Math.round(total * 100) / 100;
+
+		const newProductInCart = {
+			producto_id: pro_id,
+			cantidad,
+			subtotal,
+			total,
+		};
+
+		shoppingDispatch({
+			type: shoppingTypes.SET_NEW_PRODUCT_TO_CART,
+			payload: newProductInCart,
+		});
+
+		spawnMessage('Producto agregado al carrito', 'success');
+	};
+
+	const spawnMessage = (message, type) => {
+		handleShowMessage(message, type);
+
+		setTimeout(() => {
+			handleShowMessage(null, 'error');
+		}, 100);
+	};
+
 	return {
 		// State
 		shoppingList,
@@ -82,5 +131,6 @@ export const useShoppingContext = () => {
 		handlePrintShopping,
 		handleSetCurrentShopping,
 		handleShowMessage,
+		handleAddProductToCart,
 	};
 };
