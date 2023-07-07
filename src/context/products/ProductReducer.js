@@ -3,7 +3,7 @@ export const productReducer = (productState, { type, payload }) => {
 		case 'LOAD_PRODUCTS':
 			return {
 				...productState,
-				products: payload,
+				...payload,
 			};
 
 		default:
