@@ -15,7 +15,7 @@ const ProductTable = ({ items = [] }) => {
 				<h5>Cantidad</h5>
 				<h5>Subtotal</h5>
 				<h5>Total</h5>
-				<h5>A cción</h5>
+				<h5>Acción</h5>
 			</div>
 			<div className='bg-dark-200 mb-4 '>
 				{items.map(product => {

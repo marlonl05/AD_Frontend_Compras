@@ -27,6 +27,7 @@ export const useShoppingContext = () => {
 	};
 
 	const handleAddShopping = shoppingRequest => {
+		if (cartDetails.detalles.length === 0) return spawnMessage('El carrito está vacío', 'error');
 		console.log('handleAddShopping', { shoppingRequest });
 	};
 
