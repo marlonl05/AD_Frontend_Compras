@@ -63,8 +63,10 @@ export const useShoppingContext = () => {
 		});
 	};
 
-	const handleAddProductToCart = ({ productId, cantidad = 1 }) => {
+	const handleAddProductToCart = ({ productId, cantidad }) => {
 		if (!productId) return;
+
+		if (!cantidad) return spawnMessage('Debe ingresar una cantidad', 'error');
 
 		const isAlreadyInCart = cartDetails?.detalles?.find(
 			product => product?.producto_id === productId

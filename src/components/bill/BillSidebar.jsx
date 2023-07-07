@@ -42,6 +42,7 @@ const ProductDetailsBody = ({ product = {} }) => (
 );
 
 export const BillSidebar = ({ showBill, showInLargeScreen, toggleBill }) => {
+	const [quantity, setQuantity] = useState();
 	const [currentProduct, setCurrentProduct] = useState();
 	const { cartDetails, productList, currentShopping, handleAddProductToCart } =
 		useShoppingContext();
@@ -79,9 +80,19 @@ export const BillSidebar = ({ showBill, showInLargeScreen, toggleBill }) => {
 							<ProductDetailsBody
 								product={currentProduct?.value && productList[currentProduct?.value]}
 							/>
+							<input
+								className='w-full lg:w-[245px] bg-gray-100 text-dark-200 py-2 px-4 rounded-lg outline-none col-span-2 md:col-span-1 mb-1'
+								placeholder='Cantidad de productos'
+								type='number'
+								value={quantity}
+								onChange={({ target }) => setQuantity(target.value)}
+							/>
 							<Button
-								className='col-span-2'
-								onClick={() => handleAddProductToCart({ productId: currentProduct?.value })}
+								onClick={() => {
+									handleAddProductToCart({ productId: currentProduct?.value, cantidad: quantity });
+									setQuantity('');
+								}}
+								className='col-span-2 md:col-span-1 mb-1'
 							>
 								<RiShoppingCart2Fill />
 								Agregar al carrito
