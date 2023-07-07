@@ -42,7 +42,7 @@ const ProductDetailsBody = ({ product = {} }) => (
 );
 
 export const BillSidebar = ({ showBill, showInLargeScreen, toggleBill }) => {
-	const [quantity, setQuantity] = useState();
+	const [quantity, setQuantity] = useState('');
 	const [currentProduct, setCurrentProduct] = useState();
 	const { cartDetails, productList, currentShopping, handleAddProductToCart } =
 		useShoppingContext();
@@ -117,15 +117,7 @@ export const BillSidebar = ({ showBill, showInLargeScreen, toggleBill }) => {
 					</div>
 				</>
 			}
-			tableHeader={
-				<>
-					<h5>Producto</h5>
-					<h5>Cantidad</h5>
-					<h5>Subtotal</h5>
-					<h5>Total</h5>
-				</>
-			}
-			tableBody={<ProductList productList={detalles} />}
+			table={<ProductList productList={detalles} />}
 		/>
 	);
 };
