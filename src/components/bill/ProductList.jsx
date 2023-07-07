@@ -1,14 +1,14 @@
 /* eslint-disable react/prop-types */
 
+import { useShoppingContext } from '../../hooks';
+
 const Product = ({ name, price, quantity, subtotal, total }) => {
 	return (
 		<div className='bg-dark-200 p-4 mb-4 border border-b-secondary-100 border-transparent'>
 			<div className='grid grid-cols-4 gap-3 mb-1'>
-				<div className='flex items-center'>
-					<div>
-						<h5 className='text-sm w-[90px] truncate'>{name}</h5>
-						<p className='text-xs text-gray-500'>$ {price}</p>
-					</div>
+				<div className='flex flex-col items-start justify-start'>
+					<h5 className='text-sm w-full truncate'>{name}</h5>
+					<p className='text-xs text-gray-500'>$ {price}</p>
 				</div>
 
 				<div className='text-center'>
@@ -25,12 +25,37 @@ const Product = ({ name, price, quantity, subtotal, total }) => {
 	);
 };
 
-export const ProductList = ({ productList }) => {
+/**
+ *
+ * @param {{productList: any[]}}
+ * @description This product list have this shape:
+ * {
+ * 		producto_id: number,
+ * 		cantidad: number,
+ * 		subtotal: number,
+ * 		total: number
+ * }
+ * @returns
+ */
+export const ProductList = ({ productList = [] }) => {
+	const { productList: dbProducts } = useShoppingContext();
+
 	return (
 		<>
-			{/* Products */}
-			<Product name='Tallarines' price={2.23} quantity={4} subtotal={9.12} total={11.44} />
-			<Product name='Coca cola 3Litros' price={2.23} quantity={4} subtotal={9.12} total={11.44} />
+			{productList.map(product => {
+				const dbProduct = dbProducts[product?.producto_id];
+
+				return (
+					<Product
+						key={product?.producto_id}
+						name={dbProduct?.pro_nombre}
+						price={dbProduct?.pro_costo}
+						quantity={product?.cantidad}
+						subtotal={product?.subtotal}
+						total={product?.total}
+					/>
+				);
+			})}
 		</>
 	);
 };
