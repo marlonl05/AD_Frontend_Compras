@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { ShoppingContext } from '../context';
+import { ProductContext, ShoppingContext } from '../context';
 import { shoppingTypes } from '../types';
 
 export const useShoppingContext = () => {
@@ -14,6 +14,8 @@ export const useShoppingContext = () => {
 		shoppingDispatch,
 		defaultTabIndex,
 	} = useContext(ShoppingContext);
+
+	const productList = useContext(ProductContext);
 
 	const handleShowShopping = shoppingId => {
 		shoppingDispatch({ type: shoppingTypes.SET_CURRENT_SIDEBAR_SHOPPING, payload: +shoppingId });
@@ -70,6 +72,7 @@ export const useShoppingContext = () => {
 		cartDetails,
 		currentShopping,
 		defaultTabIndex,
+		productList,
 
 		// Actions
 		handleTabIndex,
