@@ -1,6 +1,6 @@
-export const mapListToObject = list => {
+export const mapListToObject = (list, itemKey = 'id') => {
 	return list.reduce((acc, item) => {
-		acc[item.id] = item;
+		acc[item[itemKey]] = item;
 		return acc;
 	}, {});
 };
