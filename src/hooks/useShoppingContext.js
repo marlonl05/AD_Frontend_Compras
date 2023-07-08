@@ -31,7 +31,7 @@ export const useShoppingContext = () => {
 	};
 
 	const handleAddShopping = shoppingRequest => {
-		if (cartDetails?.detalles?.length === 0)
+		if (!cartDetails?.detalles || cartDetails?.detalles.length === 0)
 			return spawnMessage('El carrito debe tener al menos un producto seleccionado', 'error');
 
 		const shopping = prepareShoppingToCreate(shoppingRequest, cartDetails);
@@ -65,7 +65,14 @@ export const useShoppingContext = () => {
 
 		const shopping = shoppingList[shoppingId];
 
-		if (!shopping) return shoppingDispatch({ type: shoppingTypes.SET_CART_DETAILS, payload: {} });
+		if (!shopping)
+			return shoppingDispatch({
+				type: shoppingTypes.SET_CART_DETAILS,
+				payload: {
+					detalles: [],
+					total: 0,
+				},
+			});
 
 		const { total, detalles } = shopping;
 
