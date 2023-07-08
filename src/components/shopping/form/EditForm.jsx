@@ -1,10 +1,19 @@
 /* eslint-disable react/prop-types */
+import { useState } from 'react';
 import { RiBillFill, RiCalendarEventFill, RiCurrencyFill, RiUser2Fill } from 'react-icons/ri';
 import { providerTypes, shoppingState } from '../../../constants';
 import { FormFieldUnEditable } from '../../common/form';
 import { ProviderCard } from './';
+import { useShoppingContext } from '../../../hooks';
 
 const PaymentCheckBox = ({ isCheck, onChange }) => {
+	const [currentCheck, setCurrentCheck] = useState(isCheck);
+
+	const handleSetCheck = ({ target }) => {
+		setCurrentCheck(target.checked);
+		onChange(target.checked);
+	};
+
 	return (
 		<div className='flex items-start flex-col md:flex-row gap-2 mb-8'>
 			<div className='w-full md:w-2/6'>Estado</div>
@@ -13,8 +22,8 @@ const PaymentCheckBox = ({ isCheck, onChange }) => {
 					<input
 						type='checkbox'
 						className='peer sr-only [&:checked_+_span_svg[data-unchecked-icon]]:hidden [&:checked_+_span_svg[data-checked-icon]]:block'
-						defaultChecked={isCheck}
-						onChange={({ target }) => onChange(target.checked)}
+						defaultChecked={currentCheck}
+						onChange={handleSetCheck}
 					/>
 					<span className='absolute inset-0 z-10 m-1 inline-flex h-6 w-6 items-center justify-center rounded-full bg-white text-gray-400 transition peer-checked:translate-x-6 peer-checked:text-secondary-100'>
 						<svg
@@ -47,13 +56,14 @@ const PaymentCheckBox = ({ isCheck, onChange }) => {
 					</span>
 					<span className='absolute inset-0 rounded-full bg-gray-300 transition peer-checked:bg-secondary-100'></span>
 				</label>
-				<p className='capitalize'>{isCheck ? shoppingState.ACTIVO : shoppingState.INACTIVO}</p>
+				<p className='capitalize'>{currentCheck ? shoppingState.ACTIVO : shoppingState.INACTIVO}</p>
 			</div>
 		</div>
 	);
 };
 
 export const EditForm = ({ provider, shopping }) => {
+	const { handleEditShopping } = useShoppingContext();
 	return (
 		<>
 			<FormFieldUnEditable
@@ -102,7 +112,10 @@ export const EditForm = ({ provider, shopping }) => {
 				required
 			/>
 
-			<PaymentCheckBox isCheck={shopping.estado === shoppingState.ACTIVO} onChange={console.log} />
+			<PaymentCheckBox
+				isCheck={shopping.estado === shoppingState.ACTIVO}
+				onChange={handleEditShopping}
+			/>
 
 			<ProviderCard provider={provider} />
 		</>

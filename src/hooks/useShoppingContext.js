@@ -5,7 +5,7 @@ import { ProductContext, ShoppingContext } from '../context';
 import { shoppingTypes } from '../types';
 import { prepareShoppingToCreate } from '../helpers';
 import comprasApi from '../api';
-import { status } from '../constants';
+import { shoppingState, status } from '../constants';
 
 export const useShoppingContext = () => {
 	const {
@@ -26,8 +26,28 @@ export const useShoppingContext = () => {
 		shoppingDispatch({ type: shoppingTypes.SET_CURRENT_SIDEBAR_SHOPPING, payload: +shoppingId });
 	};
 
-	const handleEditShopping = shoppingRequest => {
-		console.log('handleEditShopping', { shoppingRequest });
+	const handleEditShopping = isShoppingActive => {
+		if (!currentShopping) return spawnMessage('Debe seleccionar una compra', 'error');
+
+		const shopping = shoppingList[currentShopping];
+
+		if (!shopping) return spawnMessage('La compra no existe', 'error');
+
+		const state = isShoppingActive ? shoppingState.ACTIVO : shoppingState.INACTIVO;
+
+		const request = comprasApi.put(`/facturas/${currentShopping}`, { ...shopping, estado: state });
+
+		toast.promise(request, {
+			loading: 'Actualizando estado de la compra...',
+			success: response => {
+				handleReloadShoppings();
+				return 'Estado de la compra actualizado exitosamente.';
+			},
+			error: message => {
+				handleState(status.FAILED);
+				return 'Error al actualizar el estado de la compra!';
+			},
+		});
 	};
 
 	const handleAddShopping = shoppingRequest => {

@@ -24,7 +24,6 @@ export const ShoppingForm = ({ shopping }) => {
 		state,
 		handleSetCurrentShopping,
 		handlePrintShopping,
-		handleEditShopping,
 		handleAddShopping,
 		handleState,
 		handleReloadShoppings,
@@ -89,10 +88,7 @@ export const ShoppingForm = ({ shopping }) => {
 	};
 
 	const handleProviderSubmit = providerRequest => {
-		if (shopping) {
-			handleEditShopping(providerRequest);
-			return;
-		}
+		if (shopping) return;
 
 		handleAddShopping(providerRequest);
 	};

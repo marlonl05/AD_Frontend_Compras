@@ -41,6 +41,29 @@
       "id": "SfHFEOF"
     },
     {
+      "proveedor_id": 3,
+      "tipo_pago": "CREDITO",
+      "fecha_vencimiento": "2023-07-09",
+      "estado": "INACTIVO",
+      "detalles": [
+        {
+          "producto_id": 6,
+          "cantidad": "3",
+          "subtotal": 3.51,
+          "total": 3.51
+        },
+        {
+          "producto_id": 7,
+          "cantidad": "33",
+          "subtotal": 13.2,
+          "total": 13.2
+        }
+      ],
+      "total": 16.71,
+      "fecha_factura": "2023-07-08",
+      "id": "0W5gYng"
+    },
+    {
       "proveedor_id": 2,
       "tipo_pago": "CONTADO",
       "fecha_vencimiento": "2023-07-09",
@@ -48,14 +71,14 @@
       "detalles": [
         {
           "producto_id": 2,
-          "cantidad": "2",
-          "subtotal": 4.8,
-          "total": 5.47
+          "cantidad": "32",
+          "subtotal": 76.8,
+          "total": 87.55
         }
       ],
-      "total": 5.47,
+      "total": 87.55,
       "fecha_factura": "2023-07-08",
-      "id": "COv8teq"
+      "id": "ol77WhG"
     }
   ],
   "proveedores": [
@@ -83,7 +106,7 @@
     },
     {
       "documento_identificacion": "1231231232",
-      "nombre": "Pedro Granda",
+      "nombre": "Pedro Rodrigez",
       "ciudad": "Cotacachi",
       "email": "pedro@gmail.com",
       "direccion": "Av. Sucre",
