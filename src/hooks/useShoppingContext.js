@@ -1,7 +1,11 @@
 /* eslint-disable camelcase */
 import { useContext } from 'react';
+import { toast } from 'sonner';
 import { ProductContext, ShoppingContext } from '../context';
 import { shoppingTypes } from '../types';
+import { prepareShoppingToCreate } from '../helpers';
+import comprasApi from '../api';
+import { status } from '../constants';
 
 export const useShoppingContext = () => {
 	const {
@@ -29,7 +33,23 @@ export const useShoppingContext = () => {
 	const handleAddShopping = shoppingRequest => {
 		if (cartDetails?.detalles?.length === 0)
 			return spawnMessage('El carrito debe tener al menos un producto seleccionado', 'error');
-		console.log('handleAddShopping', { shoppingRequest });
+
+		const shopping = prepareShoppingToCreate(shoppingRequest, cartDetails);
+
+		const request = comprasApi.post('/facturas', shopping);
+
+		toast.promise(request, {
+			loading: 'Registrando compra...',
+			success: response => {
+				shoppingDispatch({ type: shoppingTypes.ADD });
+				handleSetCurrentShopping(null);
+				return 'Compra registrada exitosamente.';
+			},
+			error: message => {
+				handleState(status.FAILED);
+				return 'Error al registrar la compra!';
+			},
+		});
 	};
 
 	const handlePrintShopping = () => {
@@ -133,6 +153,10 @@ export const useShoppingContext = () => {
 		}, 100);
 	};
 
+	const handleState = payload => shoppingDispatch({ type: shoppingTypes.SET_STATE, payload });
+
+	const handleReloadShoppings = () => shoppingDispatch({ type: shoppingTypes.RELOAD_SHOPPINGS });
+
 	return {
 		// State
 		shoppingList,
@@ -154,6 +178,8 @@ export const useShoppingContext = () => {
 		handleSetCurrentShopping,
 		handleAddProductToCart,
 		handleDeleteProductFromCart,
+		handleReloadShoppings,
 		spawnMessage,
+		handleState,
 	};
 };

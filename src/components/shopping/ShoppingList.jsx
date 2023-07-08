@@ -23,12 +23,12 @@ const ShoppingTableRow = ({ shopping, labels }) => {
 
 	return (
 		<TableRow
-			key={+shopping.id}
+			key={shopping.id}
 			item={updatedShopping}
 			itemLabels={labels}
 			rowStyles='md:grid-cols-7'
 			detailBtn={
-				<Button onClick={() => handleSetCurrentShopping(+shopping.id)}>
+				<Button onClick={() => handleSetCurrentShopping(shopping.id)}>
 					<RiEye2Fill />
 					Detalles
 				</Button>
@@ -45,7 +45,7 @@ const Table = ({ items }) => {
 			<TableHeader labels={labels} columsStyle='md:grid-cols-7' />
 
 			{items.map(shopping => (
-				<ShoppingTableRow key={+shopping.id} shopping={shopping} labels={labels} />
+				<ShoppingTableRow key={shopping.id} shopping={shopping} labels={labels} />
 			))}
 		</>
 	);

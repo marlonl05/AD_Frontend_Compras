@@ -1,15 +1,16 @@
 /* eslint-disable react/prop-types */
 import { useForm } from 'react-hook-form';
 import { Form, FormHeader } from '../common';
-import { providerTypes } from '../../constants';
+import { providerTypes, status } from '../../constants';
 import { useProviderContext, useShoppingContext } from '../../hooks';
 import { AddForm, EditForm } from './form';
-import { addDays } from 'date-fns';
+import { addDays, format } from 'date-fns';
+import { useEffect } from 'react';
 
 const initialValues = {
 	proveedor_id: '',
 	tipo_pago: '',
-	fecha_vencimiento: addDays(new Date(), 1).toISOString(),
+	fecha_vencimiento: format(addDays(new Date(), 1), 'yyyy-MM-dd'),
 };
 
 const shoppingActions = {
@@ -19,8 +20,15 @@ const shoppingActions = {
 
 export const ShoppingForm = ({ shopping }) => {
 	const { providerList } = useProviderContext();
-	const { handleSetCurrentShopping, handlePrintShopping, handleEditShopping, handleAddShopping } =
-		useShoppingContext();
+	const {
+		state,
+		handleSetCurrentShopping,
+		handlePrintShopping,
+		handleEditShopping,
+		handleAddShopping,
+		handleState,
+		handleReloadShoppings,
+	} = useShoppingContext();
 
 	const defaultShopping = shopping;
 
@@ -35,6 +43,20 @@ export const ShoppingForm = ({ shopping }) => {
 	} = useForm({
 		defaultValues: defaultShopping || initialValues,
 	});
+
+	useEffect(() => {
+		if (state === status.FAILED) {
+			handleState(status.IDLE);
+			return;
+		}
+
+		if (state !== status.COMPLETED) return;
+
+		reset(initialValues);
+
+		handleReloadShoppings();
+		handleSetCurrentShopping(null);
+	}, [state]);
 
 	const provider = providerList[watch('proveedor_id')];
 
