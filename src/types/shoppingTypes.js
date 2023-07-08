@@ -8,4 +8,5 @@ export const shoppingTypes = Object.freeze({
 	SET_CART_DETAILS: '[Shopping] Set cart details',
 	SET_NEW_PRODUCT_TO_CART: '[Shopping] Set new product to cart',
 	SET_DELETE_PRODUCT_FROM_CART: '[Shopping] Set delete product from cart',
+	RELOAD_SHOPPINGS: '[Shopping] Reload shoppings',
 });

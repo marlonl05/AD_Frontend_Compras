@@ -10,7 +10,21 @@ export const shoppingReducer = (shoppingState, action) => {
 				...shoppingState,
 				shoppingList: mapListToObject(action.payload),
 				shoppingListIds: mapObjectToListIds(action.payload),
+				state: status.IDLE,
+			};
+		}
+
+		case shoppingTypes.ADD: {
+			return {
+				...shoppingState,
 				state: status.COMPLETED,
+			};
+		}
+
+		case shoppingTypes.RELOAD_SHOPPINGS: {
+			return {
+				...shoppingState,
+				refreshCounter: shoppingState.refreshCounter + 1,
 			};
 		}
 
