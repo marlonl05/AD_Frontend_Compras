@@ -4,11 +4,12 @@ import { Form, FormHeader } from '../common';
 import { providerTypes } from '../../constants';
 import { useProviderContext, useShoppingContext } from '../../hooks';
 import { AddForm, EditForm } from './form';
+import { addDays } from 'date-fns';
 
 const initialValues = {
 	proveedor_id: '',
 	tipo_pago: '',
-	fecha_vencimiento: '',
+	fecha_vencimiento: addDays(new Date(), 1).toISOString(),
 };
 
 const shoppingActions = {
