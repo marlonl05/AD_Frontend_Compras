@@ -26,9 +26,8 @@ export const useProviderContext = () => {
 
 	const handleEditProvider = providerRequest => {
 		const provider = prepareProviderToSend(providerRequest);
-		console.log('Updating provider', { provider });
 
-		const request = fetchMock();
+		const request = comprasApi.put(`/proveedores/${providerRequest.id}`, provider);
 
 		toast.promise(request, {
 			loading: 'Actualizando proveedor...',

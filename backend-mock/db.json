@@ -51,6 +51,17 @@
       "estado": "ACTIVO",
       "tipo_proveedor": "CREDITO",
       "id": 3
+    },
+    {
+      "documento_identificacion": "342143214312",
+      "nombre": "Corregido",
+      "ciudad": "Ibarra",
+      "email": "err@err.com",
+      "direccion": "Calle Sucre",
+      "telefono": "0453993999",
+      "estado": "INACTIVO",
+      "tipo_proveedor": "CONTADO",
+      "id": 4
     }
   ],
   "productos": [
