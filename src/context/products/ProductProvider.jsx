@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import { useEffect, useReducer } from 'react';
 import { productReducer } from './ProductReducer';
@@ -7,7 +8,6 @@ import { mapListToObject } from '../../helpers';
 
 const initialState = {};
 
-// eslint-disable-next-line no-unused-vars
 const authCredentials = {
 	username: 'Mateito',
 	password: '12345',
@@ -18,10 +18,9 @@ export const ProductProvider = ({ children }) => {
 
 	const init = async () => {
 		try {
-			// const resp = await inventarioApi.get('/auth', JSON.stringify(authCredentials));
+			// const resp = await inventarioApi.get('/auth', authCredentials);
 			// console.log({ resp });
 			const { data } = await inventarioApi.get('/productos');
-
 			productDispatch({ type: 'LOAD_PRODUCTS', payload: mapListToObject(data, 'pro_id') });
 		} catch (error) {
 			console.error(error);

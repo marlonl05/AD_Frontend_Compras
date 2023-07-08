@@ -1,7 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useState } from 'react';
 import Select from 'react-tailwindcss-select';
-import { Button } from '../Button';
 import { checkIfObjectHaveProp } from '../../../helpers';
 import { twMerge } from 'tailwind-merge';
 
@@ -14,8 +13,7 @@ export const FormHeader = ({
 	propertyToUseInValue = 'id',
 	propertyToUseInLabel = 'name',
 	selectOnlyThisItems = [],
-	extraButtonLabel,
-	handleExtraButtonAction,
+	button,
 	styles = '',
 }) => {
 	const options = selectList.map(item => ({
@@ -53,13 +51,7 @@ export const FormHeader = ({
 					<Select primaryColor='amber' value={value} onChange={handleOnChange} options={options} />
 				</div>
 
-				<Button
-					onClick={handleExtraButtonAction}
-					type='button'
-					className='font-normal text-start inline-block w-64 md:w-auto truncate'
-				>
-					{extraButtonLabel}
-				</Button>
+				{button}
 			</div>
 		</div>
 	);

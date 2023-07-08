@@ -13,6 +13,7 @@ import {
 import { Button, Checkbox, Form, FormField, FormHeader, SelectField } from '../common';
 import { providerState, providerTypes, status } from '../../constants';
 import { useProviderContext } from '../../hooks';
+import { AllProvidersPdf, PdfLink } from '../../pdf';
 
 const providersActions = {
 	add: 'Agregar proveedor',
@@ -91,8 +92,13 @@ export const ProviderForm = ({ provider }) => {
 					propertyToUseInValue='name'
 					selectOnlyThisItems={availableHeaderItems}
 					handleCurrentOption={handleCurrentOption}
-					extraButtonLabel='Obtener reportes de proveedores'
-					handleExtraButtonAction={handlePrintProvider}
+					button={
+						<PdfLink
+							document={<AllProvidersPdf />}
+							fileName='reporte_proveedores.pdf'
+							text='Obtener reportes de proveedores'
+						/>
+					}
 				/>
 			}
 			onSubmit={handleSubmit(!provider ? handleCreateProvider : handleEditProvider)}

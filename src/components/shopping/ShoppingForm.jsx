@@ -1,11 +1,12 @@
 /* eslint-disable react/prop-types */
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { Form, FormHeader } from '../common';
 import { providerTypes, status } from '../../constants';
 import { useProviderContext, useShoppingContext } from '../../hooks';
 import { AddForm, EditForm } from './form';
 import { addDays, format } from 'date-fns';
-import { useEffect } from 'react';
+import { AllProvidersPdf, PdfLink } from '../../pdf';
 
 const initialValues = {
 	proveedor_id: '',
@@ -20,14 +21,8 @@ const shoppingActions = {
 
 export const ShoppingForm = ({ shopping }) => {
 	const { providerList } = useProviderContext();
-	const {
-		state,
-		handleSetCurrentShopping,
-		handlePrintShopping,
-		handleAddShopping,
-		handleState,
-		handleReloadShoppings,
-	} = useShoppingContext();
+	const { state, handleSetCurrentShopping, handleAddShopping, handleState, handleReloadShoppings } =
+		useShoppingContext();
 
 	const defaultShopping = shopping;
 
@@ -105,8 +100,13 @@ export const ShoppingForm = ({ shopping }) => {
 					propertyToUseInValue='name'
 					selectOnlyThisItems={availableHeaderItems}
 					handleCurrentOption={handleCurrentOption}
-					extraButtonLabel='Obtener reportes de compras'
-					handleExtraButtonAction={handlePrintShopping}
+					button={
+						<PdfLink
+							document={<AllProvidersPdf />}
+							fileName='compras.pdf'
+							text='Obtener reportes de compras'
+						/>
+					}
 					styles='lg2:flex-col 2xl:flex-row'
 				/>
 			}
