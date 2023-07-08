@@ -82,7 +82,7 @@ export const BillSidebar = ({ showBill, showInLargeScreen, toggleBill }) => {
 							/>
 							<input
 								className='w-full lg:w-[245px] bg-gray-100 text-dark-200 py-2 px-4 rounded-lg outline-none col-span-2 md:col-span-1 mb-1'
-								placeholder='Cantidad de productos'
+								placeholder='Cantidad del producto'
 								type='number'
 								value={quantity}
 								onChange={({ target }) => setQuantity(target.value)}

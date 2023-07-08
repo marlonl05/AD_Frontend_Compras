@@ -19,7 +19,7 @@ export const TableRow = ({ item, itemLabels, rowStyles = 'md:grid-cols-4', detai
 							{length === index + 1 ? 'Ver detalles' : itemLabels[key]}
 						</h5>
 						<span className={`truncate block ${key !== 'email' && 'capitalize'}`}>
-							{length === index + 1 ? detailBtn : item[key]?.toLowerCase()}
+							{length === index + 1 ? detailBtn : item[key]?.toString().toLowerCase()}
 						</span>
 					</div>
 				);
