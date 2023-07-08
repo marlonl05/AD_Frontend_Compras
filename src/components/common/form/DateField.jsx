@@ -15,7 +15,7 @@ export const DateField = ({
 	handleValueOnChange,
 	errorMessage,
 }) => {
-	const { handleShowMessage } = useShoppingContext();
+	const { spawnMessage } = useShoppingContext();
 
 	let defaultDate;
 
@@ -25,11 +25,7 @@ export const DateField = ({
 
 	const handleDate = date => {
 		if (date <= new Date()) {
-			handleShowMessage('La fecha debe ser mayor a la actual.', 'error');
-
-			setTimeout(() => {
-				handleShowMessage(null, 'error');
-			}, 100);
+			spawnMessage('La fecha debe ser mayor a la fecha actual.', 'error');
 
 			return;
 		}

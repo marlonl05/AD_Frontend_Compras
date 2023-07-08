@@ -19,14 +19,8 @@ const shoppingActions = {
 
 export const ShoppingForm = ({ shopping }) => {
 	const { providerList } = useProviderContext();
-	const {
-		cartDetails,
-		handleSetCurrentShopping,
-		handlePrintShopping,
-		handleEditShopping,
-		handleAddShopping,
-		handleShowMessage,
-	} = useShoppingContext();
+	const { handleSetCurrentShopping, handlePrintShopping, handleEditShopping, handleAddShopping } =
+		useShoppingContext();
 
 	const defaultShopping = shopping;
 
@@ -73,21 +67,8 @@ export const ShoppingForm = ({ shopping }) => {
 	};
 
 	const handleProviderSubmit = providerRequest => {
-		// const { detalles, total } = cartDetails;
-		const { detalles } = cartDetails;
-
 		if (shopping) {
 			handleEditShopping(providerRequest);
-			return;
-		}
-
-		if (!detalles || detalles?.length === 0) {
-			handleShowMessage('El carrito debe tener al menos un producto seleccionado', 'error');
-
-			setTimeout(() => {
-				handleShowMessage(null, 'error');
-			}, 100);
-
 			return;
 		}
 

@@ -27,7 +27,8 @@ export const useShoppingContext = () => {
 	};
 
 	const handleAddShopping = shoppingRequest => {
-		if (cartDetails.detalles.length === 0) return spawnMessage('El carrito está vacío', 'error');
+		if (cartDetails?.detalles?.length === 0)
+			return spawnMessage('El carrito debe tener al menos un producto seleccionado', 'error');
 		console.log('handleAddShopping', { shoppingRequest });
 	};
 
@@ -54,13 +55,6 @@ export const useShoppingContext = () => {
 				total,
 				detalles,
 			},
-		});
-	};
-
-	const handleShowMessage = (message, type) => {
-		shoppingDispatch({
-			type: shoppingTypes.SET_MESSAGES,
-			payload: type === 'error' ? { error: message } : { message },
 		});
 	};
 
@@ -126,10 +120,16 @@ export const useShoppingContext = () => {
 	};
 
 	const spawnMessage = (message, type) => {
-		handleShowMessage(message, type);
+		shoppingDispatch({
+			type: shoppingTypes.SET_MESSAGES,
+			payload: type === 'error' ? { error: message } : { message },
+		});
 
 		setTimeout(() => {
-			handleShowMessage(null, 'error');
+			shoppingDispatch({
+				type: shoppingTypes.SET_MESSAGES,
+				payload: type === 'error' ? { error: null } : { message: null },
+			});
 		}, 100);
 	};
 
@@ -152,8 +152,8 @@ export const useShoppingContext = () => {
 		handleAddShopping,
 		handlePrintShopping,
 		handleSetCurrentShopping,
-		handleShowMessage,
 		handleAddProductToCart,
 		handleDeleteProductFromCart,
+		spawnMessage,
 	};
 };
