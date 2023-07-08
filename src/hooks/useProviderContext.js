@@ -45,10 +45,6 @@ export const useProviderContext = () => {
 	const handleTabIndex = tabIndex =>
 		providerDispatch({ type: providerTypes.SET_DEFAULT_TAB_INDEX, payload: tabIndex });
 
-	const handlePrintProvider = () => {
-		console.log('Print provider');
-	};
-
 	const handleCreateProvider = providerRequest => {
 		const provider = prepareProviderToSend(providerRequest);
 		// await comprasApi.post('/ingresar/proveedor', provider);
@@ -85,7 +81,6 @@ export const useProviderContext = () => {
 		handleState,
 		handleSetCurrentProvider,
 		handleEditProvider,
-		handlePrintProvider,
 		handleCreateProvider,
 		handleReloadProviders,
 		handleTabIndex,

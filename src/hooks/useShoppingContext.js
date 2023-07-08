@@ -72,10 +72,6 @@ export const useShoppingContext = () => {
 		});
 	};
 
-	const handlePrintShopping = () => {
-		console.log('handlePrintShopping');
-	};
-
 	const handleTabIndex = tabIndex =>
 		shoppingDispatch({ type: shoppingTypes.SET_DEFAULT_TAB_INDEX, payload: tabIndex });
 
@@ -201,7 +197,6 @@ export const useShoppingContext = () => {
 		handleShowShopping,
 		handleEditShopping,
 		handleAddShopping,
-		handlePrintShopping,
 		handleSetCurrentShopping,
 		handleAddProductToCart,
 		handleDeleteProductFromCart,

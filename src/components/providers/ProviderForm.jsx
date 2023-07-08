@@ -53,7 +53,6 @@ export const ProviderForm = ({ provider }) => {
 		handleCreateProvider,
 		handleEditProvider,
 		handleReloadProviders,
-		handlePrintProvider,
 		handleSetCurrentProvider,
 		handleState,
 	} = useProviderContext();
