@@ -5,7 +5,7 @@ import { ProviderContext } from '../context';
 import comprasApi from '../api';
 import { providerTypes } from '../types';
 import { status } from '../constants';
-import { fetchMock, prepareProviderToSend } from '../helpers';
+import { prepareProviderToSend } from '../helpers';
 
 export const useProviderContext = () => {
 	const {

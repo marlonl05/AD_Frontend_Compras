@@ -65,9 +65,6 @@ export const AddForm = ({
 				<Button type='submit' className='w-auto'>
 					Registrar e imprimir esta factura
 				</Button>
-				<Button type='submit' className='w-auto'>
-					Registrar factura
-				</Button>
 			</div>
 			<span className='text-red-600 text-end md:col-span-2 lg2:col-span-1 2xl:col-span-2 text-sm'>
 				¡Esta acción no se puede deshacer!
