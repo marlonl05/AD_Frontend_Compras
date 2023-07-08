@@ -26,7 +26,7 @@ export const Shopping = () => {
 						<ShoppingList />
 					</Tab.Panel>
 					<Tab.Panel>
-						<ShoppingForm shopping={currentShopping && shoppingList[+currentShopping]} />
+						<ShoppingForm shopping={currentShopping && shoppingList[currentShopping]} />
 					</Tab.Panel>
 				</Body>
 			}

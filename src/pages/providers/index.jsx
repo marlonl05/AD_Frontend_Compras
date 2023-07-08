@@ -26,7 +26,7 @@ export const Providers = () => {
 						<ProviderList />
 					</Tab.Panel>
 					<Tab.Panel>
-						<ProviderForm provider={currentProvider && providerList[+currentProvider]} />
+						<ProviderForm provider={currentProvider && providerList[currentProvider]} />
 					</Tab.Panel>
 				</Body>
 			}
