@@ -52,10 +52,8 @@ export const useProviderContext = () => {
 
 	const handleCreateProvider = providerRequest => {
 		const provider = prepareProviderToSend(providerRequest);
-		console.log('Adding provider', { provider });
-		// await comprasApi.post('/ingresar/proveedor', mapFormProviderToNormal(provider));
-
-		const request = fetchMock();
+		// await comprasApi.post('/ingresar/proveedor', provider);
+		const request = comprasApi.post('/proveedores', provider);
 
 		toast.promise(request, {
 			loading: 'Creando proveedor...',
