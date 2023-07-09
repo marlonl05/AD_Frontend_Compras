@@ -10,6 +10,9 @@ const styles = StyleSheet.create({
 		margin: 10,
 		padding: 10,
 		flexGrow: 1,
+		width: '100%',
+		alignItems: 'flex-start',
+		justifyContent: 'flex-start',
 	},
 });
 
@@ -17,7 +20,7 @@ export const AllProvidersPdf = () => (
 	<Document>
 		<Page size='A4' style={styles.page}>
 			<View style={styles.section}>
-				<Text>Reporte de PDF</Text>
+				<Text>Reporte de proveedores</Text>
 			</View>
 			<View style={styles.section}>
 				<Text>Proveedores</Text>
