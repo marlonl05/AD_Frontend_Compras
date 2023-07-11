@@ -11,10 +11,9 @@ import {
 	RiUserLine,
 } from 'react-icons/ri';
 import { Button, Checkbox, Form, FormField, FormHeader, SelectField } from '../common';
-import { providerState, providerTypes, status } from '../../constants';
-import { useProviderContext } from '../../hooks';
+import { providerState, providerTypes, shoppingState, status } from '../../constants';
+import { useProviderContext, useShoppingContext } from '../../hooks';
 import { AllProvidersPdf, PdfLink } from '../../pdf';
-import Invoice from '../../pdf/example/Invoice';
 
 const providersActions = {
 	add: 'Agregar proveedor',
@@ -51,12 +50,15 @@ export const ProviderForm = ({ provider }) => {
 
 	const {
 		state,
+		providerList,
 		handleCreateProvider,
 		handleEditProvider,
 		handleReloadProviders,
 		handleSetCurrentProvider,
 		handleState,
 	} = useProviderContext();
+
+	const { shoppingList } = useShoppingContext();
 
 	useEffect(() => {
 		if (state === status.FAILED) {
@@ -83,6 +85,25 @@ export const ProviderForm = ({ provider }) => {
 	const defaultHeaderValue = provider ? providersActions.details : providersActions.add;
 	const availableHeaderItems = provider ? Object.values(providersActions) : [providersActions.add];
 
+	const getPdfProps = props => {
+		// if (url) window.open(url);
+		// console.log(props);
+	};
+
+	const providersToPrint = Object.values(providerList).map(provider => {
+		const totalCreditsToPay = Object.values(shoppingList)
+			.filter(shopping => shopping.proveedor_id === provider.id)
+			.filter(shopping => shopping.estado === shoppingState.ACTIVO)
+			.filter(shopping => shopping.tipo_pago === providerTypes.CREDITO)
+			.map(shopping => +shopping.total)
+			.reduce((acc, total) => acc + total, 0);
+
+		return {
+			...provider,
+			creditos: totalCreditsToPay,
+		};
+	});
+
 	return (
 		<Form
 			formHeader={
@@ -94,10 +115,10 @@ export const ProviderForm = ({ provider }) => {
 					handleCurrentOption={handleCurrentOption}
 					button={
 						<PdfLink
-							// document={<AllProvidersPdf />}
-							document={<Invoice />}
+							document={<AllProvidersPdf providers={providersToPrint} />}
 							fileName='reporte_proveedores.pdf'
 							text='Obtener reportes de proveedores'
+							getProps={getPdfProps}
 						/>
 					}
 				/>
