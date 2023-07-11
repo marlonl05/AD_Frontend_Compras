@@ -4,7 +4,8 @@ import BillTo from './BillTo';
 import InvoiceNo from './InvoiceNo';
 import InvoiceItemsTable from './InvoiceItemsTable';
 import InvoiceThankYouMsg from './InvoiceThankYouMsg';
-import logo from '../../../src/logo.png';
+import logo from '../../../public/logo-compras.jpeg';
+import { invoice } from './invoiceData';
 
 const styles = StyleSheet.create({
 	page: {
@@ -26,7 +27,7 @@ const styles = StyleSheet.create({
 
 // Tutorial:
 // https://kags.me.ke/post/generate-dynamic-pdf-incoice-using-react-pdf/
-const Invoice = ({ invoice }) => (
+const Invoice = () => (
 	<Document>
 		<Page size='A4' style={styles.page}>
 			<Image style={styles.logo} src={logo} />
