@@ -4,7 +4,6 @@ import BillTo from './BillTo';
 import InvoiceNo from './InvoiceNo';
 import InvoiceItemsTable from './InvoiceItemsTable';
 import InvoiceThankYouMsg from './InvoiceThankYouMsg';
-import logo from '../../../public/logo-compras.jpeg';
 import { invoice } from './invoiceData';
 
 const styles = StyleSheet.create({
@@ -30,7 +29,7 @@ const styles = StyleSheet.create({
 const Invoice = () => (
 	<Document>
 		<Page size='A4' style={styles.page}>
-			<Image style={styles.logo} src={logo} />
+			<Image style={styles.logo} src='/logo-compras.jpeg' />
 			<InvoiceTitle title='Invoice' />
 			<InvoiceNo invoice={invoice} />
 			<BillTo invoice={invoice} />
