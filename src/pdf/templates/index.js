@@ -1,1 +1,2 @@
-export * from './AllProvidersPdf';
+export * from './bill';
+export * from './provider';
