@@ -1,11 +1,13 @@
 /* eslint-disable react/prop-types */
 import { useState } from 'react';
 import Select from 'react-tailwindcss-select';
-import { RiFileTextLine, RiShoppingCart2Fill } from 'react-icons/ri';
+import { useProviderContext, useShoppingContext } from '../../hooks';
+import { RiShoppingCart2Fill } from 'react-icons/ri';
 import { DetailSidebar } from '../../layout/details';
 import { ProductList } from './ProductList';
-import { useShoppingContext } from '../../hooks/useShoppingContext';
 import { Button } from '../common';
+import { PdfLink } from '../../pdf';
+import { OneBillPdf } from '../../pdf/templates/bill/OneBillPdf';
 
 const ProductDetailsBody = ({ product = {} }) => (
 	<>
@@ -44,8 +46,9 @@ const ProductDetailsBody = ({ product = {} }) => (
 export const BillSidebar = ({ showBill, showInLargeScreen, toggleBill }) => {
 	const [quantity, setQuantity] = useState('');
 	const [currentProduct, setCurrentProduct] = useState();
-	const { cartDetails, productList, currentShopping, handleAddProductToCart } =
+	const { cartDetails, productList, shoppingList, currentShopping, handleAddProductToCart } =
 		useShoppingContext();
+	const { providerList } = useProviderContext();
 
 	const { total, detalles } = cartDetails;
 
@@ -53,7 +56,6 @@ export const BillSidebar = ({ showBill, showInLargeScreen, toggleBill }) => {
 		label: product?.pro_nombre,
 		value: product?.pro_id,
 	}));
-
 	return (
 		<DetailSidebar
 			title={currentShopping ? `Detalle de la factura #${currentShopping}` : 'Carrito de compras'}
@@ -109,10 +111,19 @@ export const BillSidebar = ({ showBill, showInLargeScreen, toggleBill }) => {
 					</div>
 					<div className='flex items-center flex-col gap-4'>
 						{currentShopping && (
-							<Button className='bg-transparent' onClick={() => console.log('obteniendo reporte')}>
-								<RiFileTextLine />
-								Obtener reporte en PDF
-							</Button>
+							<PdfLink
+								document={
+									<OneBillPdf
+										billDetails={detalles}
+										billHeader={shoppingList[currentShopping]}
+										products={productList}
+										provider={providerList[shoppingList[currentShopping]?.proveedor_id]}
+									/>
+								}
+								fileName='reporte_compra.pdf'
+								text='Obtener reporte en PDF'
+								showIcon
+							/>
 						)}
 					</div>
 				</>

@@ -14,6 +14,7 @@ import { Button, Checkbox, Form, FormField, FormHeader, SelectField } from '../c
 import { providerState, providerTypes, status } from '../../constants';
 import { useProviderContext } from '../../hooks';
 import { AllProvidersPdf, PdfLink } from '../../pdf';
+import Invoice from '../../pdf/example/Invoice';
 
 const providersActions = {
 	add: 'Agregar proveedor',
@@ -93,7 +94,8 @@ export const ProviderForm = ({ provider }) => {
 					handleCurrentOption={handleCurrentOption}
 					button={
 						<PdfLink
-							document={<AllProvidersPdf />}
+							// document={<AllProvidersPdf />}
+							document={<Invoice />}
 							fileName='reporte_proveedores.pdf'
 							text='Obtener reportes de proveedores'
 						/>
