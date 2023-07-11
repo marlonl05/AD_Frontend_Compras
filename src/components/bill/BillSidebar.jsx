@@ -6,8 +6,7 @@ import { RiShoppingCart2Fill } from 'react-icons/ri';
 import { DetailSidebar } from '../../layout/details';
 import { ProductList } from './ProductList';
 import { Button } from '../common';
-import { PdfLink } from '../../pdf';
-import { OneBillPdf } from '../../pdf/templates/bill/OneBillPdf';
+import { OneBillPdf, PdfLink } from '../../pdf';
 
 const ProductDetailsBody = ({ product = {} }) => (
 	<>

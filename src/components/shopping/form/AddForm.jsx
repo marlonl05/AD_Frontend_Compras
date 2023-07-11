@@ -63,7 +63,7 @@ export const AddForm = ({
 
 			<div className='flex flex-col md:flex-row justify-end md:col-span-2 lg2:col-span-1 2xl:col-span-2 gap-2'>
 				<Button type='submit' className='w-auto'>
-					Registrar e imprimir esta factura
+					Registrar la compra
 				</Button>
 			</div>
 			<span className='text-red-600 text-end md:col-span-2 lg2:col-span-1 2xl:col-span-2 text-sm'>
