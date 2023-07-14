@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
 		...boxStyles,
 	},
 	phone: {
-		width: '10%',
+		width: '13%',
 		...boxStyles,
 	},
 	city: {
@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
 		...boxStyles,
 	},
 	credit: {
-		width: '10%',
+		width: '7%',
 	},
 });
 
