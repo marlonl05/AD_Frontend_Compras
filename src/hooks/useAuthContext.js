@@ -57,10 +57,7 @@ export const useAuthContext = () => {
 		toast.promise(request, {
 			loading: 'Cerrando sesión...',
 			success: () => {
-				localStorage.removeItem('user');
-				localStorage.removeItem('token');
-				localStorage.removeItem('token-inventario');
-				localStorage.removeItem('token-init-date');
+				localStorage.clear();
 
 				const action = { type: authTypes.LOGOUT };
 				authDispatch(action);
@@ -68,15 +65,35 @@ export const useAuthContext = () => {
 				return 'Hasta luego!';
 			},
 			error: err => {
-				localStorage.removeItem('user');
-				localStorage.removeItem('token');
-				localStorage.removeItem('token-inventario');
-				localStorage.removeItem('token-init-date');
+				localStorage.clear();
 
 				console.error(err);
 				return 'Falló el cierre de sesión';
 			},
 		});
+	};
+
+	const handleCheckAuth = async () => {
+		const token = localStorage.getItem('token');
+		const user = JSON.parse(localStorage.getItem('user'));
+
+		if (!token || !user) {
+			localStorage.clear();
+
+			const action = { type: authTypes.LOGOUT };
+			authDispatch(action);
+			navigate('/login', { replace: true });
+
+			return;
+		}
+
+		try {
+			const { data } = await comprasApi.post('/refresh');
+
+			console.log({ data });
+		} catch (error) {
+			console.log({ error });
+		}
 	};
 
 	return {
@@ -88,5 +105,6 @@ export const useAuthContext = () => {
 		// Actions
 		handleLogin,
 		handleLogout,
+		handleCheckAuth,
 	};
 };

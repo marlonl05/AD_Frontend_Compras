@@ -1,9 +1,20 @@
+import { useEffect } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { Home, Providers, Shopping } from '../pages';
 import { PrivateRoutes } from './PrivateRoutes';
 import Loginn from '../pages/Loginn/Loginn';
+import { useAuthContext } from '../hooks';
+import { status } from '../constants';
 
 export const AppRouter = () => {
+	const { state, handleCheckAuth } = useAuthContext();
+
+	useEffect(() => {
+		handleCheckAuth();
+	}, []);
+
+	const defaultPath = state === status.FAILED || state === status.IDLE ? '/login' : '/';
+
 	return (
 		<Routes>
 			<Route index element={<Home />} />
@@ -14,7 +25,7 @@ export const AppRouter = () => {
 				<Route path='/proveedores' element={<Providers />} />
 			</Route>
 
-			<Route path='*' element={<Navigate to='/' />} />
+			<Route path='*' element={<Navigate to={defaultPath} />} />
 		</Routes>
 	);
 };
