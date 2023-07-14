@@ -25,6 +25,7 @@ export const ProductProvider = ({ children }) => {
 			productDispatch({ type: 'LOAD_PRODUCTS', payload: mapListToObject(data, 'pro_id') });
 		} catch (error) {
 			console.error(error);
+			productDispatch({ type: 'LOAD_PRODUCTS', payload: initialState });
 		}
 	};
 

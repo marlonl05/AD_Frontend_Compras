@@ -27,7 +27,7 @@ export const useProviderContext = () => {
 	const handleEditProvider = providerRequest => {
 		const provider = prepareProviderToSend(providerRequest);
 
-		const request = comprasApi.put(`/proveedores/${providerRequest.id}`, provider);
+		const request = comprasApi.put(`/proveedor/${providerRequest.id}`, provider);
 
 		toast.promise(request, {
 			loading: 'Actualizando proveedor...',
@@ -47,7 +47,6 @@ export const useProviderContext = () => {
 
 	const handleCreateProvider = providerRequest => {
 		const provider = prepareProviderToSend(providerRequest);
-		// await comprasApi.post('/ingresar/proveedor', provider);
 		const request = comprasApi.post('/proveedores', provider);
 
 		toast.promise(request, {
