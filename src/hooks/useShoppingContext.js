@@ -35,7 +35,7 @@ export const useShoppingContext = () => {
 
 		const state = isShoppingActive ? shoppingState.ACTIVO : shoppingState.INACTIVO;
 
-		const request = comprasApi.put(`/facturas/${currentShopping}`, { ...shopping, estado: state });
+		const request = comprasApi.put(`/factura/${currentShopping}`, { ...shopping, estado: state });
 
 		toast.promise(request, {
 			loading: 'Actualizando estado de la compra...',
@@ -56,7 +56,7 @@ export const useShoppingContext = () => {
 
 		const shopping = prepareShoppingToCreate(shoppingRequest, cartDetails);
 
-		const request = comprasApi.post('/facturas', shopping);
+		const request = comprasApi.post('/factura', shopping);
 
 		toast.promise(request, {
 			loading: 'Registrando compra...',

@@ -19,7 +19,11 @@ const ShoppingTableRow = ({ shopping, labels }) => {
 	const { providerList } = useProviderContext();
 	const provider = providerList[+shopping.proveedor_id];
 
-	const updatedShopping = { ...shopping, proveedor_id: provider?.nombre };
+	const updatedShopping = {
+		...shopping,
+		proveedor_id: provider?.nombre,
+		total: `$ ${shopping.total}`,
+	};
 
 	return (
 		<TableRow

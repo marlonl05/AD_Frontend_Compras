@@ -1,4 +1,4 @@
 export const providerTypes = Object.freeze({
-	CREDITO: 'CREDITO',
-	CONTADO: 'CONTADO',
+	CREDITO: 'Crédito',
+	CONTADO: 'Contado',
 });

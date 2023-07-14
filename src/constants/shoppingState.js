@@ -1,4 +1,4 @@
 export const shoppingState = Object.freeze({
-	ACTIVO: 'ACTIVO',
-	INACTIVO: 'INACTIVO',
+	ACTIVO: 'Activo',
+	INACTIVO: 'Inactivo',
 });
