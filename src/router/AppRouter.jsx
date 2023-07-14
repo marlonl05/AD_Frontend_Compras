@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
-import { Home, Providers, Shopping } from '../pages';
+import { Home, Providers, Shopping, Audit } from '../pages';
 import { PrivateRoutes } from './PrivateRoutes';
 import Loginn from '../pages/Loginn/Loginn';
 import { useAuthContext } from '../hooks';
@@ -23,6 +23,7 @@ export const AppRouter = () => {
 			<Route element={<PrivateRoutes />}>
 				<Route path='/compras' element={<Shopping />} />
 				<Route path='/proveedores' element={<Providers />} />
+				<Route path='/auditoria' element={<Audit />} />
 			</Route>
 
 			<Route path='*' element={<Navigate to={defaultPath} />} />

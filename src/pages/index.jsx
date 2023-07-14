@@ -45,6 +45,10 @@ export const Home = () => {
 							<RiPlayFill className={buttonStyle.link} />
 							Visitar provedores
 						</Link>
+						<Link to='/auditoria' className={buttonStyle.button}>
+							<RiPlayFill className={buttonStyle.link} />
+							Registro de auditoría
+						</Link>
 					</div>
 				</div>
 			</div>
@@ -54,3 +58,4 @@ export const Home = () => {
 
 export * from './providers';
 export * from './shopping';
+export * from './audit';

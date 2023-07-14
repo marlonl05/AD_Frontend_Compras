@@ -1,5 +1,11 @@
 /* eslint-disable react/prop-types */
-import { RiBillFill, RiHome6Line, RiLogoutCircleRLine, RiTeamFill } from 'react-icons/ri';
+import {
+	RiAuctionFill,
+	RiBillFill,
+	RiHome6Line,
+	RiLogoutCircleRLine,
+	RiTeamFill,
+} from 'react-icons/ri';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '../common';
 import { useAuthContext } from '../../hooks';
@@ -8,6 +14,7 @@ const links = {
 	home: '/',
 	bills: '/compras',
 	providers: '/proveedores',
+	audit: '/auditoria',
 };
 
 const CustomLink = ({ to = '/', isActive = false, children }) => {
@@ -54,6 +61,9 @@ export default function Sidebar({ showMenu }) {
 					</CustomLink>
 					<CustomLink to={links.providers} isActive={pathname.includes(links.providers)}>
 						<RiTeamFill className='text-2xl' />
+					</CustomLink>
+					<CustomLink to={links.audit} isActive={pathname.includes(links.audit)}>
+						<RiAuctionFill className='text-2xl' />
 					</CustomLink>
 				</ul>
 			</div>
