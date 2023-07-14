@@ -89,10 +89,29 @@ export const useAuthContext = () => {
 
 		try {
 			const { data } = await comprasApi.post('/refresh');
+			const lastPath = localStorage.getItem('lastPath') || '/';
 
-			console.log({ data });
+			const {
+				user,
+				authorisation: { token },
+			} = data;
+
+			localStorage.setItem('token', token);
+			localStorage.setItem('token-init-date', new Date().getTime());
+			localStorage.setItem('user', JSON.stringify(user));
+
+			authDispatch({
+				type: authTypes.LOGIN,
+				payload: user,
+			});
+
+			navigate(lastPath, { replace: true });
 		} catch (error) {
-			console.log({ error });
+			localStorage.clear();
+
+			const action = { type: authTypes.LOGOUT };
+			authDispatch(action);
+			navigate('/login', { replace: true });
 		}
 	};
 

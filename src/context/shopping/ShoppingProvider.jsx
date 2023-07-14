@@ -6,6 +6,7 @@ import { ShoppingContext } from '../contextBuilder';
 import { status } from '../../constants';
 import { shoppingTypes } from '../../types';
 import comprasApi from '../../api';
+import { useAuthContext } from '../../hooks/useAuthContext';
 
 const initialState = {
 	shoppingList: {},
@@ -24,6 +25,7 @@ const initialState = {
 
 export const ShoppingProvider = ({ children }) => {
 	const [shopping, shoppingDispatch] = useReducer(shoppingReducer, initialState);
+	const { state, logged } = useAuthContext();
 
 	const { refreshCounter } = shopping;
 
@@ -33,21 +35,24 @@ export const ShoppingProvider = ({ children }) => {
 
 			const { data } = await comprasApi.get('/facturas');
 
-			// if (!data?.response) throw new Error('Error al cargar las facturas');
+			if (!data?.data) throw new Error('Error al cargar las facturas');
 
 			shoppingDispatch({
 				type: shoppingTypes.LOAD,
-				// payload: data.response,
-				payload: data,
+				payload: data.data,
 			});
 		} catch (error) {
-			console.log(error);
+			console.error(error);
 		}
 	};
 
 	useEffect(() => {
+		if (!logged) return;
+
+		if (state !== status.COMPLETED) return;
+
 		init();
-	}, [refreshCounter]);
+	}, [refreshCounter, state, logged]);
 
 	return (
 		<ShoppingContext.Provider

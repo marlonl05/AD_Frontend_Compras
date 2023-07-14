@@ -5,6 +5,7 @@ import { status } from '../../constants';
 import { providerReducer } from './';
 import comprasApi from '../../api';
 import { providerTypes } from '../../types';
+import { useAuthContext } from '../../hooks/useAuthContext';
 
 const initalState = {
 	providerList: {},
@@ -19,6 +20,7 @@ const initalState = {
 
 export const ProviderProvider = ({ children }) => {
 	const [provider, providerDispatch] = useReducer(providerReducer, initalState);
+	const { state, logged } = useAuthContext();
 
 	const { refreshCounter } = provider;
 
@@ -28,21 +30,24 @@ export const ProviderProvider = ({ children }) => {
 
 			const { data } = await comprasApi.get('/proveedores');
 
-			// if (!data?.response) throw new Error('Error al cargar los proveedores');
+			if (!data?.data) throw new Error('Error al cargar los proveedores');
 
 			providerDispatch({
 				type: providerTypes.LOAD,
-				// payload: data.response,
-				payload: data,
+				payload: data.data,
 			});
 		} catch (error) {
-			console.log(error);
+			console.error(error);
 		}
 	};
 
 	useEffect(() => {
+		if (!logged) return;
+
+		if (state !== status.COMPLETED) return;
+
 		init();
-	}, [refreshCounter]);
+	}, [refreshCounter, state, logged]);
 
 	return (
 		<ProviderContext.Provider value={{ ...provider, providerDispatch }}>
