@@ -7,5 +7,14 @@ const comprasApi = axios.create({
 	baseURL: VITE_API_URL,
 });
 
+comprasApi.interceptors.request.use(config => {
+	config.headers = {
+		...config.headers,
+		Authorization: `Bearer ${localStorage.getItem('token')}`,
+	};
+
+	return config;
+});
+
 export default comprasApi;
 export * from './inventarioApi';
