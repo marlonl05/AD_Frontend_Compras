@@ -7,7 +7,16 @@ import comprasApi from '../api';
 import { status } from '../constants';
 
 export const useAuthContext = () => {
-	const { user, logged, state, authDispatch } = useContext(AuthContext);
+	const {
+		user,
+		logged,
+		state,
+		audit,
+		currentAudit,
+		refreshCounter,
+		defaultTabIndex,
+		authDispatch,
+	} = useContext(AuthContext);
 	const navigate = useNavigate();
 
 	const handleLogin = ({ email, password }) => {
@@ -115,15 +124,33 @@ export const useAuthContext = () => {
 		}
 	};
 
+	const handleSetCurrentAudit = auditId => {
+		authDispatch({ type: authTypes.SET_CURRENT_AUDIT, payload: auditId });
+		authDispatch({ type: authTypes.SET_DEFAULT_TAB_INDEX, payload: 1 });
+	};
+
+	const handleRefreshExtraData = () =>
+		authDispatch({ type: authTypes.RELOAD_AUDIT_AND_PERMISSIONS });
+
+	const handleTabIndex = tabIndex =>
+		authDispatch({ type: authTypes.SET_DEFAULT_TAB_INDEX, payload: tabIndex });
+
 	return {
 		// State
 		user,
 		logged,
 		state,
+		audit,
+		currentAudit,
+		refreshCounter,
+		defaultTabIndex,
 
 		// Actions
 		handleLogin,
 		handleLogout,
+		handleTabIndex,
 		handleCheckAuth,
+		handleSetCurrentAudit,
+		handleRefreshExtraData,
 	};
 };
