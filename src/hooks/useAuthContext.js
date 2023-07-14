@@ -59,6 +59,7 @@ export const useAuthContext = () => {
 			success: () => {
 				localStorage.removeItem('user');
 				localStorage.removeItem('token');
+				localStorage.removeItem('token-inventario');
 				localStorage.removeItem('token-init-date');
 
 				const action = { type: authTypes.LOGOUT };
@@ -67,6 +68,11 @@ export const useAuthContext = () => {
 				return 'Hasta luego!';
 			},
 			error: err => {
+				localStorage.removeItem('user');
+				localStorage.removeItem('token');
+				localStorage.removeItem('token-inventario');
+				localStorage.removeItem('token-init-date');
+
 				console.error(err);
 				return 'Falló el cierre de sesión';
 			},

@@ -2,25 +2,23 @@
 import { useReducer } from 'react';
 import { AuthContext } from '../';
 import { authReducer } from './';
+import { status } from '../../constants';
 
 const initialState = {
 	logged: false,
+	user: null,
+	state: status.IDLE,
 };
 
 const init = () => {
-	// const user = JSON.parse(localStorage.getItem('user'));
-
-	// return {
-	// 	logged: !!user,
-	// 	user,
-	// };
+	const user = JSON.parse(localStorage.getItem('user'));
+	const token = localStorage.getItem('token');
+	const logged = !!user && !!token;
 
 	return {
-		user: {
-			id: 1,
-			name: 'Luis',
-		},
-		logged: true,
+		logged,
+		user,
+		state: logged ? status.COMPLETED : status.IDLE,
 	};
 };
 

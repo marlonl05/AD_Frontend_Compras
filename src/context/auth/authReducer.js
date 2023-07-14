@@ -1,3 +1,4 @@
+import { status } from '../../constants';
 import { authTypes } from '../../types/';
 
 export const authReducer = (authState, action) => {
@@ -5,6 +6,7 @@ export const authReducer = (authState, action) => {
 		case authTypes.LOGIN:
 			return {
 				...authState,
+				state: status.COMPLETED,
 				user: action.payload,
 				logged: true,
 			};
@@ -12,6 +14,17 @@ export const authReducer = (authState, action) => {
 		case authTypes.LOGOUT:
 			return {
 				logged: false,
+				user: null,
+				state: status.IDLE,
 			};
+
+		case authTypes.SET_STATE:
+			return {
+				...authState,
+				state: action.payload,
+			};
+
+		default:
+			return authState;
 	}
 };
