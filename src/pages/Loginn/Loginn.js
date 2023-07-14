@@ -1,47 +1,78 @@
+
+
 import React from "react";
+import { useForm } from "react-hook-form";
 import "./StyLoginn.css";
 
 
 function Loginn() {
+
+    const { register, handleSubmit, formState: {
+        errors } } = useForm();
+
+    const onSubmit = (evento) => {
+        console.log(evento);
+    }
+
     return (
         <div className="divtodo1 grid-cols-1 lg:grid-cols-2 min-h-screen">
             <div className="divtodo2 flex-col items-center justify-center bg-gray-100 rounded-tl-lg rounded-bl-lg p-4">
-                <div className="divimagen">
-                    <img src="/logo.png" alt="Compras Ventas" width="100" height="100" />
+                <div className="divimagen justify-center mb-8">
+                    <img src="/logocompras.png" alt="Compras Ventas" width="100" height="100" />
                 </div>
                 <div className="divtitulo flex-col items-center gap-8">
-                    <h1 className="textitulo font-bold text-gray-900">Bienvenido</h1>
+                    <h1 className="textitulo font-bold text-gray-900">¡Bienvenido!</h1>
 
                 </div>
-                <div className="divparra">
-                    <p className="textoparra relative text-gray-500 bg-gray-100 before:max-w-[50px] md:before:max-w-[120px] 
-                    before:w-full before:-left-[60px] md:before:-left-[140px] before:h-[1px] before:bg-current before:absolute before:top-[50%]
-                     after:max-w-[50px] md:after:max-w-[120px] after:w-full after:h-[1px] after:bg-current after:absolute after:top-[50%] 
-                     after:-right-[60px] md:after:-right-[140px]">
-                        ________________ Ingrese sus credenciales __________________
+                <div className="divparra flex-col items-center gap-8">
+                    <p className="textoparra">
+                        -------- Ingrese sus credenciales ---------
                     </p>
                 </div>
                 <div className="divtodo3 mb-8">
-                    <form>
+                    <form onSubmit={handleSubmit(onSubmit)}>
                         <div className="divtextoe">
                             <input
                                 type="email"
-                                className="textoe py-2 px-4 rounded-lg outline-none"
+                                className="textoe"
                                 placeholder="Correo electrónico"
+                                //vaidad el campo
+                                {...register("usuario", {
+                                    required: {
+                                        value: true,
+                                        message: "El campo es requerido"
+                                    }
+                                })}
                             />
+                            {errors.usuario && <div className="error-message">{errors.usuario.message}</div>}
                         </div>
-                        <div className="divtextop justify-center mb-6">
+                        
+                        <div className="divtextop">
                             <input
                                 type="password"
-                                className="textop max-w-md py-2 px-4 rounded-lg outline-none"
-                                placeholder="Password"
+                                //className="textop"
+                                className='textop'
+                                placeholder="Contraseña"
+                                {...register("contraseña", {
+                                    required: {
+                                        value: true,
+                                        message: "El campo es requerido"
+                                    },
+                                    minLength: {
+                                        value: 8,
+                                        message: "La contraseña debe tener al menos 8 caracteres"
+                                    }
+                                })}
                             />
+                            {errors.contraseña && <div className="error-message">{errors.contraseña.message}</div>}
                         </div>
-
+                        
                         <div className="divboton max-w-md mx-auto">
                             <button
                                 type="submit"
-                                className="boton bg-gray-200 py-2 px-4 rounded-lg text-gray-900 hover:bg-gray-300 transition-colors">
+                                className="boton bg-gray-200 py-2 px-4 rounded-lg text-gray-900 hover:bg-gray-300 transition-colors"
+                                variant="contained"
+                                onClick={() => onSubmit()}>
                                 Iniciar sesión
                             </button>
                         </div>
