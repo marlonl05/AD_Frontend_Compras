@@ -18,3 +18,4 @@ comprasApi.interceptors.request.use(config => {
 
 export default comprasApi;
 export * from './inventarioApi';
+export * from './securityApi';
