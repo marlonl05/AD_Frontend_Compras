@@ -1,5 +1,6 @@
 /* eslint-disable import/export */
 export * from './Card';
+export * from './Modal';
 export * from './Head';
 export * from './Button';
 export * from './Loading';
