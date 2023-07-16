@@ -29,7 +29,7 @@ export const authReducer = (authState, action) => {
 			return {
 				...authState,
 				audit: mapListToObject(action.payload.audit),
-				// permissions: action.payload.permissions,
+				permissions: action.payload.permissions,
 			};
 
 		case authTypes.SET_CURRENT_AUDIT:

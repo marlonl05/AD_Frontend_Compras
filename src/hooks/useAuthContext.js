@@ -12,6 +12,7 @@ export const useAuthContext = () => {
 		logged,
 		state,
 		audit,
+		permissions,
 		currentAudit,
 		refreshCounter,
 		defaultTabIndex,
@@ -144,6 +145,7 @@ export const useAuthContext = () => {
 		currentAudit,
 		refreshCounter,
 		defaultTabIndex,
+		permissions,
 
 		// Actions
 		handleLogin,
