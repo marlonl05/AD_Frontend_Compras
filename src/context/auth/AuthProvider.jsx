@@ -1,17 +1,26 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import { useEffect, useReducer } from 'react';
 import { AuthContext } from '../';
 import { authReducer } from './';
 import { status } from '../../constants';
-import comprasApi from '../../api';
+import comprasApi, { securityApi } from '../../api';
 import { authTypes } from '../../types';
 
 const initialState = {
 	logged: false,
 	user: null,
 	state: status.IDLE,
-	auditoria: [],
+	audit: {},
+	permissions: {},
 	refreshCounter: 0,
+};
+
+const allPermissions = {
+	facturas: true,
+	proveedores: true,
+	usuarios: true,
+	auditoria: true,
 };
 
 const init = () => {
@@ -23,7 +32,8 @@ const init = () => {
 		logged,
 		user,
 		state: logged ? status.COMPLETED : status.IDLE,
-		auditoria: [],
+		audit: {},
+		permissions: {},
 		currentAudit: null,
 		refreshCounter: 0,
 		defaultTabIndex: 0,
@@ -33,7 +43,7 @@ const init = () => {
 export const AuthProvider = ({ children }) => {
 	const [auth, authDispatch] = useReducer(authReducer, initialState, init);
 
-	const { refreshCounter, state, logged } = auth;
+	const { refreshCounter, state, logged, audit, permissions, user } = auth;
 
 	const initFetchExtraData = async () => {
 		try {
@@ -44,6 +54,34 @@ export const AuthProvider = ({ children }) => {
 			authDispatch({
 				type: authTypes.LOAD_AUDIT_AND_PERMISSIONS,
 				payload: {
+					audit: data.data,
+					permissions,
+				},
+			});
+
+			const query = 'login?user_username=lhramirezm&user_password=100102&mod_name=Compras';
+
+			// const { resp } = await securityApi.get(query);
+			// console.log(resp);
+
+			// if (!resp?.data) throw new Error('Error al cargar los permisos');
+
+			const mail = 'lhramirezm@utn.edu.ec';
+
+			let newPermissions = allPermissions;
+
+			if (mail !== user.email) {
+				newPermissions = {
+					...allPermissions,
+					proveedores: false,
+					auditoria: false,
+				};
+			}
+
+			authDispatch({
+				type: authTypes.LOAD_AUDIT_AND_PERMISSIONS,
+				payload: {
+					permissions: newPermissions,
 					audit: data.data,
 				},
 			});
