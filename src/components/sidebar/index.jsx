@@ -37,7 +37,7 @@ const CustomLink = ({ to = '/', isActive = false, children }) => {
 };
 
 export default function Sidebar({ showMenu }) {
-	const { handleLogout } = useAuthContext();
+	const { permissions, handleLogout } = useAuthContext();
 
 	const { pathname } = useLocation();
 
@@ -59,12 +59,17 @@ export default function Sidebar({ showMenu }) {
 					<CustomLink to={links.bills} isActive={pathname.includes(links.bills)}>
 						<RiBillFill className='text-2xl' />
 					</CustomLink>
-					<CustomLink to={links.providers} isActive={pathname.includes(links.providers)}>
-						<RiTeamFill className='text-2xl' />
-					</CustomLink>
-					<CustomLink to={links.audit} isActive={pathname.includes(links.audit)}>
-						<RiAuctionFill className='text-2xl' />
-					</CustomLink>
+					{permissions?.proveedores && (
+						<CustomLink to={links.providers} isActive={pathname.includes(links.providers)}>
+							<RiTeamFill className='text-2xl' />
+						</CustomLink>
+					)}
+
+					{permissions?.auditoria && (
+						<CustomLink to={links.audit} isActive={pathname.includes(links.audit)}>
+							<RiAuctionFill className='text-2xl' />
+						</CustomLink>
+					)}
 				</ul>
 			</div>
 
