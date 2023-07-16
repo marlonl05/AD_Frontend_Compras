@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { RiCheckboxBlankCircleFill, RiPlayFill } from 'react-icons/ri';
+import { useAuthContext } from '../hooks';
 
 const circleStyle = 'text-secondary-100 text-base absolute ';
 const buttonStyle = {
@@ -9,6 +10,7 @@ const buttonStyle = {
 };
 
 export const Home = () => {
+	const { permissions } = useAuthContext();
 	return (
 		<section id='home' className='min-h-[90vh] grid grid-cols-1 xl:grid-cols-8 text-white'>
 			<div className='md:col-span-5 flex items-center justify-center p-8 xl:p-16'>
@@ -41,14 +43,20 @@ export const Home = () => {
 							<RiPlayFill className={buttonStyle.link} />
 							Visitar compras
 						</Link>
-						<Link to='/proveedores' className={buttonStyle.button}>
-							<RiPlayFill className={buttonStyle.link} />
-							Visitar provedores
-						</Link>
-						<Link to='/auditoria' className={buttonStyle.button}>
-							<RiPlayFill className={buttonStyle.link} />
-							Registro de auditoría
-						</Link>
+
+						{permissions?.proveedores && (
+							<Link to='/proveedores' className={buttonStyle.button}>
+								<RiPlayFill className={buttonStyle.link} />
+								Visitar provedores
+							</Link>
+						)}
+
+						{permissions?.auditoria && (
+							<Link to='/auditoria' className={buttonStyle.button}>
+								<RiPlayFill className={buttonStyle.link} />
+								Registro de auditoría
+							</Link>
+						)}
 					</div>
 				</div>
 			</div>
