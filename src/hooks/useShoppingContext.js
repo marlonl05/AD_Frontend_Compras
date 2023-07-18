@@ -116,11 +116,7 @@ export const useShoppingContext = () => {
 
 		if (!product) return spawnMessage('El producto no existe', 'error');
 
-		const { pro_id, pro_valor_iva, pro_costo, pro_stock } = product;
-
-		if (pro_stock <= 0) return spawnMessage('El producto no tiene stock', 'error');
-
-		if (pro_stock < cantidad) return spawnMessage('No hay suficiente stock del producto', 'error');
+		const { pro_id, pro_valor_iva, pro_costo } = product;
 
 		let subtotal = pro_costo * cantidad;
 		subtotal = Math.round(subtotal * 100) / 100;
