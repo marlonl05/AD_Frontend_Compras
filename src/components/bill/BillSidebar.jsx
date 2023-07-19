@@ -7,6 +7,7 @@ import { DetailSidebar } from '../../layout/details';
 import { ProductList } from './ProductList';
 import { Button } from '../common';
 import { OneBillPdf, PdfLink } from '../../pdf';
+import { toast } from 'sonner';
 
 const ProductDetailsBody = ({ product = {} }) => (
 	<>
@@ -55,6 +56,16 @@ export const BillSidebar = ({ showBill, showInLargeScreen, toggleBill }) => {
 		label: product?.pro_nombre,
 		value: product?.pro_id,
 	}));
+
+	const handleChange = ({ target }) => {
+		if (target.value < 1) {
+			toast.error('La cantidad debe ser mayor a 0');
+			return;
+		}
+
+		setQuantity(target.value);
+	};
+
 	return (
 		<DetailSidebar
 			title={currentShopping ? `Detalle de la factura #${currentShopping}` : 'Carrito de compras'}
@@ -86,7 +97,7 @@ export const BillSidebar = ({ showBill, showInLargeScreen, toggleBill }) => {
 								placeholder='Cantidad del producto'
 								type='number'
 								value={quantity}
-								onChange={({ target }) => setQuantity(target.value)}
+								onChange={handleChange}
 							/>
 							<Button
 								onClick={() => {
