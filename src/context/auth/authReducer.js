@@ -8,7 +8,8 @@ export const authReducer = (authState, action) => {
 			return {
 				...authState,
 				state: status.COMPLETED,
-				user: action.payload,
+				user: action.payload.user,
+				permissions: action.payload.permissions,
 				logged: true,
 			};
 
@@ -28,8 +29,7 @@ export const authReducer = (authState, action) => {
 		case authTypes.LOAD_AUDIT_AND_PERMISSIONS:
 			return {
 				...authState,
-				audit: mapListToObject(action.payload.audit),
-				permissions: action.payload.permissions,
+				audit: mapListToObject(action.payload),
 			};
 
 		case authTypes.SET_CURRENT_AUDIT:

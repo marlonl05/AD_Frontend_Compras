@@ -6,6 +6,12 @@ import { authTypes } from '../types';
 import comprasApi from '../api';
 import { status } from '../constants';
 
+const allPermissions = {
+	facturas: false,
+	proveedores: false,
+	auditoria: false,
+};
+
 export const useAuthContext = () => {
 	const {
 		user,
@@ -28,7 +34,7 @@ export const useAuthContext = () => {
 			payload: status.LOADING,
 		});
 
-		const request = comprasApi.post('/login', { email, password });
+		const request = comprasApi.post('/compras/login', { email, password });
 
 		toast.promise(request, {
 			loading: 'Iniciando sesión...',
@@ -36,7 +42,14 @@ export const useAuthContext = () => {
 				const {
 					user,
 					authorization: { token },
+					permisos,
 				} = data;
+
+				permisos.forEach(permission => {
+					if (permission[3] === 'Auditoría') allPermissions.auditoria = true;
+					else if (permission[2] === 'Proveedores') allPermissions.proveedores = true;
+					else if (permission[1] === 'Facturas') allPermissions.facturas = true;
+				});
 
 				localStorage.setItem('token', token);
 				localStorage.setItem('token-init-date', new Date().getTime());
@@ -44,7 +57,7 @@ export const useAuthContext = () => {
 
 				authDispatch({
 					type: authTypes.LOGIN,
-					payload: user,
+					payload: { user, permissions: allPermissions },
 				});
 
 				navigate(lastPath, { replace: true });
@@ -110,9 +123,18 @@ export const useAuthContext = () => {
 			localStorage.setItem('token-init-date', new Date().getTime());
 			localStorage.setItem('user', JSON.stringify(user));
 
+			const permissions = {
+				facturas: true,
+				proveedores: true,
+				auditoria: true,
+			};
+
 			authDispatch({
 				type: authTypes.LOGIN,
-				payload: user,
+				payload: {
+					user,
+					permissions,
+				},
 			});
 
 			navigate(lastPath, { replace: true });

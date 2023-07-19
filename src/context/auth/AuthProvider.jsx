@@ -16,13 +16,6 @@ const initialState = {
 	refreshCounter: 0,
 };
 
-const allPermissions = {
-	facturas: true,
-	proveedores: true,
-	usuarios: true,
-	auditoria: true,
-};
-
 const init = () => {
 	const user = JSON.parse(localStorage.getItem('user'));
 	const token = localStorage.getItem('token');
@@ -43,7 +36,7 @@ const init = () => {
 export const AuthProvider = ({ children }) => {
 	const [auth, authDispatch] = useReducer(authReducer, initialState, init);
 
-	const { refreshCounter, state, logged, audit, permissions, user } = auth;
+	const { refreshCounter, state, logged } = auth;
 
 	const initFetchExtraData = async () => {
 		try {
@@ -53,37 +46,7 @@ export const AuthProvider = ({ children }) => {
 
 			authDispatch({
 				type: authTypes.LOAD_AUDIT_AND_PERMISSIONS,
-				payload: {
-					audit: data.data,
-					permissions,
-				},
-			});
-
-			const query = 'login?user_username=lhramirezm&user_password=100102&mod_name=Compras';
-
-			// const { resp } = await securityApi.get(query);
-			// console.log(resp);
-
-			// if (!resp?.data) throw new Error('Error al cargar los permisos');
-
-			const mail = 'lhramirezm@utn.edu.ec';
-
-			let newPermissions = allPermissions;
-
-			if (mail !== user.email) {
-				newPermissions = {
-					...allPermissions,
-					proveedores: false,
-					auditoria: false,
-				};
-			}
-
-			authDispatch({
-				type: authTypes.LOAD_AUDIT_AND_PERMISSIONS,
-				payload: {
-					permissions: newPermissions,
-					audit: data.data,
-				},
+				payload: data.data,
 			});
 		} catch (error) {
 			console.error(error);
