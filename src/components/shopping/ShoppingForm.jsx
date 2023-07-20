@@ -112,7 +112,6 @@ export const ShoppingForm = ({ shopping }) => {
 				...productList[detail.producto_id],
 			};
 		});
-
 	return (
 		<Form
 			formHeader={

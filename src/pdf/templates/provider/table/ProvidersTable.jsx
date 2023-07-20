@@ -18,6 +18,8 @@ export const ProvidersTable = ({ tableRowsCount = 11, items = [] }) => (
 	<View style={styles.tableContainer}>
 		<TableHeader />
 		<TableRow items={items} />
-		<TableBlankSpace rowsCount={tableRowsCount - items.length} />
+		<TableBlankSpace
+			rowsCount={items.length > tableRowsCount ? tableRowsCount : tableRowsCount - items.length}
+		/>
 	</View>
 );

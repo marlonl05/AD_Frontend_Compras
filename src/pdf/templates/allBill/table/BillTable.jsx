@@ -14,10 +14,12 @@ const styles = StyleSheet.create({
 	},
 });
 
-export const BillTable = ({ tableRowsCount = 11, items = [] }) => (
+export const BillTable = ({ tableRowsCount = 15, items = [] }) => (
 	<View style={styles.tableContainer}>
 		<TableHeader />
 		<TableRow items={items} />
-		<TableBlankSpace rowsCount={tableRowsCount - items.length} />
+		<TableBlankSpace
+			rowsCount={items.length > tableRowsCount ? tableRowsCount : tableRowsCount - items.length}
+		/>
 	</View>
 );

@@ -19,7 +19,9 @@ export const BillItemsTable = ({ tableRowsCount = 11, items = [], total, product
 	<View style={styles.tableContainer}>
 		<TableHeader />
 		<TableRow items={items} products={products} />
-		<TableBlankSpace rowsCount={tableRowsCount - items.length} />
+		<TableBlankSpace
+			rowsCount={items.length > tableRowsCount ? tableRowsCount : tableRowsCount - items.length}
+		/>
 		<TableFooter total={total} />
 	</View>
 );
