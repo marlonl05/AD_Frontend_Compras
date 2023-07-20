@@ -6,7 +6,7 @@ import { providerTypes, status } from '../../constants';
 import { useProviderContext, useShoppingContext } from '../../hooks';
 import { AddForm, EditForm } from './form';
 import { addDays, format } from 'date-fns';
-import { AllProvidersPdf, PdfLink } from '../../pdf';
+import { AllBill, PdfLink } from '../../pdf';
 
 const initialValues = {
 	proveedor_id: '',
@@ -21,8 +21,15 @@ const shoppingActions = {
 
 export const ShoppingForm = ({ shopping }) => {
 	const { providerList } = useProviderContext();
-	const { state, handleSetCurrentShopping, handleAddShopping, handleState, handleReloadShoppings } =
-		useShoppingContext();
+	const {
+		state,
+		shoppingList,
+		productList,
+		handleSetCurrentShopping,
+		handleAddShopping,
+		handleState,
+		handleReloadShoppings,
+	} = useShoppingContext();
 
 	const defaultShopping = shopping;
 
@@ -91,6 +98,21 @@ export const ShoppingForm = ({ shopping }) => {
 	const defaultHeaderValue = shopping ? shoppingActions.details : shoppingActions.add;
 	const availableHeaderItems = shopping ? Object.values(shoppingActions) : [shoppingActions.add];
 
+	const bills = Object.values(shoppingList)
+		.map(shopping => shopping.detalles)
+		.flat()
+		.map(detail => {
+			const bill = shoppingList[detail.factura_id];
+
+			return {
+				...detail,
+				...bill,
+				provider: providerList[bill.proveedor_id]?.nombre,
+				detalles: undefined,
+				...productList[detail.producto_id],
+			};
+		});
+
 	return (
 		<Form
 			formHeader={
@@ -102,7 +124,7 @@ export const ShoppingForm = ({ shopping }) => {
 					handleCurrentOption={handleCurrentOption}
 					button={
 						<PdfLink
-							document={<AllProvidersPdf />}
+							document={<AllBill bills={bills} />}
 							fileName='compras.pdf'
 							text='Obtener reportes de compras'
 						/>
