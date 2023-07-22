@@ -27,7 +27,6 @@ export const OneBillPdf = ({ billHeader = {}, billDetails = [], provider, produc
 	return (
 		<Document>
 			<Page size='A4' style={styles.page}>
-				{/* <Image style={styles.logo} src={logo} /> */}
 				<BillTitle title='Factura de la compra' />
 				<BillNo billHeader={billHeader} />
 				{provider && <BillTo provider={provider} />}
