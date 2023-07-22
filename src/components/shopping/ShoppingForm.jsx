@@ -124,7 +124,7 @@ export const ShoppingForm = ({ shopping }) => {
 					button={
 						<PdfLink
 							document={<AllBill bills={bills} />}
-							fileName='compras.pdf'
+							fileName='reporte_compras_total.pdf'
 							text='Obtener reportes de compras'
 						/>
 					}

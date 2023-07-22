@@ -116,7 +116,7 @@ export const ProviderForm = ({ provider }) => {
 					button={
 						<PdfLink
 							document={<AllProvidersPdf providers={providersToPrint} />}
-							fileName='reporte_proveedores.pdf'
+							fileName='reporte_proveedores_total.pdf'
 							text='Obtener reportes de proveedores'
 							getProps={getPdfProps}
 						/>

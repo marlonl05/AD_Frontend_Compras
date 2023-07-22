@@ -130,7 +130,7 @@ export const BillSidebar = ({ showBill, showInLargeScreen, toggleBill }) => {
 										provider={providerList[shoppingList[currentShopping]?.proveedor_id]}
 									/>
 								}
-								fileName='reporte_compra.pdf'
+								fileName={`reporte_compra_${currentShopping}.pdf`}
 								text='Obtener reporte en PDF'
 								showIcon
 							/>
