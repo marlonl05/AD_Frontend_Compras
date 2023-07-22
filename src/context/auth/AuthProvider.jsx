@@ -1,10 +1,9 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import { useEffect, useReducer } from 'react';
 import { AuthContext } from '../';
 import { authReducer } from './';
 import { status } from '../../constants';
-import comprasApi, { securityApi } from '../../api';
+import comprasApi from '../../api';
 import { authTypes } from '../../types';
 
 const initialState = {
@@ -42,7 +41,7 @@ export const AuthProvider = ({ children }) => {
 		try {
 			const { data } = await comprasApi.get('/auditoria');
 
-			if (!data?.data) throw new Error('Error al cargar las auditoria');
+			if (!data?.data) throw new Error('Error al cargar las auditorias.');
 
 			authDispatch({
 				type: authTypes.LOAD_AUDIT_AND_PERMISSIONS,
