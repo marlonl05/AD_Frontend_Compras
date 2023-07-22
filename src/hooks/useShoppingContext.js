@@ -142,6 +142,8 @@ export const useShoppingContext = () => {
 	const handleDeleteProductFromCart = productId => {
 		if (!productId) return;
 
+		if (currentShopping) return spawnMessage('No puede eliminar productos del carrito', 'error');
+
 		const productIsInCart = cartDetails?.detalles?.find(
 			product => product?.producto_id === productId
 		);
