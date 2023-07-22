@@ -1,0 +1,5 @@
+# Redirect to main page
+/login      /
+/compras     /
+/proveedores     /
+/auditoria     /
