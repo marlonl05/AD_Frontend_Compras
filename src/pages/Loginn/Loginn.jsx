@@ -1,14 +1,17 @@
 import { useForm } from 'react-hook-form';
 import { useAuthContext } from '../../hooks';
 import './StyLoginn.css';
+import { Navigate } from 'react-router-dom';
 
 function Loginn() {
-	const { handleLogin } = useAuthContext();
+	const { handleLogin, logged } = useAuthContext();
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
 	} = useForm();
+
+	if (logged) return <Navigate to='/compras' replace />;
 
 	return (
 		<div className='grid grid-cols-1 lg:grid-cols-2 min-h-screen'>
