@@ -45,6 +45,10 @@ export const useAuthContext = () => {
 					permisos,
 				} = data;
 
+				allPermissions.auditoria = false;
+				allPermissions.proveedores = false;
+				allPermissions.facturas = false;
+
 				Object.values(permisos).forEach(permission => {
 					if (permission === 'Auditoria') allPermissions.auditoria = true;
 					else if (permission === 'Proveedores') allPermissions.proveedores = true;
