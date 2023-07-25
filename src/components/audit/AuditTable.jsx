@@ -3,7 +3,6 @@ import { Button, Loading, TableHeader, TableRow } from '../common';
 import { useAuthContext } from '../../hooks';
 import { TableLayout } from '../../layout/table';
 import { RiEye2Fill } from 'react-icons/ri';
-import { compareDesc } from 'date-fns';
 
 const auditLabels = {
 	id: 'ID',
@@ -48,11 +47,7 @@ export const AuditTable = () => {
 
 	if (!audit) return <Loading />;
 
-	const auditList = Object.values(audit).sort((auditA, auditB) => {
-		const dateA = new Date(auditA.aud_fecha);
-		const dateB = new Date(auditB.aud_fecha);
-		return compareDesc(dateA, dateB);
-	});
+	const auditList = Object.values(audit).sort((auditA, auditB) => +auditB.id - +auditA.id);
 
 	return (
 		<TableLayout
