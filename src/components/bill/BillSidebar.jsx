@@ -1,13 +1,16 @@
 /* eslint-disable react/prop-types */
 import { useState } from 'react';
 import Select from 'react-tailwindcss-select';
+import { toast } from 'sonner';
 import { useProviderContext, useShoppingContext } from '../../hooks';
 import { RiShoppingCart2Fill } from 'react-icons/ri';
 import { DetailSidebar } from '../../layout/details';
 import { ProductList } from './ProductList';
 import { Button } from '../common';
 import { OneBillPdf, PdfLink } from '../../pdf';
-import { toast } from 'sonner';
+import { getEnviroments } from '../../helpers';
+
+const { VITE_IVA_PERCENTAGE: iva } = getEnviroments();
 
 const ProductDetailsBody = ({ product = {} }) => (
 	<>
@@ -35,7 +38,7 @@ const ProductDetailsBody = ({ product = {} }) => (
 					</span>
 					<span className='text-gray-200'>
 						<span className='font-bold'>IVA: </span>
-						{product?.pro_valor_iva}
+						{product?.pro_valor_iva ? iva : 0}
 					</span>
 				</div>
 			</div>

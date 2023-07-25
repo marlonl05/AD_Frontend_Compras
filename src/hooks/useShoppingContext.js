@@ -3,9 +3,11 @@ import { useContext } from 'react';
 import { toast } from 'sonner';
 import { ProductContext, ShoppingContext } from '../context';
 import { shoppingTypes } from '../types';
-import { prepareShoppingToCreate } from '../helpers';
+import { prepareShoppingToCreate, getEnviroments } from '../helpers';
 import comprasApi from '../api';
 import { shoppingState, status } from '../constants';
+
+const { VITE_IVA_PERCENTAGE: iva } = getEnviroments();
 
 export const useShoppingContext = () => {
 	const {
@@ -121,7 +123,7 @@ export const useShoppingContext = () => {
 		let subtotal = pro_costo * cantidad;
 		subtotal = Math.round(subtotal * 100) / 100;
 
-		let total = subtotal + subtotal * (pro_valor_iva / 100);
+		let total = subtotal + subtotal * ((pro_valor_iva ? iva : 0) / 100);
 		total = Math.round(total * 100) / 100;
 
 		const newProductInCart = {
