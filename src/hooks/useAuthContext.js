@@ -54,7 +54,7 @@ export const useAuthContext = () => {
 				localStorage.setItem('token', token);
 				localStorage.setItem('token-init-date', new Date().getTime());
 				localStorage.setItem('user', JSON.stringify(user));
-				localStorage.setItem('permisos', JSON.stringify(permisos));
+				localStorage.setItem('permisos', JSON.stringify(allPermissions));
 
 				authDispatch({
 					type: authTypes.LOGIN,
@@ -129,6 +129,8 @@ export const useAuthContext = () => {
 				proveedores: true,
 				auditoria: true,
 			};
+
+			console.log();
 
 			authDispatch({
 				type: authTypes.LOGIN,
