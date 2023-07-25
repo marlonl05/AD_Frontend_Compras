@@ -64,8 +64,8 @@ function Loginn() {
 										message: 'El campo es requerido',
 									},
 									minLength: {
-										value: 6,
-										message: 'La contraseña debe tener al menos 6 caracteres',
+										value: 8,
+										message: 'La contraseña debe tener al menos 8 caracteres',
 									},
 								})}
 							/>
