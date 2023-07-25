@@ -26,7 +26,7 @@ export const useAuthContext = () => {
 	} = useContext(AuthContext);
 	const navigate = useNavigate();
 
-	const handleLogin = ({ email, password }) => {
+	const handleLogin = ({ usuario, password }) => {
 		const lastPath = localStorage.getItem('lastPath') || '/';
 
 		authDispatch({
@@ -34,7 +34,7 @@ export const useAuthContext = () => {
 			payload: status.LOADING,
 		});
 
-		const request = comprasApi.post('/compras/login', { email, password });
+		const request = comprasApi.post('/compras/login', { usuario, password });
 
 		toast.promise(request, {
 			loading: 'Iniciando sesión...',
@@ -45,15 +45,16 @@ export const useAuthContext = () => {
 					permisos,
 				} = data;
 
-				permisos.forEach(permission => {
-					if (permission[3] === 'Auditoría') allPermissions.auditoria = true;
-					else if (permission[2] === 'Proveedores') allPermissions.proveedores = true;
-					else if (permission[1] === 'Facturas') allPermissions.facturas = true;
+				Object.values(permisos).forEach(permission => {
+					if (permission === 'Auditoria') allPermissions.auditoria = true;
+					else if (permission === 'Proveedores') allPermissions.proveedores = true;
+					else if (permission === 'Facturas') allPermissions.facturas = true;
 				});
 
 				localStorage.setItem('token', token);
 				localStorage.setItem('token-init-date', new Date().getTime());
 				localStorage.setItem('user', JSON.stringify(user));
+				localStorage.setItem('permisos', JSON.stringify(permisos));
 
 				authDispatch({
 					type: authTypes.LOGIN,
@@ -123,7 +124,7 @@ export const useAuthContext = () => {
 			localStorage.setItem('token-init-date', new Date().getTime());
 			localStorage.setItem('user', JSON.stringify(user));
 
-			const permissions = {
+			const permissions = JSON.parse(localStorage.getItem('permisos')) || {
 				facturas: true,
 				proveedores: true,
 				auditoria: true,

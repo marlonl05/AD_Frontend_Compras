@@ -37,15 +37,11 @@ function Loginn() {
 					<form onSubmit={handleSubmit(handleLogin)}>
 						<div className='flex justify-center '>
 							<input
-								type='email'
+								type='text'
 								className='w-full max-w-md py-2 px-4 rounded-lg outline-none'
-								placeholder='Correo electrónico'
-								{...register('email', {
+								placeholder='Usuario o correo'
+								{...register('usuario', {
 									required: { value: true, message: 'El campo es requerido.' },
-									pattern: {
-										value: /^\S+@\S+\.\S+$/g,
-										message: 'El correo electrónico ingresado no es válido',
-									},
 								})}
 							/>
 						</div>
