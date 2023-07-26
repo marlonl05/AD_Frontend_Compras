@@ -5,21 +5,17 @@ import { productReducer } from './ProductReducer';
 import { ProductContext } from '../';
 import { inventarioApi } from '../../api';
 import { mapListToObject } from '../../helpers';
+import { useAuthContext } from '../../hooks';
+import { status } from '../../constants';
 
 const initialState = {};
 
-const authCredentials = {
-	username: 'Mateito',
-	password: '12345',
-};
-
 export const ProductProvider = ({ children }) => {
 	const [products, productDispatch] = useReducer(productReducer, initialState);
+	const { state, logged } = useAuthContext();
 
 	const init = async () => {
 		try {
-			// const resp = await inventarioApi.get('/auth', authCredentials);
-			// console.log({ resp });
 			const { data } = await inventarioApi.get('/productos');
 
 			productDispatch({ type: 'LOAD_PRODUCTS', payload: mapListToObject(data, 'pro_id') });
@@ -30,8 +26,11 @@ export const ProductProvider = ({ children }) => {
 	};
 
 	useEffect(() => {
+		if (!logged) return;
+
+		if (state !== status.COMPLETED) return;
 		init();
-	}, []);
+	}, [state, logged]);
 
 	return <ProductContext.Provider value={products}>{children}</ProductContext.Provider>;
 };

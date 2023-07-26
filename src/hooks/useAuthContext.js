@@ -43,6 +43,7 @@ export const useAuthContext = () => {
 					user,
 					authorization: { token },
 					permisos,
+					tokenInventario,
 				} = data;
 
 				allPermissions.auditoria = false;
@@ -56,6 +57,7 @@ export const useAuthContext = () => {
 				});
 
 				localStorage.setItem('token', token);
+				localStorage.setItem('tokenInventario', tokenInventario);
 				localStorage.setItem('token-init-date', new Date().getTime());
 				localStorage.setItem('user', JSON.stringify(user));
 				localStorage.setItem('permisos', JSON.stringify(allPermissions));

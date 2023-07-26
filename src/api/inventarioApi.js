@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { getEnviroments } from '../helpers';
 
-const { VITE_API_INVENTARIO_URL, VITE_API_INVENTARIO_TOKEN: token } = getEnviroments();
+const { VITE_API_INVENTARIO_URL } = getEnviroments();
 
 export const inventarioApi = axios.create({
 	baseURL: VITE_API_INVENTARIO_URL,
@@ -10,7 +10,7 @@ export const inventarioApi = axios.create({
 inventarioApi.interceptors.request.use(config => {
 	config.headers = {
 		...config.headers,
-		Authorization: token,
+		Authorization: localStorage.getItem('tokenInventario'),
 	};
 	return config;
 });
