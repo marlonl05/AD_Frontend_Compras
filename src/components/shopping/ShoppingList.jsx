@@ -70,9 +70,13 @@ export const ShoppingList = () => {
 			return provider?.nombre?.toLowerCase().includes(pattern?.toLowerCase());
 		});
 
+	const shoppingOrderedList = Object.values(shoppingList).sort(
+		(shoppingA, shoppingB) => +shoppingB.id - +shoppingA.id
+	);
+
 	return (
 		<TableLayout
-			items={(shoppingList && Object.values(shoppingList)) || []}
+			items={shoppingOrderedList || []}
 			itemsPerPage={5}
 			inputPlaceholder='Buscar compras'
 			Table={Table}
