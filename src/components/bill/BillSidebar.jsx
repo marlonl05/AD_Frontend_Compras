@@ -66,7 +66,7 @@ export const BillSidebar = ({ showBill, showInLargeScreen, toggleBill }) => {
 			return;
 		}
 
-		setQuantity(target.value);
+		setQuantity(Math.trunc(target.value));
 	};
 
 	return (
