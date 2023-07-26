@@ -30,14 +30,16 @@ const styles = StyleSheet.create({
 		...boxStyles,
 	},
 	state: {
-		width: '10%',
+		width: '8%',
 		...boxStyles,
-		textAlign: 'center',
 	},
 	pay_type: {
-		width: '13%',
+		width: '8%',
 		...boxStyles,
-		textAlign: 'center',
+	},
+	quantity: {
+		width: '7%',
+		...boxStyles,
 	},
 	cost: {
 		width: '10%',
@@ -69,6 +71,7 @@ export const TableRow = ({ items }) => {
 				<Text style={styles.product}>{item.pro_nombre}</Text>
 				<Text style={styles.state}>{item.estado}</Text>
 				<Text style={styles.pay_type}>{item.tipo_pago}</Text>
+				<Text style={styles.quantity}>{item?.cantidad}</Text>
 				<Text style={styles.cost}>{item.pro_costo}</Text>
 				<Text style={styles.iva}>{item.pro_valor_iva}</Text>
 				<Text style={styles.subtotal}>{item.subtotal}</Text>
