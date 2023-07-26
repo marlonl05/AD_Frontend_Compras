@@ -100,7 +100,7 @@ export const ProviderForm = ({ provider }) => {
 
 		return {
 			...provider,
-			creditos: totalCreditsToPay,
+			creditos: Math.round(totalCreditsToPay * 100) / 100,
 		};
 	});
 
